@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.banner {
+  display: flex;
+  padding: 5px, 3%;
+  min-height: 48px;
+  color: white;
+  background-image: url('assets/img/Banner Wave.svg');
+  background-size: contain;
+  background-color: var(--color-brand);
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-wrap {
+  display: flex;
+  flex-shrink: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.notice-text {
+  display: block;
+  flex-shrink: 1;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.white-link {
+  text-decoration: none;
+  color: white;
+}
