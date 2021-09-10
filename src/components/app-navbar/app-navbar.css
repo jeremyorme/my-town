@@ -35,6 +35,11 @@
   align-items: center;
 }
 
+.nav-menu {
+  display: block;
+  margin-right: 14px;
+}
+
 .cart-button {
   display: flex;
   padding: 13px;

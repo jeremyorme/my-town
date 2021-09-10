@@ -10,6 +10,10 @@ export namespace Components {
     }
     interface AppHome {
     }
+    interface AppNavLink {
+        "current": boolean;
+        "href": string;
+    }
     interface AppNavbar {
     }
     interface AppProfile {
@@ -30,6 +34,12 @@ declare global {
     var HTMLAppHomeElement: {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
+    };
+    interface HTMLAppNavLinkElement extends Components.AppNavLink, HTMLStencilElement {
+    }
+    var HTMLAppNavLinkElement: {
+        prototype: HTMLAppNavLinkElement;
+        new (): HTMLAppNavLinkElement;
     };
     interface HTMLAppNavbarElement extends Components.AppNavbar, HTMLStencilElement {
     }
@@ -52,6 +62,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-banner": HTMLAppBannerElement;
         "app-home": HTMLAppHomeElement;
+        "app-nav-link": HTMLAppNavLinkElement;
         "app-navbar": HTMLAppNavbarElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
@@ -61,6 +72,10 @@ declare namespace LocalJSX {
     interface AppBanner {
     }
     interface AppHome {
+    }
+    interface AppNavLink {
+        "current"?: boolean;
+        "href"?: string;
     }
     interface AppNavbar {
     }
@@ -72,6 +87,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "app-banner": AppBanner;
         "app-home": AppHome;
+        "app-nav-link": AppNavLink;
         "app-navbar": AppNavbar;
         "app-profile": AppProfile;
         "app-root": AppRoot;
@@ -83,6 +99,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-banner": LocalJSX.AppBanner & JSXBase.HTMLAttributes<HTMLAppBannerElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
+            "app-nav-link": LocalJSX.AppNavLink & JSXBase.HTMLAttributes<HTMLAppNavLinkElement>;
             "app-navbar": LocalJSX.AppNavbar & JSXBase.HTMLAttributes<HTMLAppNavbarElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;

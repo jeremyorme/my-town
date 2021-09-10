@@ -10,6 +10,11 @@ export class AppHome {
       <ion-content>
         <app-banner/>
         <app-navbar>
+          <app-nav-link href="./" current={true}>Home</app-nav-link>
+          <app-nav-link href="shopping/">Shopping</app-nav-link>
+          <app-nav-link href="food/">Food</app-nav-link>
+          <app-nav-link href="services/">Services</app-nav-link>
+          <app-nav-link href="contact/">Contact</app-nav-link>
         </app-navbar>
         <p>
           Welcome to the PWA Toolkit. You can use this starter to build entire apps with web components using Stencil and ionic/core! Check out the README for everything that comes
