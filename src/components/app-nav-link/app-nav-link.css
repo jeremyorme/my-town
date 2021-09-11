@@ -1,6 +1,6 @@
 :host {
   display: block;
-  float: left;
+  float: var(--nav-link-float);
 }
 
 .nav-link {
