@@ -29,3 +29,12 @@
   More info about color theming using Ionic:
   https://ionicframework.com/docs/theming/color-generator
 */
+
+body {
+  --color-brand: #35b8be;
+  
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  font-size: 15px;
+  line-height: 20px;
+}

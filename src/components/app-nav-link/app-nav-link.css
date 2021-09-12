@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  float: var(--nav-link-float);
+}
+
+.nav-link {
+  padding: 20px 16px;
+  color: #28224b;
+  font-size: 16px;
+}
+
+.nav-link a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-link.current a {
+  color: var(--color-brand);
+}

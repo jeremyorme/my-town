@@ -6,7 +6,15 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface AppBanner {
+    }
     interface AppHome {
+    }
+    interface AppNavLink {
+        "current": boolean;
+        "href": string;
+    }
+    interface AppNavbar {
     }
     interface AppProfile {
         "name": string;
@@ -15,11 +23,29 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLAppBannerElement extends Components.AppBanner, HTMLStencilElement {
+    }
+    var HTMLAppBannerElement: {
+        prototype: HTMLAppBannerElement;
+        new (): HTMLAppBannerElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
+    };
+    interface HTMLAppNavLinkElement extends Components.AppNavLink, HTMLStencilElement {
+    }
+    var HTMLAppNavLinkElement: {
+        prototype: HTMLAppNavLinkElement;
+        new (): HTMLAppNavLinkElement;
+    };
+    interface HTMLAppNavbarElement extends Components.AppNavbar, HTMLStencilElement {
+    }
+    var HTMLAppNavbarElement: {
+        prototype: HTMLAppNavbarElement;
+        new (): HTMLAppNavbarElement;
     };
     interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
     }
@@ -34,13 +60,24 @@ declare global {
         new (): HTMLAppRootElement;
     };
     interface HTMLElementTagNameMap {
+        "app-banner": HTMLAppBannerElement;
         "app-home": HTMLAppHomeElement;
+        "app-nav-link": HTMLAppNavLinkElement;
+        "app-navbar": HTMLAppNavbarElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
     }
 }
 declare namespace LocalJSX {
+    interface AppBanner {
+    }
     interface AppHome {
+    }
+    interface AppNavLink {
+        "current"?: boolean;
+        "href"?: string;
+    }
+    interface AppNavbar {
     }
     interface AppProfile {
         "name"?: string;
@@ -48,7 +85,10 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface IntrinsicElements {
+        "app-banner": AppBanner;
         "app-home": AppHome;
+        "app-nav-link": AppNavLink;
+        "app-navbar": AppNavbar;
         "app-profile": AppProfile;
         "app-root": AppRoot;
     }
@@ -57,7 +97,10 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-banner": LocalJSX.AppBanner & JSXBase.HTMLAttributes<HTMLAppBannerElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
+            "app-nav-link": LocalJSX.AppNavLink & JSXBase.HTMLAttributes<HTMLAppNavLinkElement>;
+            "app-navbar": LocalJSX.AppNavbar & JSXBase.HTMLAttributes<HTMLAppNavbarElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
         }
