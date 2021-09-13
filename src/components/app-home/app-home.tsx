@@ -16,6 +16,10 @@ export class AppHome {
           <app-nav-link href="services/">Services</app-nav-link>
           <app-nav-link href="contact/">Contact</app-nav-link>
         </app-navbar>
+        <app-header imageSrc="assets/img/farnborough-main.jpeg">
+          <h1>Shop local. Help <strong>Farnborough</strong> thrive!</h1>
+          <p>The high-street is the beating heart of our local community and vibrant small business underpins our freedom and democracy. Support our local businesses for a stronger community and brighter future.</p>
+        </app-header>
         <p>
           Welcome to the PWA Toolkit. You can use this starter to build entire apps with web components using Stencil and ionic/core! Check out the README for everything that comes
           in this starter out of the box and check out our docs on <a href="https://stenciljs.com">stenciljs.com</a> to get started.

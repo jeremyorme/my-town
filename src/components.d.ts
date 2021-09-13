@@ -8,6 +8,9 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppBanner {
     }
+    interface AppHeader {
+        "imageSrc": string;
+    }
     interface AppHome {
     }
     interface AppNavLink {
@@ -28,6 +31,12 @@ declare global {
     var HTMLAppBannerElement: {
         prototype: HTMLAppBannerElement;
         new (): HTMLAppBannerElement;
+    };
+    interface HTMLAppHeaderElement extends Components.AppHeader, HTMLStencilElement {
+    }
+    var HTMLAppHeaderElement: {
+        prototype: HTMLAppHeaderElement;
+        new (): HTMLAppHeaderElement;
     };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
@@ -61,6 +70,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-banner": HTMLAppBannerElement;
+        "app-header": HTMLAppHeaderElement;
         "app-home": HTMLAppHomeElement;
         "app-nav-link": HTMLAppNavLinkElement;
         "app-navbar": HTMLAppNavbarElement;
@@ -70,6 +80,9 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AppBanner {
+    }
+    interface AppHeader {
+        "imageSrc"?: string;
     }
     interface AppHome {
     }
@@ -86,6 +99,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-banner": AppBanner;
+        "app-header": AppHeader;
         "app-home": AppHome;
         "app-nav-link": AppNavLink;
         "app-navbar": AppNavbar;
@@ -98,6 +112,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-banner": LocalJSX.AppBanner & JSXBase.HTMLAttributes<HTMLAppBannerElement>;
+            "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-nav-link": LocalJSX.AppNavLink & JSXBase.HTMLAttributes<HTMLAppNavLinkElement>;
             "app-navbar": LocalJSX.AppNavbar & JSXBase.HTMLAttributes<HTMLAppNavbarElement>;

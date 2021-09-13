@@ -32,9 +32,18 @@
 
 body {
   --color-brand: #35b8be;
+  --color-blackish: #08090a;
   
   font-family: 'Inter', sans-serif;
   color: #333;
   font-size: 15px;
   line-height: 20px;
+}
+
+h1 {
+  color: var(--color-blackish);
+}
+
+h1 strong {
+  color: var(--color-brand) !important;
 }
