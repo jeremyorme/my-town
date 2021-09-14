@@ -30,11 +30,15 @@
   https://ionicframework.com/docs/theming/color-generator
 */
 
-body {
+:root {
   --color-brand: #35b8be;
   --color-blackish: #08090a;
   
-  font-family: 'Inter', sans-serif;
+  --ion-font-family: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--ion-font-family);
   color: #333;
   font-size: 15px;
   line-height: 20px;
@@ -46,4 +50,12 @@ h1 {
 
 h1 strong {
   color: var(--color-brand) !important;
+}
+
+ion-button {
+  --background: var(--color-brand) url('assets/img/Button%20Wave.svg');
+  --padding-top: 30px;
+  --padding-start: 38px;
+  --padding-bottom: 30px;
+  --padding-end: 38px;
 }

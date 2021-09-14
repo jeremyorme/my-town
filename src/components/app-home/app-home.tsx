@@ -19,15 +19,8 @@ export class AppHome {
         <app-header imageSrc="assets/img/farnborough-main.jpeg">
           <h1>Shop local. Help <strong>Farnborough</strong> thrive!</h1>
           <p>The high-street is the beating heart of our local community and vibrant small business underpins our freedom and democracy. Support our local businesses for a stronger community and brighter future.</p>
+          <ion-button href="shopping/" strong={true}>Find a Shop</ion-button>
         </app-header>
-        <p>
-          Welcome to the PWA Toolkit. You can use this starter to build entire apps with web components using Stencil and ionic/core! Check out the README for everything that comes
-          in this starter out of the box and check out our docs on <a href="https://stenciljs.com">stenciljs.com</a> to get started.
-        </p>
-
-        <ion-button href="/profile/ionic" expand="block">
-          Profile page
-        </ion-button>
       </ion-content>,
     ];
   }
