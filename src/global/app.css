@@ -33,8 +33,13 @@
 :root {
   --color-brand: #35b8be;
   --color-blackish: #08090a;
+  --color-alice-blue: #f5fbfc;
+  --color-default: #546285;
   
-  --ion-font-family: 'Inter', sans-serif;
+  --font-family-default: 'Inter', sans-serif;
+  --font-size-default: 18px;
+  
+  --ion-font-family: var(--font-family-default);
 }
 
 body {
@@ -42,6 +47,11 @@ body {
   color: #333;
   font-size: 15px;
   line-height: 20px;
+}
+
+p {
+  color: ;
+  font-size: 18px;
 }
 
 h1 {

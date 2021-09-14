@@ -8,6 +8,12 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppBanner {
     }
+    interface AppFooter {
+        "baseUrl": string;
+        "instagram": string;
+        "twitter": string;
+        "youtube": string;
+    }
     interface AppHeader {
         "imageSrc": string;
     }
@@ -31,6 +37,12 @@ declare global {
     var HTMLAppBannerElement: {
         prototype: HTMLAppBannerElement;
         new (): HTMLAppBannerElement;
+    };
+    interface HTMLAppFooterElement extends Components.AppFooter, HTMLStencilElement {
+    }
+    var HTMLAppFooterElement: {
+        prototype: HTMLAppFooterElement;
+        new (): HTMLAppFooterElement;
     };
     interface HTMLAppHeaderElement extends Components.AppHeader, HTMLStencilElement {
     }
@@ -70,6 +82,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-banner": HTMLAppBannerElement;
+        "app-footer": HTMLAppFooterElement;
         "app-header": HTMLAppHeaderElement;
         "app-home": HTMLAppHomeElement;
         "app-nav-link": HTMLAppNavLinkElement;
@@ -80,6 +93,12 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AppBanner {
+    }
+    interface AppFooter {
+        "baseUrl"?: string;
+        "instagram"?: string;
+        "twitter"?: string;
+        "youtube"?: string;
     }
     interface AppHeader {
         "imageSrc"?: string;
@@ -99,6 +118,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-banner": AppBanner;
+        "app-footer": AppFooter;
         "app-header": AppHeader;
         "app-home": AppHome;
         "app-nav-link": AppNavLink;
@@ -112,6 +132,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-banner": LocalJSX.AppBanner & JSXBase.HTMLAttributes<HTMLAppBannerElement>;
+            "app-footer": LocalJSX.AppFooter & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-nav-link": LocalJSX.AppNavLink & JSXBase.HTMLAttributes<HTMLAppNavLinkElement>;

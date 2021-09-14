@@ -21,6 +21,7 @@ export class AppHome {
           <p>The high-street is the beating heart of our local community and vibrant small business underpins our freedom and democracy. Support our local businesses for a stronger community and brighter future.</p>
           <ion-button href="shopping/" strong={true}>Find a Shop</ion-button>
         </app-header>
+        <app-footer/>
       </ion-content>,
     ];
   }
