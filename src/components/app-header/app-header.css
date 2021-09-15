@@ -34,7 +34,7 @@
 .hero-image-wrap {
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: flex-end;
   width: 50%;
 }
 

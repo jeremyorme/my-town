@@ -68,4 +68,6 @@ ion-button {
   --padding-start: 38px;
   --padding-bottom: 30px;
   --padding-end: 38px;
+
+  max-width: 198px;
 }
