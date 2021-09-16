@@ -6,150 +6,150 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface AppBanner {
+    interface AppRoot {
     }
-    interface AppFood {
+    interface BannerBlock {
     }
-    interface AppFooter {
+    interface FoodPage {
+    }
+    interface FooterBlock {
         "baseUrl": string;
         "instagram": string;
         "twitter": string;
         "youtube": string;
     }
-    interface AppHeader {
+    interface HeaderBlock {
         "imageSrc": string;
     }
-    interface AppHome {
+    interface HomePage {
     }
-    interface AppNavLink {
+    interface NavLinkBlock {
         "current": boolean;
         "href": string;
     }
-    interface AppNavbar {
+    interface NavbarBlock {
     }
-    interface AppRoot {
-    }
-    interface AppShopping {
+    interface ShoppingPage {
     }
 }
 declare global {
-    interface HTMLAppBannerElement extends Components.AppBanner, HTMLStencilElement {
-    }
-    var HTMLAppBannerElement: {
-        prototype: HTMLAppBannerElement;
-        new (): HTMLAppBannerElement;
-    };
-    interface HTMLAppFoodElement extends Components.AppFood, HTMLStencilElement {
-    }
-    var HTMLAppFoodElement: {
-        prototype: HTMLAppFoodElement;
-        new (): HTMLAppFoodElement;
-    };
-    interface HTMLAppFooterElement extends Components.AppFooter, HTMLStencilElement {
-    }
-    var HTMLAppFooterElement: {
-        prototype: HTMLAppFooterElement;
-        new (): HTMLAppFooterElement;
-    };
-    interface HTMLAppHeaderElement extends Components.AppHeader, HTMLStencilElement {
-    }
-    var HTMLAppHeaderElement: {
-        prototype: HTMLAppHeaderElement;
-        new (): HTMLAppHeaderElement;
-    };
-    interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
-    }
-    var HTMLAppHomeElement: {
-        prototype: HTMLAppHomeElement;
-        new (): HTMLAppHomeElement;
-    };
-    interface HTMLAppNavLinkElement extends Components.AppNavLink, HTMLStencilElement {
-    }
-    var HTMLAppNavLinkElement: {
-        prototype: HTMLAppNavLinkElement;
-        new (): HTMLAppNavLinkElement;
-    };
-    interface HTMLAppNavbarElement extends Components.AppNavbar, HTMLStencilElement {
-    }
-    var HTMLAppNavbarElement: {
-        prototype: HTMLAppNavbarElement;
-        new (): HTMLAppNavbarElement;
-    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
-    interface HTMLAppShoppingElement extends Components.AppShopping, HTMLStencilElement {
+    interface HTMLBannerBlockElement extends Components.BannerBlock, HTMLStencilElement {
     }
-    var HTMLAppShoppingElement: {
-        prototype: HTMLAppShoppingElement;
-        new (): HTMLAppShoppingElement;
+    var HTMLBannerBlockElement: {
+        prototype: HTMLBannerBlockElement;
+        new (): HTMLBannerBlockElement;
+    };
+    interface HTMLFoodPageElement extends Components.FoodPage, HTMLStencilElement {
+    }
+    var HTMLFoodPageElement: {
+        prototype: HTMLFoodPageElement;
+        new (): HTMLFoodPageElement;
+    };
+    interface HTMLFooterBlockElement extends Components.FooterBlock, HTMLStencilElement {
+    }
+    var HTMLFooterBlockElement: {
+        prototype: HTMLFooterBlockElement;
+        new (): HTMLFooterBlockElement;
+    };
+    interface HTMLHeaderBlockElement extends Components.HeaderBlock, HTMLStencilElement {
+    }
+    var HTMLHeaderBlockElement: {
+        prototype: HTMLHeaderBlockElement;
+        new (): HTMLHeaderBlockElement;
+    };
+    interface HTMLHomePageElement extends Components.HomePage, HTMLStencilElement {
+    }
+    var HTMLHomePageElement: {
+        prototype: HTMLHomePageElement;
+        new (): HTMLHomePageElement;
+    };
+    interface HTMLNavLinkBlockElement extends Components.NavLinkBlock, HTMLStencilElement {
+    }
+    var HTMLNavLinkBlockElement: {
+        prototype: HTMLNavLinkBlockElement;
+        new (): HTMLNavLinkBlockElement;
+    };
+    interface HTMLNavbarBlockElement extends Components.NavbarBlock, HTMLStencilElement {
+    }
+    var HTMLNavbarBlockElement: {
+        prototype: HTMLNavbarBlockElement;
+        new (): HTMLNavbarBlockElement;
+    };
+    interface HTMLShoppingPageElement extends Components.ShoppingPage, HTMLStencilElement {
+    }
+    var HTMLShoppingPageElement: {
+        prototype: HTMLShoppingPageElement;
+        new (): HTMLShoppingPageElement;
     };
     interface HTMLElementTagNameMap {
-        "app-banner": HTMLAppBannerElement;
-        "app-food": HTMLAppFoodElement;
-        "app-footer": HTMLAppFooterElement;
-        "app-header": HTMLAppHeaderElement;
-        "app-home": HTMLAppHomeElement;
-        "app-nav-link": HTMLAppNavLinkElement;
-        "app-navbar": HTMLAppNavbarElement;
         "app-root": HTMLAppRootElement;
-        "app-shopping": HTMLAppShoppingElement;
+        "banner-block": HTMLBannerBlockElement;
+        "food-page": HTMLFoodPageElement;
+        "footer-block": HTMLFooterBlockElement;
+        "header-block": HTMLHeaderBlockElement;
+        "home-page": HTMLHomePageElement;
+        "nav-link-block": HTMLNavLinkBlockElement;
+        "navbar-block": HTMLNavbarBlockElement;
+        "shopping-page": HTMLShoppingPageElement;
     }
 }
 declare namespace LocalJSX {
-    interface AppBanner {
+    interface AppRoot {
     }
-    interface AppFood {
+    interface BannerBlock {
     }
-    interface AppFooter {
+    interface FoodPage {
+    }
+    interface FooterBlock {
         "baseUrl"?: string;
         "instagram"?: string;
         "twitter"?: string;
         "youtube"?: string;
     }
-    interface AppHeader {
+    interface HeaderBlock {
         "imageSrc"?: string;
     }
-    interface AppHome {
+    interface HomePage {
     }
-    interface AppNavLink {
+    interface NavLinkBlock {
         "current"?: boolean;
         "href"?: string;
     }
-    interface AppNavbar {
+    interface NavbarBlock {
     }
-    interface AppRoot {
-    }
-    interface AppShopping {
+    interface ShoppingPage {
     }
     interface IntrinsicElements {
-        "app-banner": AppBanner;
-        "app-food": AppFood;
-        "app-footer": AppFooter;
-        "app-header": AppHeader;
-        "app-home": AppHome;
-        "app-nav-link": AppNavLink;
-        "app-navbar": AppNavbar;
         "app-root": AppRoot;
-        "app-shopping": AppShopping;
+        "banner-block": BannerBlock;
+        "food-page": FoodPage;
+        "footer-block": FooterBlock;
+        "header-block": HeaderBlock;
+        "home-page": HomePage;
+        "nav-link-block": NavLinkBlock;
+        "navbar-block": NavbarBlock;
+        "shopping-page": ShoppingPage;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "app-banner": LocalJSX.AppBanner & JSXBase.HTMLAttributes<HTMLAppBannerElement>;
-            "app-food": LocalJSX.AppFood & JSXBase.HTMLAttributes<HTMLAppFoodElement>;
-            "app-footer": LocalJSX.AppFooter & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
-            "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
-            "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
-            "app-nav-link": LocalJSX.AppNavLink & JSXBase.HTMLAttributes<HTMLAppNavLinkElement>;
-            "app-navbar": LocalJSX.AppNavbar & JSXBase.HTMLAttributes<HTMLAppNavbarElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "app-shopping": LocalJSX.AppShopping & JSXBase.HTMLAttributes<HTMLAppShoppingElement>;
+            "banner-block": LocalJSX.BannerBlock & JSXBase.HTMLAttributes<HTMLBannerBlockElement>;
+            "food-page": LocalJSX.FoodPage & JSXBase.HTMLAttributes<HTMLFoodPageElement>;
+            "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
+            "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;
+            "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
+            "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
+            "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
+            "shopping-page": LocalJSX.ShoppingPage & JSXBase.HTMLAttributes<HTMLShoppingPageElement>;
         }
     }
 }
