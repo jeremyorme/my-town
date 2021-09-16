@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100 3% 140 3%;
+  padding: 100px 3% 140px 3%;
   overflow: hidden;
   position: relative;
   background-image: url('../assets/img/BG%20Shape.svg');
@@ -45,7 +45,7 @@
 .hero-image {
   display: inline;
   border-radius: 100px 15px 15px;
-  width: 475px;
+  width: 400px;
 }
 
 @media only screen and (max-width: 991px) {
