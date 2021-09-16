@@ -12,6 +12,7 @@ export class AppRoot {
           <ion-route url="/" component="home-page" />
           <ion-route url="/shopping" component="shopping-page" />
           <ion-route url="/food" component="food-page" />
+          <ion-route url="/services" component="services-page" />
         </ion-router>
         <ion-nav />
       </ion-app>

@@ -1,0 +1,24 @@
+import { Component, h } from '@stencil/core';
+
+@Component({
+  tag: 'services-page',
+  styleUrl: 'services-page.css',
+})
+export class ServicesPage {
+
+  render() {
+    return [
+      <ion-content>
+        <banner-block/>
+        <navbar-block>
+          <nav-link-block href="../">Home</nav-link-block>
+          <nav-link-block href="../shopping/">Shopping</nav-link-block>
+          <nav-link-block href="../food/">Food</nav-link-block>
+          <nav-link-block href="./" current={true}>Services</nav-link-block>
+          <nav-link-block href="../contact/">Contact</nav-link-block>
+        </navbar-block>
+        <footer-block/>
+      </ion-content>,
+    ];
+  }
+}

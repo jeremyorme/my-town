@@ -29,6 +29,8 @@ export namespace Components {
     }
     interface NavbarBlock {
     }
+    interface ServicesPage {
+    }
     interface ShoppingPage {
     }
 }
@@ -81,6 +83,12 @@ declare global {
         prototype: HTMLNavbarBlockElement;
         new (): HTMLNavbarBlockElement;
     };
+    interface HTMLServicesPageElement extends Components.ServicesPage, HTMLStencilElement {
+    }
+    var HTMLServicesPageElement: {
+        prototype: HTMLServicesPageElement;
+        new (): HTMLServicesPageElement;
+    };
     interface HTMLShoppingPageElement extends Components.ShoppingPage, HTMLStencilElement {
     }
     var HTMLShoppingPageElement: {
@@ -96,6 +104,7 @@ declare global {
         "home-page": HTMLHomePageElement;
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
+        "services-page": HTMLServicesPageElement;
         "shopping-page": HTMLShoppingPageElement;
     }
 }
@@ -123,6 +132,8 @@ declare namespace LocalJSX {
     }
     interface NavbarBlock {
     }
+    interface ServicesPage {
+    }
     interface ShoppingPage {
     }
     interface IntrinsicElements {
@@ -134,6 +145,7 @@ declare namespace LocalJSX {
         "home-page": HomePage;
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
+        "services-page": ServicesPage;
         "shopping-page": ShoppingPage;
     }
 }
@@ -149,6 +161,7 @@ declare module "@stencil/core" {
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
+            "services-page": LocalJSX.ServicesPage & JSXBase.HTMLAttributes<HTMLServicesPageElement>;
             "shopping-page": LocalJSX.ShoppingPage & JSXBase.HTMLAttributes<HTMLShoppingPageElement>;
         }
     }
