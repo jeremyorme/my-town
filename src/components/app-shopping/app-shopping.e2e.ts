@@ -8,11 +8,4 @@ describe('app-shopping', () => {
     const element = await page.find('app-shopping');
     expect(element).toHaveClass('hydrated');
   });
-
-  it('displays the specified name', async () => {
-    const page = await newE2EPage({url : '/shopping/joseph'});
-
-    const element = await page.find('app-shopping ion-content p');
-    expect(element.textContent).toContain('My name is Joseph.');
-  });
 });
