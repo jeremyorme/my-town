@@ -11,6 +11,7 @@ export class AppRoot {
         <ion-router useHash={false}>
           <ion-route url="/" component="app-home" />
           <ion-route url="/shopping" component="app-shopping" />
+          <ion-route url="/food" component="app-food" />
         </ion-router>
         <ion-nav />
       </ion-app>

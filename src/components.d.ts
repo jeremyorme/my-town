@@ -8,6 +8,8 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppBanner {
     }
+    interface AppFood {
+    }
     interface AppFooter {
         "baseUrl": string;
         "instagram": string;
@@ -36,6 +38,12 @@ declare global {
     var HTMLAppBannerElement: {
         prototype: HTMLAppBannerElement;
         new (): HTMLAppBannerElement;
+    };
+    interface HTMLAppFoodElement extends Components.AppFood, HTMLStencilElement {
+    }
+    var HTMLAppFoodElement: {
+        prototype: HTMLAppFoodElement;
+        new (): HTMLAppFoodElement;
     };
     interface HTMLAppFooterElement extends Components.AppFooter, HTMLStencilElement {
     }
@@ -81,6 +89,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-banner": HTMLAppBannerElement;
+        "app-food": HTMLAppFoodElement;
         "app-footer": HTMLAppFooterElement;
         "app-header": HTMLAppHeaderElement;
         "app-home": HTMLAppHomeElement;
@@ -92,6 +101,8 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AppBanner {
+    }
+    interface AppFood {
     }
     interface AppFooter {
         "baseUrl"?: string;
@@ -116,6 +127,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-banner": AppBanner;
+        "app-food": AppFood;
         "app-footer": AppFooter;
         "app-header": AppHeader;
         "app-home": AppHome;
@@ -130,6 +142,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-banner": LocalJSX.AppBanner & JSXBase.HTMLAttributes<HTMLAppBannerElement>;
+            "app-food": LocalJSX.AppFood & JSXBase.HTMLAttributes<HTMLAppFoodElement>;
             "app-footer": LocalJSX.AppFooter & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
