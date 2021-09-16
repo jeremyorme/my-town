@@ -25,10 +25,10 @@ export namespace Components {
     }
     interface AppNavbar {
     }
-    interface AppProfile {
-        "name": string;
-    }
     interface AppRoot {
+    }
+    interface AppShopping {
+        "name": string;
     }
 }
 declare global {
@@ -68,17 +68,17 @@ declare global {
         prototype: HTMLAppNavbarElement;
         new (): HTMLAppNavbarElement;
     };
-    interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
-    }
-    var HTMLAppProfileElement: {
-        prototype: HTMLAppProfileElement;
-        new (): HTMLAppProfileElement;
-    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    interface HTMLAppShoppingElement extends Components.AppShopping, HTMLStencilElement {
+    }
+    var HTMLAppShoppingElement: {
+        prototype: HTMLAppShoppingElement;
+        new (): HTMLAppShoppingElement;
     };
     interface HTMLElementTagNameMap {
         "app-banner": HTMLAppBannerElement;
@@ -87,8 +87,8 @@ declare global {
         "app-home": HTMLAppHomeElement;
         "app-nav-link": HTMLAppNavLinkElement;
         "app-navbar": HTMLAppNavbarElement;
-        "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "app-shopping": HTMLAppShoppingElement;
     }
 }
 declare namespace LocalJSX {
@@ -111,10 +111,10 @@ declare namespace LocalJSX {
     }
     interface AppNavbar {
     }
-    interface AppProfile {
-        "name"?: string;
-    }
     interface AppRoot {
+    }
+    interface AppShopping {
+        "name"?: string;
     }
     interface IntrinsicElements {
         "app-banner": AppBanner;
@@ -123,8 +123,8 @@ declare namespace LocalJSX {
         "app-home": AppHome;
         "app-nav-link": AppNavLink;
         "app-navbar": AppNavbar;
-        "app-profile": AppProfile;
         "app-root": AppRoot;
+        "app-shopping": AppShopping;
     }
 }
 export { LocalJSX as JSX };
@@ -137,8 +137,8 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-nav-link": LocalJSX.AppNavLink & JSXBase.HTMLAttributes<HTMLAppNavLinkElement>;
             "app-navbar": LocalJSX.AppNavbar & JSXBase.HTMLAttributes<HTMLAppNavbarElement>;
-            "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-shopping": LocalJSX.AppShopping & JSXBase.HTMLAttributes<HTMLAppShoppingElement>;
         }
     }
 }

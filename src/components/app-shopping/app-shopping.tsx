@@ -2,10 +2,10 @@ import { Component, Prop, State, h } from '@stencil/core';
 import { sayHello } from '../../helpers/utils';
 
 @Component({
-  tag: 'app-profile',
-  styleUrl: 'app-profile.css',
+  tag: 'app-shopping',
+  styleUrl: 'app-shopping.css',
 })
-export class AppProfile {
+export class AppShopping {
   @State() state = false;
   @Prop() name: string;
 
