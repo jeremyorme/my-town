@@ -35,6 +35,8 @@ export namespace Components {
     }
     interface ShoppingPage {
     }
+    interface SubHeaderBlock {
+    }
 }
 declare global {
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
@@ -103,6 +105,12 @@ declare global {
         prototype: HTMLShoppingPageElement;
         new (): HTMLShoppingPageElement;
     };
+    interface HTMLSubHeaderBlockElement extends Components.SubHeaderBlock, HTMLStencilElement {
+    }
+    var HTMLSubHeaderBlockElement: {
+        prototype: HTMLSubHeaderBlockElement;
+        new (): HTMLSubHeaderBlockElement;
+    };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "banner-block": HTMLBannerBlockElement;
@@ -115,6 +123,7 @@ declare global {
         "navbar-block": HTMLNavbarBlockElement;
         "services-page": HTMLServicesPageElement;
         "shopping-page": HTMLShoppingPageElement;
+        "sub-header-block": HTMLSubHeaderBlockElement;
     }
 }
 declare namespace LocalJSX {
@@ -147,6 +156,8 @@ declare namespace LocalJSX {
     }
     interface ShoppingPage {
     }
+    interface SubHeaderBlock {
+    }
     interface IntrinsicElements {
         "app-root": AppRoot;
         "banner-block": BannerBlock;
@@ -159,6 +170,7 @@ declare namespace LocalJSX {
         "navbar-block": NavbarBlock;
         "services-page": ServicesPage;
         "shopping-page": ShoppingPage;
+        "sub-header-block": SubHeaderBlock;
     }
 }
 export { LocalJSX as JSX };
@@ -176,6 +188,7 @@ declare module "@stencil/core" {
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
             "services-page": LocalJSX.ServicesPage & JSXBase.HTMLAttributes<HTMLServicesPageElement>;
             "shopping-page": LocalJSX.ShoppingPage & JSXBase.HTMLAttributes<HTMLShoppingPageElement>;
+            "sub-header-block": LocalJSX.SubHeaderBlock & JSXBase.HTMLAttributes<HTMLSubHeaderBlockElement>;
         }
     }
 }

@@ -17,6 +17,9 @@ export class ServicesPage {
           <nav-link-block href="./" current={true}>Services</nav-link-block>
           <nav-link-block href="../contact/">Contact</nav-link-block>
         </navbar-block>
+        <sub-header-block>
+          <h1>Find <strong>trusted</strong> local traders</h1>
+        </sub-header-block>
         <footer-block/>
       </ion-content>,
     ];
