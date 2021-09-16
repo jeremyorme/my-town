@@ -17,10 +17,14 @@ p {
   overflow: hidden;
   position: relative;
   text-decoration: none;
-  background-image: url('assets/img/Pattern%20Footer.svg');
+  background-image: url('../assets/img/Pattern%20Footer.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-color: var(--color-alice-blue);
+}
+
+.root-page .footer {
+  background-image: url('assets/img/Pattern%20Footer.svg');
 }
 
 .container {
@@ -97,8 +101,12 @@ p {
   margin-bottom: 25px;
   width: 40px;
   height: 51px;
-  background-image: url('assets/img/Logo.svg');
+  background-image: url('../assets/img/Logo.svg');
   background-size: cover;
+}
+
+.root-page .footer-logo {
+  background-image: url('assets/img/Logo.svg');  
 }
 
 .footer-legal {
@@ -150,22 +158,34 @@ p {
   display: inline;
   width: 18px;
   height: 18px;
-  background-image: url('assets/img/social-instagram.svg');
+  background-image: url('../assets/img/social-instagram.svg');
   background-size: cover;
+}
+
+.root-page .social-icon-instagram {
+  background-image: url('assets/img/social-instagram.svg');
 }
 
 .social-icon-twitter {
   display: inline;
   width: 18px;
   height: 14px;
-  background-image: url('assets/img/social-twitter.svg');
+  background-image: url('../assets/img/social-twitter.svg');
   background-size: cover;
+}
+
+.root-page .social-icon-twitter {
+  background-image: url('assets/img/social-twitter.svg');
 }
 
 .social-icon-youtube {
   display: inline;
   width: 18px;
   height: 13px;
-  background-image: url('assets/img/social-youtube.svg');
+  background-image: url('../assets/img/social-youtube.svg');
   background-size: cover;
+}
+
+.root-page .social-icon-youtube {
+  background-image: url('assets/img/social-youtube.svg');
 }

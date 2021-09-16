@@ -9,8 +9,12 @@
   padding: 100 3% 140 3%;
   overflow: hidden;
   position: relative;
-  background-image: url(assets/img/BG%20Shape.svg);
+  background-image: url('../assets/img/BG%20Shape.svg');
   background-repeat: no-repeat;
+}
+
+.root-page .header {
+  background-image: url('assets/img/BG%20Shape.svg');
 }
 
 .container-flex {

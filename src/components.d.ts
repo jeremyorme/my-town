@@ -28,7 +28,6 @@ export namespace Components {
     interface AppRoot {
     }
     interface AppShopping {
-        "name": string;
     }
 }
 declare global {
@@ -114,7 +113,6 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface AppShopping {
-        "name"?: string;
     }
     interface IntrinsicElements {
         "app-banner": AppBanner;

@@ -7,7 +7,7 @@ import { Component, h } from '@stencil/core';
 export class AppHome {
   render() {
     return [
-      <ion-content>
+      <ion-content class="root-page">
         <app-banner/>
         <app-navbar>
           <app-nav-link href="./" current={true}>Home</app-nav-link>
