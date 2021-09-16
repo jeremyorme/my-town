@@ -10,6 +10,8 @@ export namespace Components {
     }
     interface BannerBlock {
     }
+    interface ContactPage {
+    }
     interface FoodPage {
     }
     interface FooterBlock {
@@ -46,6 +48,12 @@ declare global {
     var HTMLBannerBlockElement: {
         prototype: HTMLBannerBlockElement;
         new (): HTMLBannerBlockElement;
+    };
+    interface HTMLContactPageElement extends Components.ContactPage, HTMLStencilElement {
+    }
+    var HTMLContactPageElement: {
+        prototype: HTMLContactPageElement;
+        new (): HTMLContactPageElement;
     };
     interface HTMLFoodPageElement extends Components.FoodPage, HTMLStencilElement {
     }
@@ -98,6 +106,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "banner-block": HTMLBannerBlockElement;
+        "contact-page": HTMLContactPageElement;
         "food-page": HTMLFoodPageElement;
         "footer-block": HTMLFooterBlockElement;
         "header-block": HTMLHeaderBlockElement;
@@ -112,6 +121,8 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface BannerBlock {
+    }
+    interface ContactPage {
     }
     interface FoodPage {
     }
@@ -139,6 +150,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "app-root": AppRoot;
         "banner-block": BannerBlock;
+        "contact-page": ContactPage;
         "food-page": FoodPage;
         "footer-block": FooterBlock;
         "header-block": HeaderBlock;
@@ -155,6 +167,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "banner-block": LocalJSX.BannerBlock & JSXBase.HTMLAttributes<HTMLBannerBlockElement>;
+            "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
             "food-page": LocalJSX.FoodPage & JSXBase.HTMLAttributes<HTMLFoodPageElement>;
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
             "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;
