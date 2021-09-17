@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+.content-section {
+  display: block;
+  padding: 120px 3%;
+  position: relative;
+  background-color: transparent;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}

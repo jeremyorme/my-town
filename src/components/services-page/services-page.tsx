@@ -20,6 +20,8 @@ export class ServicesPage {
         <sub-header-block>
           <h1>Find <strong>trusted</strong> local traders</h1>
         </sub-header-block>
+        <content-block>
+        </content-block>
         <footer-block/>
       </ion-content>,
     ];

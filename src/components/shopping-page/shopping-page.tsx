@@ -20,6 +20,8 @@ export class ShoppingPage {
         <sub-header-block>
           <h1><strong>Excellent</strong> quality products from <strong>local</strong> retailers</h1>
         </sub-header-block>
+        <content-block>
+        </content-block>
         <footer-block/>
       </ion-content>,
     ];

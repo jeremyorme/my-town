@@ -12,6 +12,8 @@ export namespace Components {
     }
     interface ContactPage {
     }
+    interface ContentBlock {
+    }
     interface FoodPage {
     }
     interface FooterBlock {
@@ -56,6 +58,12 @@ declare global {
     var HTMLContactPageElement: {
         prototype: HTMLContactPageElement;
         new (): HTMLContactPageElement;
+    };
+    interface HTMLContentBlockElement extends Components.ContentBlock, HTMLStencilElement {
+    }
+    var HTMLContentBlockElement: {
+        prototype: HTMLContentBlockElement;
+        new (): HTMLContentBlockElement;
     };
     interface HTMLFoodPageElement extends Components.FoodPage, HTMLStencilElement {
     }
@@ -115,6 +123,7 @@ declare global {
         "app-root": HTMLAppRootElement;
         "banner-block": HTMLBannerBlockElement;
         "contact-page": HTMLContactPageElement;
+        "content-block": HTMLContentBlockElement;
         "food-page": HTMLFoodPageElement;
         "footer-block": HTMLFooterBlockElement;
         "header-block": HTMLHeaderBlockElement;
@@ -132,6 +141,8 @@ declare namespace LocalJSX {
     interface BannerBlock {
     }
     interface ContactPage {
+    }
+    interface ContentBlock {
     }
     interface FoodPage {
     }
@@ -162,6 +173,7 @@ declare namespace LocalJSX {
         "app-root": AppRoot;
         "banner-block": BannerBlock;
         "contact-page": ContactPage;
+        "content-block": ContentBlock;
         "food-page": FoodPage;
         "footer-block": FooterBlock;
         "header-block": HeaderBlock;
@@ -180,6 +192,7 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "banner-block": LocalJSX.BannerBlock & JSXBase.HTMLAttributes<HTMLBannerBlockElement>;
             "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
+            "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
             "food-page": LocalJSX.FoodPage & JSXBase.HTMLAttributes<HTMLFoodPageElement>;
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
             "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;

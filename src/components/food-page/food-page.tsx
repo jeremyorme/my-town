@@ -20,6 +20,8 @@ export class FoodPage {
         <sub-header-block>
           <h1>Locally made food to <strong>eat in</strong> or <strong>take away</strong></h1>
         </sub-header-block>
+        <content-block>
+        </content-block>
         <footer-block/>
       </ion-content>,
     ];
