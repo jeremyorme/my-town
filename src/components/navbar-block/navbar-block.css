@@ -1,3 +1,11 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 :host {
   display: block;
 }
@@ -81,8 +89,8 @@
     padding: 16px;
     margin-left: 14px;
     margin-right: 0;
-    min-width: 23px;
-    min-height: 23px;
+    min-width: 55px;
+    min-height: 55px;
     background-color: rgba(126, 130, 143, 0.1);
     border-radius: 4px;
   }
@@ -96,8 +104,8 @@
 .cart-button {
   display: flex;
   padding: 13px;
-  min-width: 29px;
-  min-height: 29px;
+  min-width: 55px;
+  min-height: 55px;
   border-radius: 4px;
   position: relative;
   background-image: url('../assets/img/Button Wave.svg');
