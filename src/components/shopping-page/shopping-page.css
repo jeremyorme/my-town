@@ -5,3 +5,8 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+.menu-item {
+  display: block;
+  width: 50%;
+}

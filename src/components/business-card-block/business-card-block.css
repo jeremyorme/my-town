@@ -1,0 +1,72 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:host {
+  display: block;
+}
+
+.business-card {
+  display: flex;
+  align-items: center;
+  padding: 25px;
+  min-height: 200px;
+  background-color: white;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(53, 184, 190, 0.15);
+}
+
+.business-icon {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  color: var(--color-brand);
+  overflow: hidden;
+  max-height: 120px;
+  max-width: 120px;
+  min-height: 120px;
+  min-width: 120px;
+  margin-right: 30px;
+  border-radius: 8px;
+}
+
+.business-card-content {
+  display: block;
+  width: 100%;
+  flex-shrink: 1;
+}
+
+h6 {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+  font-color: var(--color-blackish);
+}
+
+p {
+  color: var(--color-default);
+  font-size: 16px;
+}
+
+.shop-button {
+  display: flex;
+  width: 140px;
+  min-height: 45px;
+  justify-content: center;
+  border-radius: 6px;
+  background-color: var(--color-brand);
+  color: #fff;
+  cursor: pointer;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-decoration: none;
+  align-items: center;
+}
