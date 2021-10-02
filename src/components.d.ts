@@ -16,6 +16,8 @@ export namespace Components {
         "icon": string;
         "name": string;
     }
+    interface BusinessPage {
+    }
     interface ContactPage {
     }
     interface ContentBlock {
@@ -64,6 +66,12 @@ declare global {
     var HTMLBusinessCardBlockElement: {
         prototype: HTMLBusinessCardBlockElement;
         new (): HTMLBusinessCardBlockElement;
+    };
+    interface HTMLBusinessPageElement extends Components.BusinessPage, HTMLStencilElement {
+    }
+    var HTMLBusinessPageElement: {
+        prototype: HTMLBusinessPageElement;
+        new (): HTMLBusinessPageElement;
     };
     interface HTMLContactPageElement extends Components.ContactPage, HTMLStencilElement {
     }
@@ -135,6 +143,7 @@ declare global {
         "app-root": HTMLAppRootElement;
         "banner-block": HTMLBannerBlockElement;
         "business-card-block": HTMLBusinessCardBlockElement;
+        "business-page": HTMLBusinessPageElement;
         "contact-page": HTMLContactPageElement;
         "content-block": HTMLContentBlockElement;
         "food-page": HTMLFoodPageElement;
@@ -158,6 +167,8 @@ declare namespace LocalJSX {
         "href"?: string;
         "icon"?: string;
         "name"?: string;
+    }
+    interface BusinessPage {
     }
     interface ContactPage {
     }
@@ -192,6 +203,7 @@ declare namespace LocalJSX {
         "app-root": AppRoot;
         "banner-block": BannerBlock;
         "business-card-block": BusinessCardBlock;
+        "business-page": BusinessPage;
         "contact-page": ContactPage;
         "content-block": ContentBlock;
         "food-page": FoodPage;
@@ -212,6 +224,7 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "banner-block": LocalJSX.BannerBlock & JSXBase.HTMLAttributes<HTMLBannerBlockElement>;
             "business-card-block": LocalJSX.BusinessCardBlock & JSXBase.HTMLAttributes<HTMLBusinessCardBlockElement>;
+            "business-page": LocalJSX.BusinessPage & JSXBase.HTMLAttributes<HTMLBusinessPageElement>;
             "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
             "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
             "food-page": LocalJSX.FoodPage & JSXBase.HTMLAttributes<HTMLFoodPageElement>;
