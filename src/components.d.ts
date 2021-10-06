@@ -35,6 +35,11 @@ export namespace Components {
     }
     interface HomePage {
     }
+    interface MapBlock {
+        "latitude": number;
+        "longitude": number;
+        "zoom": number;
+    }
     interface NavLinkBlock {
         "current": boolean;
         "href": string;
@@ -109,6 +114,12 @@ declare global {
         prototype: HTMLHomePageElement;
         new (): HTMLHomePageElement;
     };
+    interface HTMLMapBlockElement extends Components.MapBlock, HTMLStencilElement {
+    }
+    var HTMLMapBlockElement: {
+        prototype: HTMLMapBlockElement;
+        new (): HTMLMapBlockElement;
+    };
     interface HTMLNavLinkBlockElement extends Components.NavLinkBlock, HTMLStencilElement {
     }
     var HTMLNavLinkBlockElement: {
@@ -150,6 +161,7 @@ declare global {
         "footer-block": HTMLFooterBlockElement;
         "header-block": HTMLHeaderBlockElement;
         "home-page": HTMLHomePageElement;
+        "map-block": HTMLMapBlockElement;
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
         "services-page": HTMLServicesPageElement;
@@ -187,6 +199,11 @@ declare namespace LocalJSX {
     }
     interface HomePage {
     }
+    interface MapBlock {
+        "latitude"?: number;
+        "longitude"?: number;
+        "zoom"?: number;
+    }
     interface NavLinkBlock {
         "current"?: boolean;
         "href"?: string;
@@ -210,6 +227,7 @@ declare namespace LocalJSX {
         "footer-block": FooterBlock;
         "header-block": HeaderBlock;
         "home-page": HomePage;
+        "map-block": MapBlock;
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
         "services-page": ServicesPage;
@@ -231,6 +249,7 @@ declare module "@stencil/core" {
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
             "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
+            "map-block": LocalJSX.MapBlock & JSXBase.HTMLAttributes<HTMLMapBlockElement>;
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
             "services-page": LocalJSX.ServicesPage & JSXBase.HTMLAttributes<HTMLServicesPageElement>;
