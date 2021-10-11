@@ -1,0 +1,26 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:host {
+  display: block;
+}
+
+.content-section-bg {
+  display: block;
+  padding: 140px 3%;
+  position: relative;
+  background-image: url('../assets/img/BG Shape Content.svg');
+  background-size: 96% 90%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  min-height: 700px;
+}
+
+.content-section-bg .root-page {
+  background-image: url('assets/img/BG Shape Content.svg');
+}

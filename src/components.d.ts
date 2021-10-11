@@ -20,6 +20,8 @@ export namespace Components {
     }
     interface ContactPage {
     }
+    interface ContentBgBlock {
+    }
     interface ContentBlock {
     }
     interface FoodPage {
@@ -83,6 +85,12 @@ declare global {
     var HTMLContactPageElement: {
         prototype: HTMLContactPageElement;
         new (): HTMLContactPageElement;
+    };
+    interface HTMLContentBgBlockElement extends Components.ContentBgBlock, HTMLStencilElement {
+    }
+    var HTMLContentBgBlockElement: {
+        prototype: HTMLContentBgBlockElement;
+        new (): HTMLContentBgBlockElement;
     };
     interface HTMLContentBlockElement extends Components.ContentBlock, HTMLStencilElement {
     }
@@ -156,6 +164,7 @@ declare global {
         "business-card-block": HTMLBusinessCardBlockElement;
         "business-page": HTMLBusinessPageElement;
         "contact-page": HTMLContactPageElement;
+        "content-bg-block": HTMLContentBgBlockElement;
         "content-block": HTMLContentBlockElement;
         "food-page": HTMLFoodPageElement;
         "footer-block": HTMLFooterBlockElement;
@@ -183,6 +192,8 @@ declare namespace LocalJSX {
     interface BusinessPage {
     }
     interface ContactPage {
+    }
+    interface ContentBgBlock {
     }
     interface ContentBlock {
     }
@@ -222,6 +233,7 @@ declare namespace LocalJSX {
         "business-card-block": BusinessCardBlock;
         "business-page": BusinessPage;
         "contact-page": ContactPage;
+        "content-bg-block": ContentBgBlock;
         "content-block": ContentBlock;
         "food-page": FoodPage;
         "footer-block": FooterBlock;
@@ -244,6 +256,7 @@ declare module "@stencil/core" {
             "business-card-block": LocalJSX.BusinessCardBlock & JSXBase.HTMLAttributes<HTMLBusinessCardBlockElement>;
             "business-page": LocalJSX.BusinessPage & JSXBase.HTMLAttributes<HTMLBusinessPageElement>;
             "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
+            "content-bg-block": LocalJSX.ContentBgBlock & JSXBase.HTMLAttributes<HTMLContentBgBlockElement>;
             "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
             "food-page": LocalJSX.FoodPage & JSXBase.HTMLAttributes<HTMLFoodPageElement>;
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;

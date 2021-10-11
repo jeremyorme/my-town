@@ -23,6 +23,8 @@ export class BusinessPage {
         <content-block>
           <map-block latitude={51.29624} longitude={-0.79131} zoom={17}/>
         </content-block>
+        <content-bg-block>
+        </content-bg-block>
         <footer-block/>
       </ion-content>,
     ];
