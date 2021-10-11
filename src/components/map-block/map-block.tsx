@@ -1,5 +1,5 @@
 import { Component, Host, Prop, h } from '@stencil/core';
-import { map, TileLayer } from 'leaflet';
+import { map, TileLayer, marker } from 'leaflet';
 
 @Component({
   tag: 'map-block',
@@ -28,6 +28,7 @@ export class MapBlock {
       const businessMap = map('mapid', mapOptions);
       const layer = new TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
       businessMap.addLayer(layer);
+      marker([this.latitude, this.longitude]).addTo(businessMap);
     }, 100);
   }
 
