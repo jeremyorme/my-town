@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'banner-block',
@@ -6,13 +6,14 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class BannerBlock {
+  @Prop() baseUrl: string = '..';
 
   render() {
     return (
       <Host>
         <div class="banner">
           <div class="banner-wrap">
-            <span class="notice-text">We're open and available for takeaway &amp; delivery. <a href="order/" class="white-link">Order Now</a></span>
+            <span class="notice-text">We list the best locally owned businesses in Farnborough. <a href={this.baseUrl + '/shopping/'} class="white-link">Shop Now!</a></span>
           </div>
         </div>
       </Host>

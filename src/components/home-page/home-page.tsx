@@ -8,7 +8,7 @@ export class HomePage {
   render() {
     return [
       <ion-content class="root-page">
-        <banner-block/>
+        <banner-block baseUrl="."/>
         <navbar-block>
           <nav-link-block href="./" current={true}>Home</nav-link-block>
           <nav-link-block href="shopping/">Shopping</nav-link-block>
@@ -21,7 +21,7 @@ export class HomePage {
           <p>The high-street is the beating heart of our local community and vibrant small business underpins our freedom and democracy. Support our local businesses for a stronger community and brighter future.</p>
           <ion-button href="shopping/" strong={true}>Find a Shop</ion-button>
         </header-block>
-        <footer-block/>
+        <footer-block baseUrl="."/>
       </ion-content>,
     ];
   }

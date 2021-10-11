@@ -6,7 +6,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class FooterBlock {
-  @Prop() baseUrl: string = '.';
+  @Prop() baseUrl: string = '..';
   @Prop() instagram: string;
   @Prop() twitter: string;
   @Prop() youtube: string;

@@ -9,6 +9,7 @@ export namespace Components {
     interface AppRoot {
     }
     interface BannerBlock {
+        "baseUrl": string;
     }
     interface BusinessCardBlock {
         "description": string;
@@ -182,6 +183,7 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface BannerBlock {
+        "baseUrl"?: string;
     }
     interface BusinessCardBlock {
         "description"?: string;
