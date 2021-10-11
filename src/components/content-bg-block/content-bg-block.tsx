@@ -11,7 +11,9 @@ export class ContentBgBlock {
     return (
       <Host>
         <div class="content-section-bg">
-          <slot></slot>
+          <div class="container">
+            <slot></slot>
+          </div>
         </div>
       </Host>
     );

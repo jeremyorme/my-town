@@ -24,6 +24,25 @@ export class BusinessPage {
           <map-block latitude={51.29624} longitude={-0.79131} zoom={17}/>
         </content-block>
         <content-bg-block>
+          <h2>Get in touch</h2>
+          <div class="details">
+            <div class="detail">
+              <div class="detail-left">
+                <ion-icon name="globe-outline" size="large"></ion-icon>
+              </div>
+              <div class="detail-right">
+                <p>https://www.premier-stores.co.uk/our-stores/whetsone-convenience-store</p>
+              </div>
+            </div>
+            <div class="detail">
+              <div class="detail-left">
+                <ion-icon name="call-outline" size="large"></ion-icon>
+              </div>
+              <div class="detail-right">
+                <p>(01252) 542 381</p>
+              </div>
+            </div>
+          </div>
         </content-bg-block>
         <footer-block/>
       </ion-content>,

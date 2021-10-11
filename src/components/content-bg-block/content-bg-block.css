@@ -18,9 +18,25 @@ html {
   background-size: 96% 90%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  min-height: 700px;
+  min-height: 850px;
 }
 
 .content-section-bg .root-page {
   background-image: url('assets/img/BG Shape Content.svg');
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+::slotted(h2) {
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+  font-size: 55px !important;
+  line-height: 1 !important;
+  font-weight: bold !important;
+  letter-spacing: -0.03em !important;
+  color: var(--color-brand) !important;
 }

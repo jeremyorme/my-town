@@ -9,3 +9,22 @@ html {
 :host {
   display: block;
 }
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.detail-left {
+
+}
+
+.detail-right {
+  margin-left: 20px;
+}
