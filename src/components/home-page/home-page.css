@@ -5,3 +5,8 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+map-block .map {
+  width: 400px;
+  height: 600px;
+}

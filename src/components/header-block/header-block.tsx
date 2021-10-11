@@ -7,6 +7,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 })
 export class HeaderBlock {
   @Prop() imageSrc: string;
+  //            <img class="hero-image" src={this.imageSrc}/>
 
   render() {
     return (
@@ -14,10 +15,10 @@ export class HeaderBlock {
         <div class="header">
           <div class="container-flex">
             <div class="hero-content">
-              <slot></slot>
+              <slot name="left"/>
             </div>
             <div class="hero-image-wrap">
-              <img class="hero-image" src={this.imageSrc}/>
+              <slot name="right"/>
             </div>
           </div>
         </div>

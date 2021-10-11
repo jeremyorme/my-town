@@ -41,6 +41,7 @@ export namespace Components {
     interface MapBlock {
         "latitude": number;
         "longitude": number;
+        "name": string;
         "zoom": number;
     }
     interface NavLinkBlock {
@@ -215,6 +216,7 @@ declare namespace LocalJSX {
     interface MapBlock {
         "latitude"?: number;
         "longitude"?: number;
+        "name"?: string;
         "zoom"?: number;
     }
     interface NavLinkBlock {

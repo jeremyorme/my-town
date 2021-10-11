@@ -21,7 +21,7 @@ export class BusinessPage {
           <h1>Whetstone <strong>Convenience</strong> Store</h1>
         </sub-header-block>
         <content-block>
-          <map-block latitude={51.29624} longitude={-0.79131} zoom={17}/>
+          <map-block name="businessMap" latitude={51.29624} longitude={-0.79131} zoom={17}/>
         </content-block>
         <content-bg-block>
           <h2>Get in touch</h2>

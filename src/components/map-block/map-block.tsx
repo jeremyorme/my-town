@@ -10,11 +10,12 @@ export class MapBlock {
   @Prop() longitude: number = -0.3;
   @Prop() latitude: number = 51.5;
   @Prop() zoom: number = 10;
+  @Prop() name: string;
 
   render() {
     return (
       <Host>
-        <div id="mapid"/>
+        <div class="map" id={this.name}/>
       </Host>
     );
   }
@@ -25,11 +26,11 @@ export class MapBlock {
         center: [this.latitude, this.longitude],
         zoom: this.zoom
       };
-      const businessMap = map('mapid', mapOptions);
+      const businessMap = map(this.name, mapOptions);
       const layer = new TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
       businessMap.addLayer(layer);
       marker([this.latitude, this.longitude]).addTo(businessMap);
-    }, 100);
+    }, 1000);
   }
 
 }
