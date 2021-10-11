@@ -28,7 +28,7 @@ export class BusinessPage {
           <div class="details">
             <div class="detail">
               <div class="detail-left">
-                <ion-icon name="globe-outline" size="large"></ion-icon>
+                <ion-icon name="globe-outline" size="large"/>
               </div>
               <div class="detail-right">
                 <p>https://www.premier-stores.co.uk/our-stores/whetsone-convenience-store</p>
@@ -36,10 +36,18 @@ export class BusinessPage {
             </div>
             <div class="detail">
               <div class="detail-left">
-                <ion-icon name="call-outline" size="large"></ion-icon>
+                <ion-icon name="call-outline" size="large"/>
               </div>
               <div class="detail-right">
                 <p>(01252) 542 381</p>
+              </div>
+            </div>
+            <div class="detail">
+              <div class="detail-left">
+                <ion-icon name="home-outline" size="large"/>
+              </div>
+              <div class="detail-right">
+                <p>89 Whetstone Rd, Cove, GU14 9SX</p>
               </div>
             </div>
           </div>
