@@ -14,15 +14,11 @@ html {
   display: block;
   padding: 140px 3%;
   position: relative;
-  background-image: url('../assets/img/BG Shape Content.svg');
+  background-image: url('assets/img/BG Shape Content.svg');
   background-size: 96% 90%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   min-height: 850px;
-}
-
-.content-section-bg .root-page {
-  background-image: url('assets/img/BG Shape Content.svg');
 }
 
 .container {

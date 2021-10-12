@@ -9,7 +9,6 @@ export namespace Components {
     interface AppRoot {
     }
     interface BannerBlock {
-        "baseUrl": string;
     }
     interface BusinessCardBlock {
         "description": string;
@@ -34,14 +33,12 @@ export namespace Components {
         "youtube": string;
     }
     interface HeaderBlock {
-        "imageSrc": string;
     }
     interface HomePage {
     }
     interface MapBlock {
         "latitude": number;
         "longitude": number;
-        "name": string;
         "zoom": number;
     }
     interface NavLinkBlock {
@@ -184,7 +181,6 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface BannerBlock {
-        "baseUrl"?: string;
     }
     interface BusinessCardBlock {
         "description"?: string;
@@ -209,14 +205,12 @@ declare namespace LocalJSX {
         "youtube"?: string;
     }
     interface HeaderBlock {
-        "imageSrc"?: string;
     }
     interface HomePage {
     }
     interface MapBlock {
         "latitude"?: number;
         "longitude"?: number;
-        "name"?: string;
         "zoom"?: number;
     }
     interface NavLinkBlock {

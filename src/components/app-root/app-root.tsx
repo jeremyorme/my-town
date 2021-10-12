@@ -8,7 +8,7 @@ export class AppRoot {
   render() {
     return (
       <ion-app>
-        <ion-router useHash={false}>
+        <ion-router useHash={true}>
           <ion-route url="/" component="home-page"/>
           <ion-route url="/shopping" component="shopping-page"/>
           <ion-route url="/food" component="food-page"/>

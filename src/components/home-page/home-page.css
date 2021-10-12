@@ -6,7 +6,7 @@ html {
   box-sizing: inherit;
 }
 
-map-block .map {
-  width: 400px;
-  height: 600px;
+#local-map {
+  --map-width: 400px;
+  --map-height: 600px;
 }

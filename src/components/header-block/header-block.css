@@ -17,14 +17,10 @@ html {
   padding: 100px 3% 140px 3%;
   overflow: hidden;
   position: relative;
-  background-image: url('../assets/img/BG%20Shape.svg');
+  background-image: url('assets/img/BG Shape.svg');
   background-repeat: no-repeat;
   background-size: auto;
   background-position: 100% 0;
-}
-
-.root-page .header {
-  background-image: url('assets/img/BG%20Shape.svg');
 }
 
 .container-flex {

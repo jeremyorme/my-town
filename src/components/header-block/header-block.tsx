@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'header-block',
@@ -6,8 +6,6 @@ import { Component, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class HeaderBlock {
-  @Prop() imageSrc: string;
-  //            <img class="hero-image" src={this.imageSrc}/>
 
   render() {
     return (

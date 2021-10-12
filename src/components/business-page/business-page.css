@@ -10,6 +10,11 @@ html {
   display: block;
 }
 
+#business-map {
+  --map-height: 70vh;
+  --map-width: auto;
+}
+
 .details {
   display: flex;
   flex-direction: column;
