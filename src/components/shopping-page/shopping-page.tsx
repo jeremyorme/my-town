@@ -22,7 +22,7 @@ export class ShoppingPage {
         </sub-header-block>
         <content-block>
           <div class="menu-item">
-            <business-card-block name="Whetstone Convenience Store" description="Great little convenience store with all the essentials you could need" icon="cart-outline" href="#/whetstone-convenience-store"/>
+            <business-card-block name="Whetstone Convenience Store" description="Great little convenience store with all the essentials you could need" icon="cart-outline" href="#/shopping/whetstone-convenience-store"/>
           </div>
         </content-block>
         <footer-block/>
