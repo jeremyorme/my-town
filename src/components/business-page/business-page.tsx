@@ -1,10 +1,11 @@
-import { Component, h } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'business-page',
   styleUrl: 'business-page.css',
 })
 export class BusinessPage {
+  @Prop() db: any;
 
   render() {
     return [

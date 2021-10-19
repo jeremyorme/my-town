@@ -1,10 +1,11 @@
-import { Component, h } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'food-page',
   styleUrl: 'food-page.css',
 })
 export class FoodPage {
+  @Prop() db: any;
 
   render() {
     return [

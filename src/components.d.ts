@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { MainDb } from "./helpers/main-db";
+import { BusinessDb } from "./helpers/business-db";
 export namespace Components {
     interface AppRoot {
     }
@@ -17,6 +19,7 @@ export namespace Components {
         "name": string;
     }
     interface BusinessPage {
+        "db": any;
     }
     interface ContactPage {
     }
@@ -25,6 +28,7 @@ export namespace Components {
     interface ContentBlock {
     }
     interface FoodPage {
+        "db": any;
     }
     interface FooterBlock {
         "baseUrl": string;
@@ -35,6 +39,7 @@ export namespace Components {
     interface HeaderBlock {
     }
     interface HomePage {
+        "db": MainDb;
     }
     interface MapBlock {
         "latitude": number;
@@ -48,8 +53,10 @@ export namespace Components {
     interface NavbarBlock {
     }
     interface ServicesPage {
+        "db": any;
     }
     interface ShoppingPage {
+        "db": BusinessDb;
     }
     interface SubHeaderBlock {
     }
@@ -189,6 +196,7 @@ declare namespace LocalJSX {
         "name"?: string;
     }
     interface BusinessPage {
+        "db"?: any;
     }
     interface ContactPage {
     }
@@ -197,6 +205,7 @@ declare namespace LocalJSX {
     interface ContentBlock {
     }
     interface FoodPage {
+        "db"?: any;
     }
     interface FooterBlock {
         "baseUrl"?: string;
@@ -207,6 +216,7 @@ declare namespace LocalJSX {
     interface HeaderBlock {
     }
     interface HomePage {
+        "db"?: MainDb;
     }
     interface MapBlock {
         "latitude"?: number;
@@ -220,8 +230,10 @@ declare namespace LocalJSX {
     interface NavbarBlock {
     }
     interface ServicesPage {
+        "db"?: any;
     }
     interface ShoppingPage {
+        "db"?: BusinessDb;
     }
     interface SubHeaderBlock {
     }

@@ -1,10 +1,13 @@
-import { Component, h } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
+import { MainDb } from '../../helpers/main-db';
 
 @Component({
   tag: 'home-page',
   styleUrl: 'home-page.css',
 })
 export class HomePage {
+  @Prop() db: MainDb;
+
   render() {
     return [
       <ion-content>
@@ -24,6 +27,9 @@ export class HomePage {
           <map-block id="local-map" slot="right" latitude={51.2869} longitude={-0.7526} zoom={13}/>
         </header-block>
         <footer-block baseUrl="."/>
+        {this.db.isTemporary ? <div>
+          DB address: {this.db.address()}
+        </div> : null}
       </ion-content>,
     ];
   }
