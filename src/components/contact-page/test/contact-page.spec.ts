@@ -1,19 +1,19 @@
 import {newSpecPage} from '@stencil/core/testing';
 
-import {ServicesPage} from '../services-page';
+import {ContactPage} from '../contact-page';
 
-describe('services-page', () => {
+describe('contact-page', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components : [ ServicesPage ],
-      html : `<services-page></services-page>`,
+      components : [ ContactPage ],
+      html : `<contact-page></contact-page>`,
     });
     expect(page.root).toEqualHtml(`
-      <services-page>
+      <contact-page>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </services-page>
+      </contact-page>
     `);
   });
 });
