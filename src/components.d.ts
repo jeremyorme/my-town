@@ -6,13 +6,13 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MainDb } from "./helpers/main-db";
-import { BusinessDb } from "./helpers/business-db";
 export namespace Components {
     interface AppRoot {
     }
     interface BannerBlock {
     }
     interface BusinessCardBlock {
+        "buttonText": string;
         "description": string;
         "href": string;
         "icon": string;
@@ -56,7 +56,7 @@ export namespace Components {
         "db": any;
     }
     interface ShoppingPage {
-        "db": BusinessDb;
+        "db": MainDb;
     }
     interface SubHeaderBlock {
     }
@@ -190,6 +190,7 @@ declare namespace LocalJSX {
     interface BannerBlock {
     }
     interface BusinessCardBlock {
+        "buttonText"?: string;
         "description"?: string;
         "href"?: string;
         "icon"?: string;
@@ -233,7 +234,7 @@ declare namespace LocalJSX {
         "db"?: any;
     }
     interface ShoppingPage {
-        "db"?: BusinessDb;
+        "db"?: MainDb;
     }
     interface SubHeaderBlock {
     }

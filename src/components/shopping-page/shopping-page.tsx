@@ -1,12 +1,12 @@
 import { Component, Prop, h } from '@stencil/core';
-import { BusinessDb } from '../../helpers/business-db';
+import { MainDb } from '../../helpers/main-db';
 
 @Component({
   tag: 'shopping-page',
   styleUrl: 'shopping-page.css',
 })
 export class ShoppingPage {
-  @Prop() db: BusinessDb;
+  @Prop() db: MainDb;
 
   render() {
     return [
@@ -24,6 +24,7 @@ export class ShoppingPage {
         </sub-header-block>
         <content-block>
           <div class="menu-item">
+            {this.db.canWrite() ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" href="#/shopping/new-business"/> : null}
             <business-card-block name="Whetstone Convenience Store" description="Great little convenience store with all the essentials you could need" icon="cart-outline" href="#/shopping/whetstone-convenience-store"/>
           </div>
         </content-block>
