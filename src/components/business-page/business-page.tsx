@@ -10,11 +10,13 @@ export class BusinessPage {
   @Prop() slug: string;
 
   @State() name: string = 'Local *Business* Name';
+  @State() description: string = 'Great little convenience store with all the essentials you could need';
   @State() url: string = 'https://www.localbusiness.co.uk';
   @State() tel: string = '(01252) 818 818';
   @State() address: string = '89 Whetstone Rd, Cove, GU14 9SX';
   @State() longitude: number = -0.79131;
   @State() latitude: number = 51.29624;
+  @State() icon: string = 'home-outline';
 
   async componentWillLoad() {
     if (this.slug == 'new-business')
@@ -26,22 +28,27 @@ export class BusinessPage {
 
     const business = matchingBusinesses[0];
     this.name = business.name;
+    this.description = business.description;
     this.url = business.url;
     this.tel = business.tel;
     this.address = business.address;
     this.longitude = business.longitude;
     this.latitude = business.latitude;
+    this.icon = business.icon;
   }
 
   async save() {
     const business = {
       _id: this.name.toLowerCase().split(/[^a-z0-9 ]/).join('').split(' ').join('-'),
       name: this.name,
+      description: this.description,
       url: this.url,
       tel: this.tel,
       address: this.address,
       longitude: this.longitude,
-      latitude: this.latitude
+      latitude: this.latitude,
+      icon: this.icon,
+      category: 'shopping'
     };
 
     await this.db.businessDb.db.put(business);
@@ -59,7 +66,10 @@ export class BusinessPage {
           <nav-link-block href="#/contact/">Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
-          <field-block class="name-field" value={this.name} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.name = e.detail; this.save();}} />
+          <div class="details centered">
+            <field-block class="name-field" value={this.name} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.name = e.detail; this.save();}} />
+            <field-block class="description-field" value={this.description} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.description = e.detail; this.save();}} />
+          </div>
         </sub-header-block>
         <content-block>
           <map-block id="business-map" latitude={this.latitude} longitude={this.longitude} zoom={16}/>
@@ -89,6 +99,10 @@ export class BusinessPage {
               <ion-icon class="detail-left" name="home-outline" size="large"/>
               <field-block class="detail-right" value={this.address} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.address = e.detail; this.save();}}/>
             </div>
+            {this.db.canWrite() ? <div class="detail">
+              <ion-icon class="detail-left" name="image-outline" size="large"/>
+              <field-block class="detail-right" value={this.icon} iconSize="small" readOnly={false} onValueChanged={e => {this.icon = e.detail; this.save();}}/>
+            </div> : null}
           </div>
         </content-bg-block>
         <footer-block/>

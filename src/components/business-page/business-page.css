@@ -43,3 +43,14 @@ html {
   --font-weight: bold;
   --line-height: 72px;
 }
+
+.description-field {
+  --font-size: 18px;
+  --font-weight: normal;
+  --line-height: 22px;
+  margin-top: 22px;
+}
+
+.field {
+  justify-content: center;
+}

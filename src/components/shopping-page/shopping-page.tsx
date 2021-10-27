@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 
 @Component({
@@ -7,6 +7,12 @@ import { MainDb } from '../../helpers/main-db';
 })
 export class ShoppingPage {
   @Prop() db: MainDb;
+
+  @State() shops: any[] = [];
+
+  async componentWillLoad() {
+    this.shops = await this.db.businessDb.db.query(b => b.category == 'shopping');
+  }
 
   render() {
     return [
@@ -25,7 +31,7 @@ export class ShoppingPage {
         <content-block>
           <div class="menu-item">
             {this.db.canWrite() ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" href="#/shopping/new-business"/> : null}
-            <business-card-block name="Whetstone Convenience Store" description="Great little convenience store with all the essentials you could need" icon="cart-outline" href="#/shopping/whetstone-convenience-store"/>
+            {this.shops.map(s => <business-card-block name={s.name.split('*').join('')} description={s.description.split('*').join('')} icon={s.icon} href={'#/' + s.category + '/' + s._id}/>)}
           </div>
         </content-block>
         <footer-block/>
