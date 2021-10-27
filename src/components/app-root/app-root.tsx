@@ -19,9 +19,9 @@ export class AppRoot {
         <ion-router useHash={true}>
           <ion-route url="/" component="home-page" componentProps={{db: this.db}}/>
           <ion-route url="/shopping" component="shopping-page" componentProps={{db: this.db}}/>
-          <ion-route url="/shopping/:businessName" component="business-page" componentProps={{db: this.db.businessDb}}/>
-          <ion-route url="/food" component="food-page" componentProps={{db: this.db.businessDb}}/>
-          <ion-route url="/services" component="services-page" componentProps={{db: this.db.businessDb}}/>
+          <ion-route url="/shopping/:slug" component="business-page" componentProps={{db: this.db}}/>
+          <ion-route url="/food" component="food-page" componentProps={{db: this.db}}/>
+          <ion-route url="/services" component="services-page" componentProps={{db: this.db}}/>
           <ion-route url="/contact" component="contact-page"/>
         </ion-router>
         <ion-nav/>

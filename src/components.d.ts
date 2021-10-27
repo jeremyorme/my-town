@@ -19,13 +19,20 @@ export namespace Components {
         "name": string;
     }
     interface BusinessPage {
-        "db": any;
+        "db": MainDb;
+        "slug": string;
     }
     interface ContactPage {
     }
     interface ContentBgBlock {
     }
     interface ContentBlock {
+    }
+    interface FieldBlock {
+        "iconSize": string;
+        "isLink": boolean;
+        "readOnly": boolean;
+        "value": string;
     }
     interface FoodPage {
         "db": any;
@@ -104,6 +111,12 @@ declare global {
         prototype: HTMLContentBlockElement;
         new (): HTMLContentBlockElement;
     };
+    interface HTMLFieldBlockElement extends Components.FieldBlock, HTMLStencilElement {
+    }
+    var HTMLFieldBlockElement: {
+        prototype: HTMLFieldBlockElement;
+        new (): HTMLFieldBlockElement;
+    };
     interface HTMLFoodPageElement extends Components.FoodPage, HTMLStencilElement {
     }
     var HTMLFoodPageElement: {
@@ -172,6 +185,7 @@ declare global {
         "contact-page": HTMLContactPageElement;
         "content-bg-block": HTMLContentBgBlockElement;
         "content-block": HTMLContentBlockElement;
+        "field-block": HTMLFieldBlockElement;
         "food-page": HTMLFoodPageElement;
         "footer-block": HTMLFooterBlockElement;
         "header-block": HTMLHeaderBlockElement;
@@ -197,13 +211,21 @@ declare namespace LocalJSX {
         "name"?: string;
     }
     interface BusinessPage {
-        "db"?: any;
+        "db"?: MainDb;
+        "slug"?: string;
     }
     interface ContactPage {
     }
     interface ContentBgBlock {
     }
     interface ContentBlock {
+    }
+    interface FieldBlock {
+        "iconSize"?: string;
+        "isLink"?: boolean;
+        "onValueChanged"?: (event: CustomEvent<string>) => void;
+        "readOnly"?: boolean;
+        "value"?: string;
     }
     interface FoodPage {
         "db"?: any;
@@ -246,6 +268,7 @@ declare namespace LocalJSX {
         "contact-page": ContactPage;
         "content-bg-block": ContentBgBlock;
         "content-block": ContentBlock;
+        "field-block": FieldBlock;
         "food-page": FoodPage;
         "footer-block": FooterBlock;
         "header-block": HeaderBlock;
@@ -269,6 +292,7 @@ declare module "@stencil/core" {
             "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
             "content-bg-block": LocalJSX.ContentBgBlock & JSXBase.HTMLAttributes<HTMLContentBgBlockElement>;
             "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
+            "field-block": LocalJSX.FieldBlock & JSXBase.HTMLAttributes<HTMLFieldBlockElement>;
             "food-page": LocalJSX.FoodPage & JSXBase.HTMLAttributes<HTMLFoodPageElement>;
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
             "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;

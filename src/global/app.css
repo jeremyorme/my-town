@@ -38,6 +38,7 @@
   
   --font-family-default: 'Inter', sans-serif;
   --font-size-default: 18px;
+  --font-weight-default: normal;
   
   --ion-font-family: var(--font-family-default);
 }
@@ -56,6 +57,8 @@ p {
 
 h1 {
   color: var(--color-blackish);
+  font-size: 60px;
+  font-weight: bold;
 }
 
 h1 strong {

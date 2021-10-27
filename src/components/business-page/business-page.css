@@ -18,12 +18,16 @@ html {
 .details {
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .detail {
   display: flex;
   flex-direction: row;
   align-items: center;
+  --font-size: var(--font-size-default);
+  --font-weight: var(--font-weight-default);
+  padding-bottom: 10px;
 }
 
 .detail-left {
@@ -32,4 +36,10 @@ html {
 
 .detail-right {
   margin-left: 20px;
+}
+
+.name-field {
+  --font-size: 60px;
+  --font-weight: bold;
+  --line-height: 72px;
 }

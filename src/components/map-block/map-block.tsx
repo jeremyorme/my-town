@@ -1,5 +1,5 @@
-import { Component, Host, Prop, h } from '@stencil/core';
-import { map, TileLayer, marker } from 'leaflet';
+import { Component, Host, Prop, Watch, h } from '@stencil/core';
+import { map, TileLayer, marker, LatLng } from 'leaflet';
 
 @Component({
   tag: 'map-block',
@@ -14,6 +14,7 @@ export class MapBlock {
 
   mapDiv: HTMLElement;
   mapObj: map;
+  markerObj: marker;
 
   render() {
     return (
@@ -32,12 +33,34 @@ export class MapBlock {
         dragging: false
       };
       this.mapObj = map(this.mapDiv, mapOptions);
-      marker([this.latitude, this.longitude]).addTo(this.mapObj);
+      this.markerObj = marker([this.latitude, this.longitude]);
+      this.markerObj.addTo(this.mapObj);
     }, 100);
   }
 
   componentWillRender() {
-    this.mapObj.invalidateSize();
+    if (this.mapObj) {
+      this.mapObj.invalidateSize();
+    }
   }
 
+  @Watch('longitude') longitudeChanged() {
+    const latLng = new LatLng(this.latitude, this.longitude);
+    if (this.markerObj) {
+      this.markerObj.setLatLng(latLng);
+    }
+    if (this.mapObj) {
+      this.mapObj.panTo(latLng);
+    }
+  }
+
+  @Watch('latitude') latitudeChanged() {
+    const latLng = new LatLng(this.latitude, this.longitude);
+    if (this.markerObj) {
+      this.markerObj.setLatLng(latLng);
+    }
+    if (this.mapObj) {
+      this.mapObj.panTo(latLng);
+    }
+  }
 }
