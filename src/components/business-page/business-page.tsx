@@ -8,6 +8,7 @@ import { MainDb } from '../../helpers/main-db';
 export class BusinessPage {
   @Prop() db: MainDb;
   @Prop() slug: string;
+  @Prop() category: string;
 
   @State() name: string = 'Local *Business* Name';
   @State() description: string = 'Great little convenience store with all the essentials you could need';
@@ -40,6 +41,7 @@ export class BusinessPage {
   async save() {
     const business = {
       _id: this.name.toLowerCase().split(/[^a-z0-9 ]/).join('').split(' ').join('-'),
+      category: this.category,
       name: this.name,
       description: this.description,
       url: this.url,
@@ -47,8 +49,7 @@ export class BusinessPage {
       address: this.address,
       longitude: this.longitude,
       latitude: this.latitude,
-      icon: this.icon,
-      category: 'shopping'
+      icon: this.icon
     };
 
     await this.db.businessDb.db.put(business);

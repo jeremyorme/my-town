@@ -19,6 +19,7 @@ export namespace Components {
         "name": string;
     }
     interface BusinessPage {
+        "category": string;
         "db": MainDb;
         "slug": string;
     }
@@ -211,6 +212,7 @@ declare namespace LocalJSX {
         "name"?: string;
     }
     interface BusinessPage {
+        "category"?: string;
         "db"?: MainDb;
         "slug"?: string;
     }
