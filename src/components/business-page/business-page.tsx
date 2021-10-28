@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, Event, EventEmitter, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 
 @Component({
@@ -18,6 +18,8 @@ export class BusinessPage {
   @State() longitude: number = -0.79131;
   @State() latitude: number = 51.29624;
   @State() icon: string = 'home-outline';
+
+  @Event() dbUpdated: EventEmitter<string>;
 
   async componentWillLoad() {
     if (this.slug == 'new-business')
@@ -53,6 +55,7 @@ export class BusinessPage {
     };
 
     await this.db.businessDb.db.put(business);
+    this.dbUpdated.emit(this.category);
   }
 
   render() {

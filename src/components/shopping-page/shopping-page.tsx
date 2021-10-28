@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, Listen, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 
 @Component({
@@ -12,6 +12,14 @@ export class ShoppingPage {
 
   async componentWillLoad() {
     this.shops = await this.db.businessDb.db.query(b => b.category == 'shopping');
+  }
+
+  @Listen('dbUpdated', {target: 'window'})
+  async dbUpdated(e: CustomEvent<string>) {
+    if (e.detail != 'shopping')
+      return;
+
+    await this.componentWillLoad();
   }
 
   render() {

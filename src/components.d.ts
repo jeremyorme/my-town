@@ -214,6 +214,7 @@ declare namespace LocalJSX {
     interface BusinessPage {
         "category"?: string;
         "db"?: MainDb;
+        "onDbUpdated"?: (event: CustomEvent<string>) => void;
         "slug"?: string;
     }
     interface ContactPage {
