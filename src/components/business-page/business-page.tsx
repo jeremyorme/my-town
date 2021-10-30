@@ -21,7 +21,11 @@ export class BusinessPage {
 
   @Event() dbUpdated: EventEmitter<string>;
 
+  private navCtrl: HTMLIonRouterElement;
+
   async componentWillLoad() {
+    this.navCtrl = document.querySelector("ion-router");
+
     if (this.slug == 'new-business')
       return;
 
@@ -41,20 +45,31 @@ export class BusinessPage {
   }
 
   async save() {
-    const business = {
-      _id: this.name.toLowerCase().split(/[^a-z0-9 ]/).join('').split(' ').join('-'),
-      category: this.category,
-      name: this.name,
-      description: this.description,
-      url: this.url,
-      tel: this.tel,
-      address: this.address,
-      longitude: this.longitude,
-      latitude: this.latitude,
-      icon: this.icon
-    };
+    const newSlug = this.name.toLowerCase().split(/[^a-z0-9 ]/).join('').split(' ').join('-');
+    
+    if (newSlug != this.slug && this.slug != 'new-business') {
+      await this.db.businessDb.db.del(this.slug);
+    }
 
-    await this.db.businessDb.db.put(business);
+    if (newSlug == 'delete') {
+      this.navCtrl.push('../' + this.category);
+    } else {
+      const business = {
+        _id: newSlug,
+        category: this.category,
+        name: this.name,
+        description: this.description,
+        url: this.url,
+        tel: this.tel,
+        address: this.address,
+        longitude: this.longitude,
+        latitude: this.latitude,
+        icon: this.icon
+      };
+
+      await this.db.businessDb.db.put(business);
+      this.navCtrl.push('../' + this.category + '/' + newSlug);
+    }
     this.dbUpdated.emit(this.category);
   }
 
