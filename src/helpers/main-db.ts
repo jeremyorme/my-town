@@ -15,6 +15,15 @@ export class MainDb {
   async init(IPFS: any, OrbitDB: any) {
     const ipfsOptions = {
       repo : './ipfs',
+      config: {
+        Addresses: {
+          Swarm: [
+              '/dns4/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star',
+              '/dns6/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star'
+          ]
+        }
+      },
+      relay: { enabled: true, hop: { enabled: true, active: true } }
     };
     this.ipfs = await IPFS.create(ipfsOptions);
     this.orbitdb = await OrbitDB.createInstance(this.ipfs);

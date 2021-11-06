@@ -13,7 +13,8 @@ export class BusinessDb {
     else {
       // Otherwise create a new one and store its address
       this.db = await mainDb.orbitdb.docstore(name);
-      mainDb.db.put(name, this.db.address.toString());
+      if (mainDb.canWrite())
+        mainDb.db.put(name, this.db.address.toString());
     }
     await this.db.load();
   }
