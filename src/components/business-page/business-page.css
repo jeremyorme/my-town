@@ -44,6 +44,13 @@ html {
   --line-height: 72px;
 }
 
+@media only screen and (max-width: 478px) {
+  .name-field {
+    --font-size: 50px;
+    --line-height: 62px;
+  }
+}
+
 .description-field {
   --font-size: 18px;
   --font-weight: normal;

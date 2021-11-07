@@ -61,20 +61,22 @@ h1 {
   font-weight: bold;
 }
 
+@media only screen and (max-width: 478px) {
+  h1 {
+    font-size: 50px;
+  }
+}
+
 h1 strong {
   color: var(--color-brand) !important;
 }
 
 ion-button {
-  --background: var(--color-brand) url('../assets/img/Button%20Wave.svg');
+  --background: var(--color-brand) url('assets/img/Button%20Wave.svg');
   --padding-top: 30px;
   --padding-start: 38px;
   --padding-bottom: 30px;
   --padding-end: 38px;
 
   max-width: 198px;
-}
-
-.root-page ion-button {
-  --background: var(--color-brand) url('assets/img/Button%20Wave.svg');
 }
