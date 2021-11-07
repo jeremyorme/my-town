@@ -12,7 +12,7 @@ export class BannerBlock {
       <Host>
         <div class="banner">
           <div class="banner-wrap">
-            <span class="notice-text">We list the best locally owned businesses in Farnborough. <a href={'#/shopping/'} class="white-link">Shop Now!</a></span>
+            <span class="notice-text">The best locally owned shops in Farnborough. <a href={'#/shopping/'} class="white-link">Shop Now!</a></span>
           </div>
         </div>
       </Host>

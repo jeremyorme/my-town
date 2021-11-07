@@ -10,6 +10,12 @@ html {
   box-sizing: inherit;
 }
 
+@media only screen and (max-width: 478px) {
+  :host {
+    display: none;
+  }
+}
+
 .banner {
   display: flex;
   padding: 5px 3%;
