@@ -101,6 +101,32 @@ p {
   grid-row-end: span 1;
 }
 
+@media only screen and (max-width: 478px) {
+.footer-column.col-1 {
+  grid-column-end: span 3;
+}
+
+.footer-column.col-2 {
+  grid-column-start: 1;
+  grid-column-end: span 3;
+  grid-row-start: 2;
+  grid-row-end: span 1;
+}
+
+.footer-column.col-3 {
+  grid-column-start: 1;
+  grid-column-end: span 3;
+  grid-row-start: 3;
+  grid-row-end: span 1;
+}
+
+.footer-column.col-4 {
+  grid-column-start: 1;
+  grid-column-end: span 3;
+  grid-row-start: 4;
+  grid-row-end: span 1;
+}}
+
 .footer-logo {
   margin-bottom: 25px;
   width: 40px;
@@ -176,4 +202,15 @@ p {
   height: 13px;
   background-image: url('assets/img/social-youtube.svg');
   background-size: cover;
+}
+
+@media only screen and (max-width: 478px) {
+  .footer-legal {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-detail-left {
+    width: auto;
+  }
 }
