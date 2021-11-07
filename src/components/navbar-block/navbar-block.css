@@ -98,7 +98,8 @@ html {
 }
 
 .cart-button {
-  display: flex;
+  /*display: flex; - temporarily hidden*/
+  display: none;
   padding: 13px;
   min-width: 55px;
   min-height: 55px;
