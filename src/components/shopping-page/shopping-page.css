@@ -10,3 +10,9 @@ html {
   display: block;
   width: 50%;
 }
+
+@media only screen and (max-width: 478px) {
+  .menu-item {
+    width: 100%;
+  }
+}
