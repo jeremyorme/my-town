@@ -12,6 +12,10 @@ export class ShoppingPage {
 
   async componentWillLoad() {
     this.shops = await this.db.businessDb.db.query(b => b.category == 'shopping');
+    setTimeout(async () => {
+      await this.db.businessDb.db.load();
+      this.componentWillLoad();
+    }, 10000);
   }
 
   @Listen('dbUpdated', {target: 'window'})
