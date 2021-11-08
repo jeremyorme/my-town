@@ -23,7 +23,15 @@ export class MainDb {
           ]
         }
       },
-      relay: { enabled: true, hop: { enabled: true, active: true } }
+      preload: {
+        enabled: true,
+        addresses: [
+          '/dns4/node0.preload.ipfs.io/https',
+          '/dns4/node1.preload.ipfs.io/https',
+          '/dns4/node2.preload.ipfs.io/https',
+          '/dns4/node3.preload.ipfs.io/https'
+        ]
+      }
     };
     this.ipfs = await IPFS.create(ipfsOptions);
     this.orbitdb = await OrbitDB.createInstance(this.ipfs);
