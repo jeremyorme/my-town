@@ -12,28 +12,28 @@ export class MainDb {
     this.dbName = dbName;
   }
 
-  async init(IPFS: any, OrbitDB: any) {
-    const ipfsOptions = {
+  async init(Ipfs: any, OrbitDB: any) {
+
+    this.ipfs = await Ipfs.create({
       repo : './ipfs',
+      start: true,
+      preload: { 
+        enabled: false
+      },
+      EXPERIMENTAL: {
+        pubsub: true,
+      },
       config: {
         Addresses: {
           Swarm: [
-            '/dns4/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star',
-            '/dns6/star.thedisco.zone/tcp/9090/wss/p2p-webrtc-star'
+            '/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star/',
+            '/dns4/wrtc-star2.sjc.dwebops.pub/tcp/443/wss/p2p-webrtc-star/',
+            '/dns4/webrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star/',
           ]
-        }
-      },
-      preload: {
-        enabled: true,
-        addresses: [
-          '/dns4/node0.preload.ipfs.io/https',
-          '/dns4/node1.preload.ipfs.io/https',
-          '/dns4/node2.preload.ipfs.io/https',
-          '/dns4/node3.preload.ipfs.io/https'
-        ]
+        },
       }
-    };
-    this.ipfs = await IPFS.create(ipfsOptions);
+    })
+
     this.orbitdb = await OrbitDB.createInstance(this.ipfs);
     this.db = await this.orbitdb.keyvalue(this.isTemporary() ? 'my-town' : this.dbName);
     await this.db.load();
