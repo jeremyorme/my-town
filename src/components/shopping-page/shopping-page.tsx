@@ -10,20 +10,22 @@ export class ShoppingPage {
 
   @State() shops: any[] = [];
 
-  async componentWillLoad() {
+  async loadData() {
+    await this.db.businessDb.db.load();
     this.shops = await this.db.businessDb.db.query(b => b.category == 'shopping');
-    setTimeout(async () => {
-      await this.db.businessDb.db.load();
-      this.componentWillLoad();
-    }, 10000);
+  }
+
+  async componentWillLoad() {
+    await this.loadData();
+    this.db.businessDb.db.events.on('replicated', () => {
+      return this.loadData();
+    });
   }
 
   @Listen('dbUpdated', {target: 'window'})
   async dbUpdated(e: CustomEvent<string>) {
-    if (e.detail != 'shopping')
-      return;
-
-    await this.componentWillLoad();
+    if (e.detail == 'shopping')
+      this.loadData();
   }
 
   render() {
