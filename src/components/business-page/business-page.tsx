@@ -27,26 +27,24 @@ export class BusinessPage {
     if (this.slug == 'new-business')
       return;
 
-    const matchingBusinesses = await this.db.businessDb.db.query(b => b._id == this.slug);
-    if (matchingBusinesses.length == 0)
-      return; // TODO: do something better than this
-
-    const business = matchingBusinesses[0];
-    this.name = business.name;
-    this.description = business.description;
-    this.url = business.url;
-    this.tel = business.tel;
-    this.address = business.address;
-    this.longitude = business.longitude;
-    this.latitude = business.latitude;
-    this.icon = business.icon;
+    const business = await this.db.businessDb.get(this.slug);
+    if (business) {
+      this.name = business.name;
+      this.description = business.description;
+      this.url = business.url;
+      this.tel = business.tel;
+      this.address = business.address;
+      this.longitude = business.longitude;
+      this.latitude = business.latitude;
+      this.icon = business.icon;
+    }
   }
 
   async save() {
     const newSlug = this.name.toLowerCase().split(/[^a-z0-9 ]/).join('').split(' ').join('-');
     
     if (newSlug != this.slug && this.slug != 'new-business') {
-      await this.db.businessDb.db.del(this.slug);
+      await this.db.businessDb.del(this.slug);
     }
 
     if (newSlug == 'delete') {
@@ -65,7 +63,7 @@ export class BusinessPage {
         icon: this.icon
       };
 
-      await this.db.businessDb.db.put(business);
+      await this.db.businessDb.put(business);
       this.navCtrl.push('../' + this.category + '/' + newSlug);
     }
   }

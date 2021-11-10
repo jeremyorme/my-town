@@ -1,49 +1,40 @@
 import { MainDb } from './main-db';
 
+export interface Category {
+  _id: string;
+  headline: string;
+}
+
 export class CategoryDb {
-  db: any;
-  onChangeFn: any;
+  _db: any;
+  _onChangeFn: any;
 
   async init(mainDb: MainDb) {
-    const name = 'category';
-    const dbs = mainDb.db.get(name);
-    if (dbs) {
-      // If we already have a category DB then use it
-      this.db = await mainDb.orbitdb.docstore(dbs);
-    }
-    else {
-      // Otherwise create a new one and store its address
-      this.db = await mainDb.orbitdb.docstore(name);
-      if (mainDb.canWrite())
-        mainDb.db.put(name, this.db.address.toString());
-    }
-    this.db.events.on('replicated', () => {
-      if (this.onChangeFn)
-        return this.onChangeFn();
+    this._db = await mainDb.get('category');
+    this._db.events.on('replicated', () => {
+      if (this._onChangeFn)
+        return this._onChangeFn();
     });
-    this.db.events.on('write', () => {
-      if (this.onChangeFn)
-        return this.onChangeFn();
+    this._db.events.on('write', () => {
+      if (this._onChangeFn)
+        return this._onChangeFn();
     });
   }
 
-  async load() {
-    return this.db.load();
+  load() {
+    return this._db.load();
   }
 
   onChange(fn: any) {
-    this.onChangeFn = fn;
+    this._onChangeFn = fn;
   }
 
-  async query(category: string) {
-    return this.db.query(b => b._id == category);
+  async get(id: string): Promise<Category> {
+    const category = await this._db.query(b => b._id == id);
+    return category.length > 0 ? category[0] as Category : null;
   }
 
-  dbAddress(): string { 
-    return this.db.address.toString();
-  }
-
-  identity(): string {
-    return JSON.stringify(this.db.identity.toJSON());
+  put(category: Category) {
+    return this._db.put(category);
   }
 }

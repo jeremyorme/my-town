@@ -19,9 +19,9 @@ export class ShoppingPage {
 
   async loadCategoryData() {
     await this.db.categoryDb.load();
-    const cat = await this.db.categoryDb.query(this.category);
-    if (cat.length > 0)
-      this.headline = cat[0].headline;
+    const cat = await this.db.categoryDb.get(this.category);
+    if (cat)
+      this.headline = cat.headline;
   }
 
   async componentWillLoad() {
@@ -37,7 +37,7 @@ export class ShoppingPage {
       headline: this.headline
     };
 
-    await this.db.categoryDb.db.put(category);
+    await this.db.categoryDb.put(category);
   }
 
   render() {

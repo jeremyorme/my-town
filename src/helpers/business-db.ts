@@ -1,49 +1,57 @@
 import { MainDb } from './main-db';
 
+export interface Business {
+  _id: string;
+  category: string;
+  name: string;
+  description: string;
+  url: string;
+  tel: string;
+  address: string;
+  longitude: number;
+  latitude: number;
+  icon: string;
+}
+
 export class BusinessDb {
-  db: any;
-  onChangeFn: any;
+  _db: any;
+  _onChangeFn: any;
 
   async init(mainDb: MainDb) {
-    const name = 'business';
-    const dbs = mainDb.db.get(name);
-    if (dbs) {
-      // If we already have a business DB then use it
-      this.db = await mainDb.orbitdb.docstore(dbs);
-    }
-    else {
-      // Otherwise create a new one and store its address
-      this.db = await mainDb.orbitdb.docstore(name);
-      if (mainDb.canWrite())
-        mainDb.db.put(name, this.db.address.toString());
-    }
-    this.db.events.on('replicated', () => {
-      if (this.onChangeFn)
-        return this.onChangeFn();
+    this._db = await mainDb.get('business');
+    this._db.events.on('replicated', () => {
+      if (this._onChangeFn)
+        return this._onChangeFn();
     });
-    this.db.events.on('write', () => {
-      if (this.onChangeFn)
-        return this.onChangeFn();
+    this._db.events.on('write', () => {
+      if (this._onChangeFn)
+        return this._onChangeFn();
     });
   }
 
-  async load() {
-    return this.db.load();
+  load() {
+    return this._db.load();
   }
 
   onChange(fn: any) {
-    this.onChangeFn = fn;
+    this._onChangeFn = fn;
   }
 
-  async query(category: string) {
-    return this.db.query(b => b.category == category);
+  async query(category: string): Promise<Business[]> {
+    const businesses = this._db.query(b => b.category == category);
+    return businesses as Business[];
   }
 
-  dbAddress(): string { 
-    return this.db.address.toString();
+  async get(id: string): Promise<Business> {
+    const businesses = await this._db.query(b => b._id == id);
+    return businesses.length > 0 ? businesses[0] as Business : null;
   }
 
-  identity(): string {
-    return JSON.stringify(this.db.identity.toJSON());
+  put(business: Business) {
+    return this._db.put(business);
+  }
+
+  del(id: string) {
+    return this._db.del(id);
   }
 }

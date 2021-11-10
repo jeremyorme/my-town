@@ -2,21 +2,21 @@ import { BusinessDb } from './business-db';
 import { CategoryDb } from './category-db';
 
 export class MainDb {
-  dbName: string;
-  ipfs: any;
-  orbitdb: any;
-  db: any;
+  _ipfs: any;
+  _orbitdb: any;
+  _dbName: string;
+  _db: any;
 
   businessDb: BusinessDb = new BusinessDb();
   categoryDb: CategoryDb = new CategoryDb();
 
   constructor(dbName: string) {
-    this.dbName = dbName;
+    this._dbName = dbName;
   }
 
   async init(Ipfs: any, OrbitDB: any) {
 
-    this.ipfs = await Ipfs.create({
+    this._ipfs = await Ipfs.create({
       repo : './ipfs',
       start: true,
       preload: { 
@@ -36,30 +36,42 @@ export class MainDb {
       }
     })
 
-    this.orbitdb = await OrbitDB.createInstance(this.ipfs);
-    this.db = await this.orbitdb.keyvalue(this.isTemporary() ? 'my-town' : this.dbName);
-    await this.db.load();
-    await this.initChildren();
-    this.db.events.on('replicated', () => {
-      return this.initChildren();
+    this._orbitdb = await OrbitDB.createInstance(this._ipfs);
+    this._db = await this._orbitdb.keyvalue(this.isTemporary() ? 'my-town' : this._dbName);
+    await this._db.load();
+    await this._initChildren();
+    this._db.events.on('replicated', () => {
+      return this._initChildren();
     });
   }
 
-  async initChildren() {
+  async _initChildren() {
     await this.businessDb.init(this);
     await this.categoryDb.init(this);
   }
 
+  async get(dbName: string): Promise<any> {
+    const dbAddress = this._db.get(dbName);
+    if (dbAddress) {
+      return this._orbitdb.docstore(dbAddress);
+    }
+
+    const db = await this._orbitdb.docstore(dbName);
+    if (this.canWrite())
+      this._db.put(dbName, db.address.toString());
+    return db;
+  }
+
   isTemporary(): boolean {
-    return !this.dbName || this.dbName.length == 0;
+    return !this._dbName || this._dbName.length == 0;
   }
 
   address() {
-    return this.db.address.toString();
+    return this._db.address.toString();
   }
 
   canWrite() {
-    const access = new Set(this.db.access.write)
-    return access.has(this.orbitdb.identity.id) || access.has("*")
+    const access = new Set(this._db.access.write)
+    return access.has(this._orbitdb.identity.id) || access.has("*")
   }
 }
