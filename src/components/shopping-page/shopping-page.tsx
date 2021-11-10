@@ -1,4 +1,4 @@
-import { Component, Prop, State, Listen, h } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 
 @Component({
@@ -7,25 +7,37 @@ import { MainDb } from '../../helpers/main-db';
 })
 export class ShoppingPage {
   @Prop() db: MainDb;
+  @Prop() category: string;
 
-  @State() shops: any[] = [];
+  @State() businesses: any[] = [];
+  @State() headline: string = '*Excellent* quality products from *local* retailers';
 
-  async loadData() {
-    await this.db.businessDb.db.load();
-    this.shops = await this.db.businessDb.db.query(b => b.category == 'shopping');
+  async loadBusinessData() {
+    await this.db.businessDb.load();
+    this.businesses = await this.db.businessDb.query(this.category);
+  }
+
+  async loadCategoryData() {
+    await this.db.categoryDb.load();
+    const cat = await this.db.categoryDb.query(this.category);
+    if (cat.length > 0)
+      this.headline = cat[0].headline;
   }
 
   async componentWillLoad() {
-    await this.loadData();
-    this.db.businessDb.db.events.on('replicated', () => {
-      return this.loadData();
-    });
+    await this.loadBusinessData();
+    await this.loadCategoryData();
+    this.db.businessDb.onChange(() => { return this.loadBusinessData(); });
+    this.db.categoryDb.onChange(() => { return this.loadCategoryData(); });
   }
 
-  @Listen('dbUpdated', {target: 'window'})
-  async dbUpdated(e: CustomEvent<string>) {
-    if (e.detail == 'shopping')
-      this.loadData();
+  async save() {
+    const category = {
+      _id: this.category,
+      headline: this.headline
+    };
+
+    await this.db.categoryDb.db.put(category);
   }
 
   render() {
@@ -34,18 +46,18 @@ export class ShoppingPage {
         <banner-block/>
         <navbar-block>
           <nav-link-block href="#/">Home</nav-link-block>
-          <nav-link-block href="#/shopping/" current={true}>Shopping</nav-link-block>
-          <nav-link-block href="#/food/">Food</nav-link-block>
-          <nav-link-block href="#/services/">Services</nav-link-block>
+          <nav-link-block href="#/shopping/" current={this.category == 'shopping'}>Shopping</nav-link-block>
+          <nav-link-block href="#/food/" current={this.category == 'food'}>Food</nav-link-block>
+          <nav-link-block href="#/services/" current={this.category == 'services'}>Services</nav-link-block>
           <nav-link-block href="#/contact/">Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
-          <h1><strong>Excellent</strong> quality products from <strong>local</strong> retailers</h1>
+          <field-block class="headline-field" value={this.headline} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.headline = e.detail; this.save();}} />
         </sub-header-block>
         <content-block>
           <div class="menu-item">
-            {this.db.canWrite() ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" href="#/shopping/new-business"/> : null}
-            {this.shops.map(s => <business-card-block name={s.name.split('*').join('')} description={s.description.split('*').join('')} icon={s.icon} href={'#/' + s.category + '/' + s._id}/>)}
+            {this.db.canWrite() ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" href={'#/' + this.category + '/new-business'}/> : null}
+            {this.businesses.map(b => <business-card-block name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={'#/' + b.category + '/' + b._id}/>)}
           </div>
         </content-block>
         <footer-block/>

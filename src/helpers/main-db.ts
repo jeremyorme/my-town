@@ -1,4 +1,5 @@
 import { BusinessDb } from './business-db';
+import { CategoryDb } from './category-db';
 
 export class MainDb {
   dbName: string;
@@ -7,6 +8,7 @@ export class MainDb {
   db: any;
 
   businessDb: BusinessDb = new BusinessDb();
+  categoryDb: CategoryDb = new CategoryDb();
 
   constructor(dbName: string) {
     this.dbName = dbName;
@@ -38,7 +40,8 @@ export class MainDb {
     this.db = await this.orbitdb.keyvalue(this.isTemporary() ? 'my-town' : this.dbName);
     await this.db.load();
 
-    return this.businessDb.init(this);
+    await this.businessDb.init(this);
+    await this.categoryDb.init(this);
   }
 
   isTemporary(): boolean {

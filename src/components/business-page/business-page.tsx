@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, h } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 
 @Component({
@@ -18,8 +18,6 @@ export class BusinessPage {
   @State() longitude: number = -0.79131;
   @State() latitude: number = 51.29624;
   @State() icon: string = 'home-outline';
-
-  @Event() dbUpdated: EventEmitter<string>;
 
   private navCtrl: HTMLIonRouterElement;
 
@@ -70,7 +68,6 @@ export class BusinessPage {
       await this.db.businessDb.db.put(business);
       this.navCtrl.push('../' + this.category + '/' + newSlug);
     }
-    this.dbUpdated.emit(this.category);
   }
 
   render() {
@@ -79,9 +76,9 @@ export class BusinessPage {
         <banner-block/>
         <navbar-block>
           <nav-link-block href="#/">Home</nav-link-block>
-          <nav-link-block href="#/shopping/">Shopping</nav-link-block>
-          <nav-link-block href="#/food/">Food</nav-link-block>
-          <nav-link-block href="#/services/">Services</nav-link-block>
+          <nav-link-block href="#/shopping/" current={this.category == 'shopping'}>Shopping</nav-link-block>
+          <nav-link-block href="#/food/" current={this.category == 'food'}>Food</nav-link-block>
+          <nav-link-block href="#/services/" current={this.category == 'services'}>Services</nav-link-block>
           <nav-link-block href="#/contact/">Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>

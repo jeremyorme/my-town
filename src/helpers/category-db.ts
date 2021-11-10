@@ -1,13 +1,13 @@
 import { MainDb } from './main-db';
 
-export class BusinessDb {
+export class CategoryDb {
   db: any;
 
   async init(mainDb: MainDb) {
-    const name = 'business';
+    const name = 'category';
     const dbs = mainDb.db.get(name);
     if (dbs) {
-      // If we already have a business DB then use it
+      // If we already have a category DB then use it
       this.db = await mainDb.orbitdb.docstore(dbs);
     }
     else {
@@ -32,7 +32,7 @@ export class BusinessDb {
   }
 
   async query(category: string) {
-    return this.db.query(b => b.category == category);
+    return this.db.query(b => b._id == category);
   }
 
   dbAddress(): string { 

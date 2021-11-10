@@ -35,9 +35,6 @@ export namespace Components {
         "readOnly": boolean;
         "value": string;
     }
-    interface FoodPage {
-        "db": any;
-    }
     interface FooterBlock {
         "baseUrl": string;
         "instagram": string;
@@ -60,10 +57,8 @@ export namespace Components {
     }
     interface NavbarBlock {
     }
-    interface ServicesPage {
-        "db": any;
-    }
     interface ShoppingPage {
+        "category": string;
         "db": MainDb;
     }
     interface SubHeaderBlock {
@@ -118,12 +113,6 @@ declare global {
         prototype: HTMLFieldBlockElement;
         new (): HTMLFieldBlockElement;
     };
-    interface HTMLFoodPageElement extends Components.FoodPage, HTMLStencilElement {
-    }
-    var HTMLFoodPageElement: {
-        prototype: HTMLFoodPageElement;
-        new (): HTMLFoodPageElement;
-    };
     interface HTMLFooterBlockElement extends Components.FooterBlock, HTMLStencilElement {
     }
     var HTMLFooterBlockElement: {
@@ -160,12 +149,6 @@ declare global {
         prototype: HTMLNavbarBlockElement;
         new (): HTMLNavbarBlockElement;
     };
-    interface HTMLServicesPageElement extends Components.ServicesPage, HTMLStencilElement {
-    }
-    var HTMLServicesPageElement: {
-        prototype: HTMLServicesPageElement;
-        new (): HTMLServicesPageElement;
-    };
     interface HTMLShoppingPageElement extends Components.ShoppingPage, HTMLStencilElement {
     }
     var HTMLShoppingPageElement: {
@@ -187,14 +170,12 @@ declare global {
         "content-bg-block": HTMLContentBgBlockElement;
         "content-block": HTMLContentBlockElement;
         "field-block": HTMLFieldBlockElement;
-        "food-page": HTMLFoodPageElement;
         "footer-block": HTMLFooterBlockElement;
         "header-block": HTMLHeaderBlockElement;
         "home-page": HTMLHomePageElement;
         "map-block": HTMLMapBlockElement;
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
-        "services-page": HTMLServicesPageElement;
         "shopping-page": HTMLShoppingPageElement;
         "sub-header-block": HTMLSubHeaderBlockElement;
     }
@@ -214,7 +195,6 @@ declare namespace LocalJSX {
     interface BusinessPage {
         "category"?: string;
         "db"?: MainDb;
-        "onDbUpdated"?: (event: CustomEvent<string>) => void;
         "slug"?: string;
     }
     interface ContactPage {
@@ -229,9 +209,6 @@ declare namespace LocalJSX {
         "onValueChanged"?: (event: CustomEvent<string>) => void;
         "readOnly"?: boolean;
         "value"?: string;
-    }
-    interface FoodPage {
-        "db"?: any;
     }
     interface FooterBlock {
         "baseUrl"?: string;
@@ -255,10 +232,8 @@ declare namespace LocalJSX {
     }
     interface NavbarBlock {
     }
-    interface ServicesPage {
-        "db"?: any;
-    }
     interface ShoppingPage {
+        "category"?: string;
         "db"?: MainDb;
     }
     interface SubHeaderBlock {
@@ -272,14 +247,12 @@ declare namespace LocalJSX {
         "content-bg-block": ContentBgBlock;
         "content-block": ContentBlock;
         "field-block": FieldBlock;
-        "food-page": FoodPage;
         "footer-block": FooterBlock;
         "header-block": HeaderBlock;
         "home-page": HomePage;
         "map-block": MapBlock;
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
-        "services-page": ServicesPage;
         "shopping-page": ShoppingPage;
         "sub-header-block": SubHeaderBlock;
     }
@@ -296,14 +269,12 @@ declare module "@stencil/core" {
             "content-bg-block": LocalJSX.ContentBgBlock & JSXBase.HTMLAttributes<HTMLContentBgBlockElement>;
             "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
             "field-block": LocalJSX.FieldBlock & JSXBase.HTMLAttributes<HTMLFieldBlockElement>;
-            "food-page": LocalJSX.FoodPage & JSXBase.HTMLAttributes<HTMLFoodPageElement>;
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
             "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "map-block": LocalJSX.MapBlock & JSXBase.HTMLAttributes<HTMLMapBlockElement>;
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
-            "services-page": LocalJSX.ServicesPage & JSXBase.HTMLAttributes<HTMLServicesPageElement>;
             "shopping-page": LocalJSX.ShoppingPage & JSXBase.HTMLAttributes<HTMLShoppingPageElement>;
             "sub-header-block": LocalJSX.SubHeaderBlock & JSXBase.HTMLAttributes<HTMLSubHeaderBlockElement>;
         }
