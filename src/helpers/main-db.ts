@@ -39,7 +39,13 @@ export class MainDb {
     this.orbitdb = await OrbitDB.createInstance(this.ipfs);
     this.db = await this.orbitdb.keyvalue(this.isTemporary() ? 'my-town' : this.dbName);
     await this.db.load();
+    await this.initChildren();
+    this.db.events.on('replicated', () => {
+      return this.initChildren();
+    });
+  }
 
+  async initChildren() {
     await this.businessDb.init(this);
     await this.categoryDb.init(this);
   }

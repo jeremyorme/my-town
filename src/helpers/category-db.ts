@@ -2,6 +2,7 @@ import { MainDb } from './main-db';
 
 export class CategoryDb {
   db: any;
+  onChangeFn: any;
 
   async init(mainDb: MainDb) {
     const name = 'category';
@@ -16,19 +17,22 @@ export class CategoryDb {
       if (mainDb.canWrite())
         mainDb.db.put(name, this.db.address.toString());
     }
+    this.db.events.on('replicated', () => {
+      if (this.onChangeFn)
+        return this.onChangeFn();
+    });
+    this.db.events.on('write', () => {
+      if (this.onChangeFn)
+        return this.onChangeFn();
+    });
   }
 
   async load() {
     return this.db.load();
   }
 
-  onChange(callback: any) {
-    this.db.events.on('replicated', () => {
-      return callback();
-    });
-    this.db.events.on('write', () => {
-      return callback();
-    });
+  onChange(fn: any) {
+    this.onChangeFn = fn;
   }
 
   async query(category: string) {
