@@ -14,7 +14,7 @@ export class NavbarBlock {
         <div class="navbar">
           <div class="navigation-container">
             <div class="navigation-left">
-              <div class="img-logo-svg" />
+              <a href="/"><div class="img-logo-svg" /></a>
             </div>
             <div class="navigation-right">
               <div class={this.menuOpen ? "menu-button open" : "menu-button"} onClick={() => {this.menuOpen = !this.menuOpen}}>
