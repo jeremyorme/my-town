@@ -19,10 +19,14 @@ export class CategoryDb {
       if (this._onChangeFn)
         return this._onChangeFn();
     });
+    this.load();
+    if (this._onChangeFn)
+      return this._onChangeFn();
   }
 
   load() {
-    return this._db.load();
+    if (this._db)
+      return this._db.load();
   }
 
   onChange(fn: any) {
@@ -30,6 +34,8 @@ export class CategoryDb {
   }
 
   async get(id: string): Promise<Category> {
+    if (!this._db)
+      return null;
     const category = await this._db.query(b => b._id == id);
     return category.length > 0 ? category[0] as Category : null;
   }

@@ -71,6 +71,8 @@ export class MainDb {
   }
 
   canWrite() {
+    if (!this._db)
+      return false;
     const access = new Set(this._db.access.write)
     return access.has(this._orbitdb.identity.id) || access.has("*")
   }

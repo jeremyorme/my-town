@@ -27,10 +27,14 @@ export class BusinessDb {
       if (this._onChangeFn)
         return this._onChangeFn();
     });
+    this.load();
+    if (this._onChangeFn)
+      return this._onChangeFn();
   }
 
   load() {
-    return this._db.load();
+    if (this._db)
+      return this._db.load();
   }
 
   onChange(fn: any) {
@@ -38,11 +42,15 @@ export class BusinessDb {
   }
 
   async query(category: string): Promise<Business[]> {
+    if (!this._db)
+      return [];
     const businesses = this._db.query(b => b.category == category);
     return businesses as Business[];
   }
 
   async get(id: string): Promise<Business> {
+    if (!this._db)
+      return null;
     const businesses = await this._db.query(b => b._id == id);
     return businesses.length > 0 ? businesses[0] as Business : null;
   }
