@@ -10,6 +10,7 @@ export class BusinessPage {
   @Prop() slug: string;
   @Prop() category: string;
 
+  @State() loading: boolean = true;
   @State() name: string = 'Local *Business* Name';
   @State() description: string = 'Great little convenience store with all the essentials you could need';
   @State() url: string = 'https://www.localbusiness.co.uk';
@@ -21,12 +22,8 @@ export class BusinessPage {
 
   private navCtrl: HTMLIonRouterElement;
 
-  async componentWillLoad() {
-    this.navCtrl = document.querySelector("ion-router");
-
-    if (this.slug == 'new-business')
-      return;
-
+  async loadData() {
+    await this.db.businessDb.load();
     const business = await this.db.businessDb.get(this.slug);
     if (business) {
       this.name = business.name;
@@ -37,7 +34,20 @@ export class BusinessPage {
       this.longitude = business.longitude;
       this.latitude = business.latitude;
       this.icon = business.icon;
+      this.loading = false;
+    }    
+  }
+
+  async componentWillLoad() {
+    this.navCtrl = document.querySelector("ion-router");
+
+    if (this.slug == 'new-business') {
+      this.loading = false;
+      return;
     }
+
+    this.loadData();
+    this.db.businessDb.onChange(() => {this.loadData()});
   }
 
   async save() {
@@ -81,8 +91,8 @@ export class BusinessPage {
         </navbar-block>
         <sub-header-block>
           <div class="details centered">
-            <field-block class="name-field" value={this.name} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.name = e.detail; this.save();}} />
-            <field-block class="description-field" value={this.description} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.description = e.detail; this.save();}} />
+            <field-block class="name-field" loading={this.loading} value={this.name} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.name = e.detail; this.save();}} />
+            <field-block class="description-field" loading={this.loading} value={this.description} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.description = e.detail; this.save();}} />
           </div>
         </sub-header-block>
         <content-block>
@@ -90,11 +100,11 @@ export class BusinessPage {
           {this.db.canWrite() ? <div class="details">
             <div class="detail">
               <ion-icon class="detail-left" name="swap-horizontal-outline" size="large"/>
-              <field-block class="detail-right" value={this.longitude.toString()} iconSize="small" readOnly={false} onValueChanged={e => {this.longitude = parseFloat(e.detail); this.save();}}/>
+              <field-block class="detail-right" loading={this.loading} value={this.longitude.toString()} iconSize="small" readOnly={false} onValueChanged={e => {this.longitude = parseFloat(e.detail); this.save();}}/>
             </div>
             <div class="detail">
               <ion-icon class="detail-left" name="swap-vertical-outline" size="large"/>
-              <field-block class="detail-right" value={this.latitude.toString()} iconSize="small" readOnly={false} onValueChanged={e => {this.latitude = parseFloat(e.detail); this.save();}}/>
+              <field-block class="detail-right" loading={this.loading} value={this.latitude.toString()} iconSize="small" readOnly={false} onValueChanged={e => {this.latitude = parseFloat(e.detail); this.save();}}/>
             </div>
           </div> : null}
         </content-block>
@@ -103,19 +113,19 @@ export class BusinessPage {
           <div class="details">
             <div class="detail">
               <ion-icon class="detail-left" name="globe-outline" size="large"/>
-              <field-block class="detail-right" value={this.url} iconSize="small" readOnly={!this.db.canWrite()} isLink={true} onValueChanged={e => {this.url = e.detail; this.save();}}/>
+              <field-block class="detail-right" loading={this.loading} value={this.url} iconSize="small" readOnly={!this.db.canWrite()} isLink={true} onValueChanged={e => {this.url = e.detail; this.save();}}/>
             </div>
             <div class="detail">
               <ion-icon class="detail-left" name="call-outline" size="large"/>
-              <field-block class="detail-right" value={this.tel} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.tel = e.detail; this.save();}}/>
+              <field-block class="detail-right" loading={this.loading} value={this.tel} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.tel = e.detail; this.save();}}/>
             </div>
             <div class="detail">
               <ion-icon class="detail-left" name="home-outline" size="large"/>
-              <field-block class="detail-right" value={this.address} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.address = e.detail; this.save();}}/>
+              <field-block class="detail-right" loading={this.loading} value={this.address} iconSize="small" readOnly={!this.db.canWrite()} onValueChanged={e => {this.address = e.detail; this.save();}}/>
             </div>
             {this.db.canWrite() ? <div class="detail">
               <ion-icon class="detail-left" name="image-outline" size="large"/>
-              <field-block class="detail-right" value={this.icon} iconSize="small" readOnly={false} onValueChanged={e => {this.icon = e.detail; this.save();}}/>
+              <field-block class="detail-right" loading={this.loading} value={this.icon} iconSize="small" readOnly={false} onValueChanged={e => {this.icon = e.detail; this.save();}}/>
             </div> : null}
           </div>
         </content-bg-block>

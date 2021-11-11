@@ -36,6 +36,7 @@ export namespace Components {
     interface FieldBlock {
         "iconSize": string;
         "isLink": boolean;
+        "loading": boolean;
         "readOnly": boolean;
         "value": string;
     }
@@ -210,6 +211,7 @@ declare namespace LocalJSX {
     interface FieldBlock {
         "iconSize"?: string;
         "isLink"?: boolean;
+        "loading"?: boolean;
         "onValueChanged"?: (event: CustomEvent<string>) => void;
         "readOnly"?: boolean;
         "value"?: string;

@@ -10,7 +10,7 @@ export class AppRoot {
   db: MainDb = new MainDb((window as any).myTownDbAddress);
 
   async componentWillLoad() {
-    return this.db.init((window as any).Ipfs, (window as any).OrbitDB);
+    this.db.init((window as any).Ipfs, (window as any).OrbitDB);
   }
 
   render() {

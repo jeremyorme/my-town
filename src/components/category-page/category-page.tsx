@@ -9,6 +9,7 @@ export class CategoryPage {
   @Prop() db: MainDb;
   @Prop() category: string;
 
+  @State() loading: boolean = true;
   @State() businesses: any[] = [];
   @State() headline: string = '*Excellent* quality products from *local* retailers';
 
@@ -24,9 +25,15 @@ export class CategoryPage {
       this.headline = cat.headline;
   }
 
-  async componentWillLoad() {
+  async loadData() {
+    // Apparently these can't be concurrent
     await this.loadBusinessData();
     await this.loadCategoryData();
+    this.loading = false;
+  }
+
+  componentWillLoad() {
+    this.loadData();
     this.db.businessDb.onChange(() => { return this.loadBusinessData(); });
     this.db.categoryDb.onChange(() => { return this.loadCategoryData(); });
   }
@@ -50,7 +57,7 @@ export class CategoryPage {
           <nav-link-block href="#/contact/">Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
-          <field-block class="headline-field" value={this.headline} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.headline = e.detail; this.save();}} />
+          <field-block class="headline-field" loading={this.loading} value={this.headline} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.headline = e.detail; this.save();}} />
         </sub-header-block>
         <content-block>
           <div class="menu-item">
