@@ -1,19 +1,19 @@
 import {newSpecPage} from '@stencil/core/testing';
 
-import {ShoppingPage} from '../shopping-page';
+import {CategoryPage} from '../category-page';
 
-describe('shopping-page', () => {
+describe('business-list-page', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components : [ ShoppingPage ],
-      html : `<shopping-page></shopping-page>`,
+      components : [ CategoryPage ],
+      html : `<category-page></category-page>`,
     });
     expect(page.root).toEqualHtml(`
-      <shopping-page>
+      <category-page>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </shopping-page>
+      </category-page>
     `);
   });
 });

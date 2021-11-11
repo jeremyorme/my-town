@@ -2,10 +2,10 @@ import { Component, Prop, State, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 
 @Component({
-  tag: 'shopping-page',
-  styleUrl: 'shopping-page.css',
+  tag: 'category-page',
+  styleUrl: 'category-page.css',
 })
-export class ShoppingPage {
+export class CategoryPage {
   @Prop() db: MainDb;
   @Prop() category: string;
 
@@ -46,9 +46,7 @@ export class ShoppingPage {
         <banner-block/>
         <navbar-block>
           <nav-link-block href="#/">Home</nav-link-block>
-          <nav-link-block href="#/shopping/" current={this.category == 'shopping'}>Shopping</nav-link-block>
-          <nav-link-block href="#/food/" current={this.category == 'food'}>Food</nav-link-block>
-          <nav-link-block href="#/services/" current={this.category == 'services'}>Services</nav-link-block>
+          {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={'#/' + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
           <nav-link-block href="#/contact/">Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>

@@ -23,6 +23,10 @@ export namespace Components {
         "db": MainDb;
         "slug": string;
     }
+    interface CategoryPage {
+        "category": string;
+        "db": MainDb;
+    }
     interface ContactPage {
     }
     interface ContentBgBlock {
@@ -57,10 +61,6 @@ export namespace Components {
     }
     interface NavbarBlock {
     }
-    interface ShoppingPage {
-        "category": string;
-        "db": MainDb;
-    }
     interface SubHeaderBlock {
     }
 }
@@ -88,6 +88,12 @@ declare global {
     var HTMLBusinessPageElement: {
         prototype: HTMLBusinessPageElement;
         new (): HTMLBusinessPageElement;
+    };
+    interface HTMLCategoryPageElement extends Components.CategoryPage, HTMLStencilElement {
+    }
+    var HTMLCategoryPageElement: {
+        prototype: HTMLCategoryPageElement;
+        new (): HTMLCategoryPageElement;
     };
     interface HTMLContactPageElement extends Components.ContactPage, HTMLStencilElement {
     }
@@ -149,12 +155,6 @@ declare global {
         prototype: HTMLNavbarBlockElement;
         new (): HTMLNavbarBlockElement;
     };
-    interface HTMLShoppingPageElement extends Components.ShoppingPage, HTMLStencilElement {
-    }
-    var HTMLShoppingPageElement: {
-        prototype: HTMLShoppingPageElement;
-        new (): HTMLShoppingPageElement;
-    };
     interface HTMLSubHeaderBlockElement extends Components.SubHeaderBlock, HTMLStencilElement {
     }
     var HTMLSubHeaderBlockElement: {
@@ -166,6 +166,7 @@ declare global {
         "banner-block": HTMLBannerBlockElement;
         "business-card-block": HTMLBusinessCardBlockElement;
         "business-page": HTMLBusinessPageElement;
+        "category-page": HTMLCategoryPageElement;
         "contact-page": HTMLContactPageElement;
         "content-bg-block": HTMLContentBgBlockElement;
         "content-block": HTMLContentBlockElement;
@@ -176,7 +177,6 @@ declare global {
         "map-block": HTMLMapBlockElement;
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
-        "shopping-page": HTMLShoppingPageElement;
         "sub-header-block": HTMLSubHeaderBlockElement;
     }
 }
@@ -196,6 +196,10 @@ declare namespace LocalJSX {
         "category"?: string;
         "db"?: MainDb;
         "slug"?: string;
+    }
+    interface CategoryPage {
+        "category"?: string;
+        "db"?: MainDb;
     }
     interface ContactPage {
     }
@@ -232,10 +236,6 @@ declare namespace LocalJSX {
     }
     interface NavbarBlock {
     }
-    interface ShoppingPage {
-        "category"?: string;
-        "db"?: MainDb;
-    }
     interface SubHeaderBlock {
     }
     interface IntrinsicElements {
@@ -243,6 +243,7 @@ declare namespace LocalJSX {
         "banner-block": BannerBlock;
         "business-card-block": BusinessCardBlock;
         "business-page": BusinessPage;
+        "category-page": CategoryPage;
         "contact-page": ContactPage;
         "content-bg-block": ContentBgBlock;
         "content-block": ContentBlock;
@@ -253,7 +254,6 @@ declare namespace LocalJSX {
         "map-block": MapBlock;
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
-        "shopping-page": ShoppingPage;
         "sub-header-block": SubHeaderBlock;
     }
 }
@@ -265,6 +265,7 @@ declare module "@stencil/core" {
             "banner-block": LocalJSX.BannerBlock & JSXBase.HTMLAttributes<HTMLBannerBlockElement>;
             "business-card-block": LocalJSX.BusinessCardBlock & JSXBase.HTMLAttributes<HTMLBusinessCardBlockElement>;
             "business-page": LocalJSX.BusinessPage & JSXBase.HTMLAttributes<HTMLBusinessPageElement>;
+            "category-page": LocalJSX.CategoryPage & JSXBase.HTMLAttributes<HTMLCategoryPageElement>;
             "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
             "content-bg-block": LocalJSX.ContentBgBlock & JSXBase.HTMLAttributes<HTMLContentBgBlockElement>;
             "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
@@ -275,7 +276,6 @@ declare module "@stencil/core" {
             "map-block": LocalJSX.MapBlock & JSXBase.HTMLAttributes<HTMLMapBlockElement>;
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
-            "shopping-page": LocalJSX.ShoppingPage & JSXBase.HTMLAttributes<HTMLShoppingPageElement>;
             "sub-header-block": LocalJSX.SubHeaderBlock & JSXBase.HTMLAttributes<HTMLSubHeaderBlockElement>;
         }
     }
