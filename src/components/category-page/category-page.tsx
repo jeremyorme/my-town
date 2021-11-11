@@ -9,27 +9,36 @@ export class CategoryPage {
   @Prop() db: MainDb;
   @Prop() category: string;
 
-  @State() loading: boolean = true;
+  @State() loadingCategory: boolean = true;
+  @State() loadingBusinesses: boolean = true;
   @State() businesses: any[] = [];
   @State() headline: string = '*Excellent* quality products from *local* retailers';
 
   async loadBusinessData() {
     await this.db.businessDb.load();
-    this.businesses = await this.db.businessDb.query(this.category);
+    const businesses = await this.db.businessDb.query(this.category);
+    if (businesses) {
+      this.businesses = businesses;
+      this.loadingBusinesses = false;
+    }
+    else {
+      this.businesses = [];
+    }
   }
 
   async loadCategoryData() {
     await this.db.categoryDb.load();
     const cat = await this.db.categoryDb.get(this.category);
-    if (cat)
+    if (cat) {
       this.headline = cat.headline;
+      this.loadingCategory = false;
+    }
   }
 
   async loadData() {
     // Apparently these can't be concurrent
     await this.loadBusinessData();
     await this.loadCategoryData();
-    this.loading = false;
   }
 
   componentWillLoad() {
@@ -57,7 +66,7 @@ export class CategoryPage {
           <nav-link-block href="#/contact/">Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
-          <field-block class="headline-field" loading={this.loading} value={this.headline} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.headline = e.detail; this.save();}} />
+          <field-block class="headline-field" loading={this.loadingCategory} value={this.headline} iconSize="large" readOnly={!this.db.canWrite()} onValueChanged={e => {this.headline = e.detail; this.save();}} />
         </sub-header-block>
         <content-block>
           <div class="menu-item">

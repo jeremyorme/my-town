@@ -19,13 +19,18 @@
 }
 
 .loading .content {
-  background-color: #fafafa !important;
-  color: #fafafa !important;
+  background-color: #fafafa;
+  color: #fafafa;
 }
 
 .loading .content strong {
-  background-color: #fafafa !important;
-  color: #fafafa !important;
+  background-color: #fafafa;
+  color: #fafafa;
+}
+
+.loading a {
+  background-color: #fafafa;
+  color: #fafafa;
 }
 
 .field.loading::before {

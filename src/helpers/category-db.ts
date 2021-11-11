@@ -9,19 +9,22 @@ export class CategoryDb {
   _db: any;
   _onChangeFn: any;
 
-  async init(mainDb: MainDb) {
-    this._db = await mainDb.get('category');
-    this._db.events.on('replicated', () => {
+  init(mainDb: MainDb) {
+    mainDb.onChange(async () => {
+      await mainDb.load();
+      this._db = await mainDb.get('category');
+      this._db.events.on('replicated', () => {
+        if (this._onChangeFn)
+          return this._onChangeFn();
+      });
+      this._db.events.on('write', () => {
+        if (this._onChangeFn)
+          return this._onChangeFn();
+      });
+      await this.load();
       if (this._onChangeFn)
         return this._onChangeFn();
     });
-    this._db.events.on('write', () => {
-      if (this._onChangeFn)
-        return this._onChangeFn();
-    });
-    this.load();
-    if (this._onChangeFn)
-      return this._onChangeFn();
   }
 
   load() {

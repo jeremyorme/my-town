@@ -6,6 +6,7 @@ export class MainDb {
   _orbitdb: any;
   _dbName: string;
   _db: any;
+  _onChangeFns: any[] = [];
 
   businessDb: BusinessDb = new BusinessDb();
   categoryDb: CategoryDb = new CategoryDb();
@@ -38,16 +39,25 @@ export class MainDb {
 
     this._orbitdb = await OrbitDB.createInstance(this._ipfs);
     this._db = await this._orbitdb.keyvalue(this.isTemporary() ? 'my-town' : this._dbName);
+    this.businessDb.init(this);
+    this.categoryDb.init(this);
     await this._db.load();
-    await this._initChildren();
-    this._db.events.on('replicated', () => {
-      return this._initChildren();
-    });
+    this._notifyChange();
+    this._db.events.on('replicated', () => { return this._notifyChange() });
   }
 
-  async _initChildren() {
-    await this.businessDb.init(this);
-    await this.categoryDb.init(this);
+  load() {
+    if (this._db)
+      return this._db.load();
+  }
+
+  async _notifyChange() {
+    for (const changeFn of this._onChangeFns)
+      await changeFn();
+  }
+
+  onChange(fn: any) {
+    this._onChangeFns.push(fn);
   }
 
   async get(dbName: string): Promise<any> {

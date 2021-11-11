@@ -17,19 +17,22 @@ export class BusinessDb {
   _db: any;
   _onChangeFn: any;
 
-  async init(mainDb: MainDb) {
-    this._db = await mainDb.get('business');
-    this._db.events.on('replicated', () => {
+  init(mainDb: MainDb) {
+    mainDb.onChange(async () => {
+      await mainDb.load();
+      this._db = await mainDb.get('business');
+      this._db.events.on('replicated', () => {
+        if (this._onChangeFn)
+          return this._onChangeFn();
+      });
+      this._db.events.on('write', () => {
+        if (this._onChangeFn)
+          return this._onChangeFn();
+      });
+      await this.load();
       if (this._onChangeFn)
         return this._onChangeFn();
     });
-    this._db.events.on('write', () => {
-      if (this._onChangeFn)
-        return this._onChangeFn();
-    });
-    this.load();
-    if (this._onChangeFn)
-      return this._onChangeFn();
   }
 
   load() {
@@ -43,7 +46,7 @@ export class BusinessDb {
 
   async query(category: string): Promise<Business[]> {
     if (!this._db)
-      return [];
+      return null;
     const businesses = this._db.query(b => b.category == category);
     return businesses as Business[];
   }
