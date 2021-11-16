@@ -64,6 +64,10 @@ export namespace Components {
     }
     interface SubHeaderBlock {
     }
+    interface TabLinkBlock {
+    }
+    interface TabMenuBlock {
+    }
 }
 declare global {
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
@@ -162,6 +166,18 @@ declare global {
         prototype: HTMLSubHeaderBlockElement;
         new (): HTMLSubHeaderBlockElement;
     };
+    interface HTMLTabLinkBlockElement extends Components.TabLinkBlock, HTMLStencilElement {
+    }
+    var HTMLTabLinkBlockElement: {
+        prototype: HTMLTabLinkBlockElement;
+        new (): HTMLTabLinkBlockElement;
+    };
+    interface HTMLTabMenuBlockElement extends Components.TabMenuBlock, HTMLStencilElement {
+    }
+    var HTMLTabMenuBlockElement: {
+        prototype: HTMLTabMenuBlockElement;
+        new (): HTMLTabMenuBlockElement;
+    };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "banner-block": HTMLBannerBlockElement;
@@ -179,6 +195,8 @@ declare global {
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
         "sub-header-block": HTMLSubHeaderBlockElement;
+        "tab-link-block": HTMLTabLinkBlockElement;
+        "tab-menu-block": HTMLTabMenuBlockElement;
     }
 }
 declare namespace LocalJSX {
@@ -240,6 +258,10 @@ declare namespace LocalJSX {
     }
     interface SubHeaderBlock {
     }
+    interface TabLinkBlock {
+    }
+    interface TabMenuBlock {
+    }
     interface IntrinsicElements {
         "app-root": AppRoot;
         "banner-block": BannerBlock;
@@ -257,6 +279,8 @@ declare namespace LocalJSX {
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
         "sub-header-block": SubHeaderBlock;
+        "tab-link-block": TabLinkBlock;
+        "tab-menu-block": TabMenuBlock;
     }
 }
 export { LocalJSX as JSX };
@@ -279,6 +303,8 @@ declare module "@stencil/core" {
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
             "sub-header-block": LocalJSX.SubHeaderBlock & JSXBase.HTMLAttributes<HTMLSubHeaderBlockElement>;
+            "tab-link-block": LocalJSX.TabLinkBlock & JSXBase.HTMLAttributes<HTMLTabLinkBlockElement>;
+            "tab-menu-block": LocalJSX.TabMenuBlock & JSXBase.HTMLAttributes<HTMLTabMenuBlockElement>;
         }
     }
 }

@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.tab-menu {
+  display: flex;
+  margin-bottom: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
