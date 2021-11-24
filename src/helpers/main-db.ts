@@ -1,21 +1,22 @@
 import { BusinessDb } from './business-db';
 import { CategoryDb } from './category-db';
+import { DownloadableKeystore } from './downloadable-keystore';
 
 export class MainDb {
   _ipfs: any;
   _orbitdb: any;
-  _dbName: string;
   _db: any;
   _onChangeFns: any[] = [];
+  _keystore: any;
+
+  id: string;
 
   businessDb: BusinessDb = new BusinessDb();
   categoryDb: CategoryDb = new CategoryDb();
 
-  constructor(dbName: string) {
-    this._dbName = dbName;
-  }
+  async init(Ipfs: any, OrbitDB: any, id: string, dbName: string) {
 
-  async init(Ipfs: any, OrbitDB: any) {
+    this.id = id;
 
     this._ipfs = await Ipfs.create({
       repo : './ipfs',
@@ -37,13 +38,27 @@ export class MainDb {
       }
     })
 
-    this._orbitdb = await OrbitDB.createInstance(this._ipfs);
-    this._db = await this._orbitdb.keyvalue(this.isTemporary() ? 'my-town' : this._dbName);
+    if (!this.id) {
+      const ipfsId = await this._ipfs.id();
+      this.id = ipfsId.id;
+    }
+
+    this._keystore = new DownloadableKeystore();
+    this._orbitdb = await OrbitDB.createInstance(this._ipfs, {keystore: this._keystore, id: this.id});
+    this._db = await this._orbitdb.keyvalue(dbName && dbName.length > 0 ? dbName : 'my-town');
     this.businessDb.init(this);
     this.categoryDb.init(this);
     await this._db.load();
     this._notifyChange();
     this._db.events.on('replicated', () => { return this._notifyChange() });
+  }
+
+  async backupIdentity(passPhrase: string) {
+    return this._keystore.getKeyData(this.id, passPhrase);
+  }
+
+  restoreIdentity(keyData: string, passPhrase: string) {
+    return this._keystore.setKeyData(keyData, passPhrase);
   }
 
   load() {
@@ -70,10 +85,6 @@ export class MainDb {
     if (this.canWrite())
       this._db.put(dbName, db.address.toString());
     return db;
-  }
-
-  isTemporary(): boolean {
-    return !this._dbName || this._dbName.length == 0;
   }
 
   address() {

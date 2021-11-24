@@ -1,1 +1,1 @@
-window.myTownDbAddress = '/orbitdb/zdpuB1VdENDEcNvpZz2rAJkgP8HR6fatyMMsmyxPhnKKgb4F8/my-town';
+window.myTownDbAddress = '/orbitdb/zdpuAy6gQfo5cFtrBXJm3fMpPkoHBM8FrUb3nGnFB4ymS2tPy/my-town';

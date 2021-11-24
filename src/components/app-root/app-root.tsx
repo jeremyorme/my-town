@@ -7,10 +7,14 @@ import { MainDb } from '../../helpers/main-db';
 })
 export class AppRoot {
 
-  db: MainDb = new MainDb((window as any).myTownDbAddress);
+  db: MainDb = new MainDb();
 
   async componentWillLoad() {
-    this.db.init((window as any).Ipfs, (window as any).OrbitDB);
+    this.db.init(
+      (window as any).Ipfs,
+      (window as any).OrbitDB,
+      localStorage.getItem('my-town-id'),
+      (window as any).myTownDbAddress);
   }
 
   render() {
@@ -25,6 +29,7 @@ export class AppRoot {
           <ion-route url="/services" component="category-page" componentProps={{db: this.db, category: 'services'}}/>
           <ion-route url="/services/:slug" component="business-page" componentProps={{db: this.db, category: 'services'}}/>
           <ion-route url="/contact" component="contact-page"/>
+          <ion-route url="/admin" component="admin-page" componentProps={{db: this.db}}/>
         </ion-router>
         <ion-nav/>
       </ion-app>

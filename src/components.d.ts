@@ -7,6 +7,9 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MainDb } from "./helpers/main-db";
 export namespace Components {
+    interface AdminPage {
+        "db": MainDb;
+    }
     interface AppRoot {
     }
     interface BannerBlock {
@@ -41,7 +44,6 @@ export namespace Components {
         "value": string;
     }
     interface FooterBlock {
-        "baseUrl": string;
         "instagram": string;
         "twitter": string;
         "youtube": string;
@@ -66,6 +68,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLAdminPageElement extends Components.AdminPage, HTMLStencilElement {
+    }
+    var HTMLAdminPageElement: {
+        prototype: HTMLAdminPageElement;
+        new (): HTMLAdminPageElement;
+    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
@@ -163,6 +171,7 @@ declare global {
         new (): HTMLSubHeaderBlockElement;
     };
     interface HTMLElementTagNameMap {
+        "admin-page": HTMLAdminPageElement;
         "app-root": HTMLAppRootElement;
         "banner-block": HTMLBannerBlockElement;
         "business-card-block": HTMLBusinessCardBlockElement;
@@ -182,6 +191,9 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface AdminPage {
+        "db"?: MainDb;
+    }
     interface AppRoot {
     }
     interface BannerBlock {
@@ -217,7 +229,6 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface FooterBlock {
-        "baseUrl"?: string;
         "instagram"?: string;
         "twitter"?: string;
         "youtube"?: string;
@@ -241,6 +252,7 @@ declare namespace LocalJSX {
     interface SubHeaderBlock {
     }
     interface IntrinsicElements {
+        "admin-page": AdminPage;
         "app-root": AppRoot;
         "banner-block": BannerBlock;
         "business-card-block": BusinessCardBlock;
@@ -263,6 +275,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "admin-page": LocalJSX.AdminPage & JSXBase.HTMLAttributes<HTMLAdminPageElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "banner-block": LocalJSX.BannerBlock & JSXBase.HTMLAttributes<HTMLBannerBlockElement>;
             "business-card-block": LocalJSX.BusinessCardBlock & JSXBase.HTMLAttributes<HTMLBusinessCardBlockElement>;

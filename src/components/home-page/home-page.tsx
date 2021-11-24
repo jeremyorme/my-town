@@ -26,10 +26,7 @@ export class HomePage {
           <ion-button slot="left" href="#/shopping/" strong={true}>Find a Shop</ion-button>
           <map-block id="local-map" slot="right" latitude={51.2869} longitude={-0.7526} zoom={13}/>
         </header-block>
-        <footer-block baseUrl="."/>
-        {this.db.isTemporary() ? <div>
-          DB address: {this.db.address()}
-        </div> : null}
+        <footer-block/>
       </ion-content>,
     ];
   }
