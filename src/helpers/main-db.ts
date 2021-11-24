@@ -88,7 +88,7 @@ export class MainDb {
   }
 
   address() {
-    return this._db.address.toString();
+    return this._db && this._db.address ? this._db.address.toString() : '';
   }
 
   canWrite() {

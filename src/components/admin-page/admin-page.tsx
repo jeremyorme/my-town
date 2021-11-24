@@ -36,12 +36,10 @@ export class AdminPage {
   @State() keyData: string;
   @State() backupPhrase: string = '';
   @State() restorePhrase: string = '';
-  @State() dbAddress: string = 'Connecting...';
-  @State() id: string = '';
+  @State() dbAddress: string;
 
   constructor() {
     this.db.onChange(async () => {
-      this.id = await this.db.id;
       this.dbAddress = this.db.address();
     });
   }
@@ -108,7 +106,7 @@ export class AdminPage {
             <ion-button onClick={() => this.restoreIdentity()} disabled={!this.keyData || this.restorePhrase.length < 10}>Log In</ion-button>
           </form>
           <h3>Database address</h3>
-          {this.dbAddress}
+          {this.db.address() || 'Connecting...'}
         </content-block>
         <footer-block/>
       </ion-content>,
