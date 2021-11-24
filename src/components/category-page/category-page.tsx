@@ -12,7 +12,7 @@ export class CategoryPage {
   @State() loadingCategory: boolean = true;
   @State() loadingBusinesses: boolean = true;
   @State() businesses: any[] = [];
-  @State() headline: string = '*Excellent* quality products from *local* retailers';
+  @State() headline: string = '';
 
   async loadBusinessData() {
     await this.db.businessDb.load();
@@ -31,8 +31,8 @@ export class CategoryPage {
     const cat = await this.db.categoryDb.get(this.category);
     if (cat) {
       this.headline = cat.headline;
-      this.loadingCategory = false;
     }
+    this.loadingCategory = false;
   }
 
   async loadData() {
@@ -42,6 +42,7 @@ export class CategoryPage {
   }
 
   componentWillLoad() {
+    this.headline = 'Find *' + this.category + '* businesses';
     this.loadData();
     this.db.businessDb.onChange(() => { return this.loadBusinessData(); });
     this.db.categoryDb.onChange(() => { return this.loadCategoryData(); });
