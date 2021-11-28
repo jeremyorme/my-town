@@ -33,15 +33,22 @@ function showFile(blob, filename) {
 })
 export class AdminPage {
   @Prop() db: MainDb;
+  @Prop() directoryId: string;
   @State() keyData: string;
   @State() backupPhrase: string = '';
   @State() restorePhrase: string = '';
-  @State() dbAddress: string;
+  @State() dbAddress: string = 'Connecting...';
 
-  constructor() {
-    this.db.directoryDb.onChange(async () => {
-      this.dbAddress = this.db.directoryDb.address();
+  async init() {
+    const directory = await this.db.directory(this.directoryId);
+    this.dbAddress = directory.address();
+    directory.onChange(async () => {
+      this.dbAddress = directory.address();
     });
+  }
+
+  componentWillLoad() {
+    this.init();
   }
 
   async backupIdentity() {
@@ -106,7 +113,7 @@ export class AdminPage {
             <ion-button onClick={() => this.restoreIdentity()} disabled={!this.keyData || this.restorePhrase.length < 10}>Log In</ion-button>
           </form>
           <h3>Database address</h3>
-          {this.db.directoryDb.address() || 'Connecting...'}
+          {this.dbAddress}
         </content-block>
         <footer-block/>
       </ion-content>,

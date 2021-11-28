@@ -7,8 +7,8 @@ export class DirectoryDb {
   _db: any;
   _onChangeFns: any[] = [];
 
-  businessDb: BusinessDb = new BusinessDb(this);
-  categoryDb: CategoryDb = new CategoryDb(this);
+  businesses: BusinessDb = new BusinessDb(this);
+  categories: CategoryDb = new CategoryDb(this);
 
   constructor (mainDb: MainDb) {
     this._mainDb = mainDb;
@@ -16,10 +16,10 @@ export class DirectoryDb {
 
   async init(dbName: string) {  
     this._db = await this._mainDb.keyvalue(dbName && dbName.length > 0 ? dbName : 'my-town');
-    this.businessDb.init();
-    this.categoryDb.init();
+    this.businesses.init();
+    this.categories.init();
     await this._db.load();
-    this._notifyChange();
+    await this._notifyChange();
     this._db.events.on('replicated', () => { return this._notifyChange() });
   }
 

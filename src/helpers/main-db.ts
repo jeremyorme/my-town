@@ -2,17 +2,31 @@ import { DownloadableKeystore } from './downloadable-keystore';
 import { DirectoryDb } from './directory-db';
 
 export class MainDb {
+  Ipfs: any;
+  OrbitDB: any;
+
   _ipfs: any;
   _orbitdb: any;
   _keystore: any;
-
   _ipfsId: string;
+  _needInit: boolean = true;
 
-  directoryDb: DirectoryDb = new DirectoryDb(this);
+  _directories: Map<string, DirectoryDb> = new Map();
 
-  async init(Ipfs: any, OrbitDB: any, ipfsId: string, dbName: string) {
+  constructor(Ipfs: any, OrbitDB: any, ipfsId: string) {
+    this.Ipfs = Ipfs;
+    this.OrbitDB = OrbitDB;
+    this._ipfsId = ipfsId;
+  }
 
-    this._ipfs = await Ipfs.create({
+  async init() {
+
+    if (!this._needInit)
+      return;
+
+    this._needInit = false;
+
+    this._ipfs = await this.Ipfs.create({
       repo : './ipfs',
       start: true,
       preload: { 
@@ -32,15 +46,13 @@ export class MainDb {
       }
     })
 
-    this._ipfsId = ipfsId;
     if (!this._ipfsId) {
       const ipfsIdObj = await this._ipfs.id();
       this._ipfsId = ipfsIdObj.id;
     }
 
     this._keystore = new DownloadableKeystore();
-    this._orbitdb = await OrbitDB.createInstance(this._ipfs, {keystore: this._keystore, id: this._ipfsId});
-    await this.directoryDb.init(dbName);
+    this._orbitdb = await this.OrbitDB.createInstance(this._ipfs, {keystore: this._keystore, id: this._ipfsId});
   }
 
   async backupIdentity(passPhrase: string) {
@@ -49,6 +61,16 @@ export class MainDb {
 
   restoreIdentity(keyData: string, passPhrase: string) {
     return this._keystore.setKeyData(keyData, passPhrase);
+  }
+
+  async directory(directoryId: string) {
+    if (this._directories.has(directoryId))
+      return this._directories.get(directoryId);
+
+    await this.init();
+    const d = new DirectoryDb(this);
+    await d.init(directoryId);
+    return d;
   }
 
   keyvalue(dbName: string) {
