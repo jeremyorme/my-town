@@ -39,8 +39,8 @@ export class AdminPage {
   @State() dbAddress: string;
 
   constructor() {
-    this.db.onChange(async () => {
-      this.dbAddress = this.db.address();
+    this.db.directoryDb.onChange(async () => {
+      this.dbAddress = this.db.directoryDb.address();
     });
   }
 
@@ -106,7 +106,7 @@ export class AdminPage {
             <ion-button onClick={() => this.restoreIdentity()} disabled={!this.keyData || this.restorePhrase.length < 10}>Log In</ion-button>
           </form>
           <h3>Database address</h3>
-          {this.db.address() || 'Connecting...'}
+          {this.db.directoryDb.address() || 'Connecting...'}
         </content-block>
         <footer-block/>
       </ion-content>,

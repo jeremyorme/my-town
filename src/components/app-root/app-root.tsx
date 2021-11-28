@@ -22,12 +22,12 @@ export class AppRoot {
       <ion-app>
         <ion-router useHash={true}>
           <ion-route url="/" component="home-page" componentProps={{db: this.db}}/>
-          <ion-route url="/shopping" component="category-page" componentProps={{db: this.db, category: 'shopping'}}/>
-          <ion-route url="/shopping/:slug" component="business-page" componentProps={{db: this.db, category: 'shopping'}}/>
-          <ion-route url="/food" component="category-page" componentProps={{db: this.db, category: 'food'}}/>
-          <ion-route url="/food/:slug" component="business-page" componentProps={{db: this.db, category: 'food'}}/>
-          <ion-route url="/services" component="category-page" componentProps={{db: this.db, category: 'services'}}/>
-          <ion-route url="/services/:slug" component="business-page" componentProps={{db: this.db, category: 'services'}}/>
+          <ion-route url="/shopping" component="category-page" componentProps={{db: this.db.directoryDb, category: 'shopping'}}/>
+          <ion-route url="/shopping/:slug" component="business-page" componentProps={{db: this.db.directoryDb.businessDb, category: 'shopping'}}/>
+          <ion-route url="/food" component="category-page" componentProps={{db: this.db.directoryDb, category: 'food'}}/>
+          <ion-route url="/food/:slug" component="business-page" componentProps={{db: this.db.directoryDb.businessDb, category: 'food'}}/>
+          <ion-route url="/services" component="category-page" componentProps={{db: this.db.directoryDb, category: 'services'}}/>
+          <ion-route url="/services/:slug" component="business-page" componentProps={{db: this.db.directoryDb.businessDb, category: 'services'}}/>
           <ion-route url="/contact" component="contact-page"/>
           <ion-route url="/admin" component="admin-page" componentProps={{db: this.db}}/>
         </ion-router>

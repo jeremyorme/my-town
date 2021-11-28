@@ -1,4 +1,4 @@
-import { MainDb } from './main-db';
+import { DirectoryDb } from './directory-db';
 
 export interface Business {
   _id: string;
@@ -14,13 +14,18 @@ export interface Business {
 }
 
 export class BusinessDb {
+  _directoryDb: DirectoryDb;
   _db: any;
   _onChangeFn: any;
 
-  init(mainDb: MainDb) {
-    mainDb.onChange(async () => {
-      await mainDb.load();
-      this._db = await mainDb.get('business');
+  constructor(directoryDb: DirectoryDb) {
+    this._directoryDb = directoryDb;
+  }
+
+  init() {
+    this._directoryDb.onChange(async () => {
+      await this._directoryDb.load();
+      this._db = await this._directoryDb.get('business');
       this._db.events.on('replicated', () => {
         if (this._onChangeFn)
           return this._onChangeFn();
@@ -64,5 +69,9 @@ export class BusinessDb {
 
   del(id: string) {
     return this._db.del(id);
+  }
+
+  canWrite(dbName: string = null) {
+    return dbName ? this._directoryDb.canWrite(dbName) : this._directoryDb.canWrite(this._db);
   }
 }

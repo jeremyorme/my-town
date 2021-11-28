@@ -1,22 +1,16 @@
-import { BusinessDb } from './business-db';
-import { CategoryDb } from './category-db';
 import { DownloadableKeystore } from './downloadable-keystore';
+import { DirectoryDb } from './directory-db';
 
 export class MainDb {
   _ipfs: any;
   _orbitdb: any;
-  _db: any;
-  _onChangeFns: any[] = [];
   _keystore: any;
 
-  id: string;
+  _ipfsId: string;
 
-  businessDb: BusinessDb = new BusinessDb();
-  categoryDb: CategoryDb = new CategoryDb();
+  directoryDb: DirectoryDb = new DirectoryDb(this);
 
-  async init(Ipfs: any, OrbitDB: any, id: string, dbName: string) {
-
-    this.id = id;
+  async init(Ipfs: any, OrbitDB: any, ipfsId: string, dbName: string) {
 
     this._ipfs = await Ipfs.create({
       repo : './ipfs',
@@ -38,63 +32,37 @@ export class MainDb {
       }
     })
 
-    if (!this.id) {
-      const ipfsId = await this._ipfs.id();
-      this.id = ipfsId.id;
+    this._ipfsId = ipfsId;
+    if (!this._ipfsId) {
+      const ipfsIdObj = await this._ipfs.id();
+      this._ipfsId = ipfsIdObj.id;
     }
 
     this._keystore = new DownloadableKeystore();
-    this._orbitdb = await OrbitDB.createInstance(this._ipfs, {keystore: this._keystore, id: this.id});
-    this._db = await this._orbitdb.keyvalue(dbName && dbName.length > 0 ? dbName : 'my-town');
-    this.businessDb.init(this);
-    this.categoryDb.init(this);
-    await this._db.load();
-    this._notifyChange();
-    this._db.events.on('replicated', () => { return this._notifyChange() });
+    this._orbitdb = await OrbitDB.createInstance(this._ipfs, {keystore: this._keystore, id: this._ipfsId});
+    await this.directoryDb.init(dbName);
   }
 
   async backupIdentity(passPhrase: string) {
-    return this._keystore.getKeyData(this.id, passPhrase);
+    return this._keystore.getKeyData(this._ipfsId, passPhrase);
   }
 
   restoreIdentity(keyData: string, passPhrase: string) {
     return this._keystore.setKeyData(keyData, passPhrase);
   }
 
-  load() {
-    if (this._db)
-      return this._db.load();
+  keyvalue(dbName: string) {
+    return this._orbitdb.keyvalue(dbName);
   }
 
-  async _notifyChange() {
-    for (const changeFn of this._onChangeFns)
-      await changeFn();
+  docstore(dbName: string) {
+    return this._orbitdb.docstore(dbName);
   }
 
-  onChange(fn: any) {
-    this._onChangeFns.push(fn);
-  }
-
-  async get(dbName: string): Promise<any> {
-    const dbAddress = this._db.get(dbName);
-    if (dbAddress) {
-      return this._orbitdb.docstore(dbAddress);
-    }
-
-    const db = await this._orbitdb.docstore(dbName);
-    if (this.canWrite())
-      this._db.put(dbName, db.address.toString());
-    return db;
-  }
-
-  address() {
-    return this._db && this._db.address ? this._db.address.toString() : '';
-  }
-
-  canWrite() {
-    if (!this._db)
+  canWrite(db: any) {
+    if (!db)
       return false;
-    const access = new Set(this._db.access.write)
-    return access.has(this._orbitdb.identity.id) || access.has("*")
+    const access = new Set(db.access.write);
+    return access.has(this._orbitdb.identity.id) || access.has("*");
   }
 }

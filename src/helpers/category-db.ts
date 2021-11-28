@@ -1,4 +1,4 @@
-import { MainDb } from './main-db';
+import { DirectoryDb } from './directory-db';
 
 export interface Category {
   _id: string;
@@ -6,13 +6,18 @@ export interface Category {
 }
 
 export class CategoryDb {
+  _directoryDb: DirectoryDb;
   _db: any;
   _onChangeFn: any;
 
-  init(mainDb: MainDb) {
-    mainDb.onChange(async () => {
-      await mainDb.load();
-      this._db = await mainDb.get('category');
+  constructor(directoryDb: DirectoryDb) {
+    this._directoryDb = directoryDb;
+  }
+
+  init() {
+    this._directoryDb.onChange(async () => {
+      await this._directoryDb.load();
+      this._db = await this._directoryDb.get('category');
       this._db.events.on('replicated', () => {
         if (this._onChangeFn)
           return this._onChangeFn();
@@ -45,5 +50,9 @@ export class CategoryDb {
 
   put(category: Category) {
     return this._db.put(category);
+  }
+
+  canWrite(dbName: string = null) {
+    return dbName ? this._directoryDb.canWrite(dbName) : this._directoryDb.canWrite(this._db);
   }
 }

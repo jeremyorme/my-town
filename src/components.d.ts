@@ -6,6 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MainDb } from "./helpers/main-db";
+import { BusinessDb } from "./helpers/business-db";
+import { DirectoryDb } from "./helpers/directory-db";
 export namespace Components {
     interface AdminPage {
         "db": MainDb;
@@ -23,12 +25,12 @@ export namespace Components {
     }
     interface BusinessPage {
         "category": string;
-        "db": MainDb;
+        "db": BusinessDb;
         "slug": string;
     }
     interface CategoryPage {
         "category": string;
-        "db": MainDb;
+        "db": DirectoryDb;
     }
     interface ContactPage {
     }
@@ -225,12 +227,12 @@ declare namespace LocalJSX {
     }
     interface BusinessPage {
         "category"?: string;
-        "db"?: MainDb;
+        "db"?: BusinessDb;
         "slug"?: string;
     }
     interface CategoryPage {
         "category"?: string;
-        "db"?: MainDb;
+        "db"?: DirectoryDb;
     }
     interface ContactPage {
     }

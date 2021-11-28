@@ -1,12 +1,12 @@
 import { Component, Prop, State, h } from '@stencil/core';
-import { MainDb } from '../../helpers/main-db';
+import { BusinessDb } from '../../helpers/business-db';
 
 @Component({
   tag: 'business-page',
   styleUrl: 'business-page.css',
 })
 export class BusinessPage {
-  @Prop() db: MainDb;
+  @Prop() db: BusinessDb;
   @Prop() slug: string;
   @Prop() category: string;
 
@@ -23,8 +23,8 @@ export class BusinessPage {
   private navCtrl: HTMLIonRouterElement;
 
   async loadData() {
-    await this.db.businessDb.load();
-    const business = await this.db.businessDb.get(this.slug);
+    await this.db.load();
+    const business = await this.db.get(this.slug);
     if (business) {
       this.name = business.name;
       this.description = business.description;
@@ -47,14 +47,14 @@ export class BusinessPage {
     }
 
     this.loadData();
-    this.db.businessDb.onChange(() => {this.loadData()});
+    this.db.onChange(() => {this.loadData()});
   }
 
   async save() {
     const newSlug = this.name.toLowerCase().split(/[^a-z0-9 ]/).join('').split(' ').join('-');
     
     if (newSlug != this.slug && this.slug != 'new-business') {
-      await this.db.businessDb.del(this.slug);
+      await this.db.del(this.slug);
     }
 
     if (newSlug == 'delete') {
@@ -73,7 +73,7 @@ export class BusinessPage {
         icon: this.icon
       };
 
-      await this.db.businessDb.put(business);
+      await this.db.put(business);
       this.navCtrl.push('../' + this.category + '/' + newSlug);
     }
   }

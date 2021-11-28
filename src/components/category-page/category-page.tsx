@@ -1,12 +1,12 @@
 import { Component, Prop, State, h } from '@stencil/core';
-import { MainDb } from '../../helpers/main-db';
+import { DirectoryDb } from '../../helpers/directory-db';
 
 @Component({
   tag: 'category-page',
   styleUrl: 'category-page.css',
 })
 export class CategoryPage {
-  @Prop() db: MainDb;
+  @Prop() db: DirectoryDb;
   @Prop() category: string;
 
   @State() loadingCategory: boolean = true;
