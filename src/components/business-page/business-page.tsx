@@ -8,6 +8,7 @@ import { MainDb } from '../../helpers/main-db';
 export class BusinessPage {
   @Prop() db: MainDb;
   @Prop() directoryId: string;
+  @Prop() directoryRoot: string;
   @Prop() slug: string;
   @Prop() category: string;
 
@@ -89,15 +90,14 @@ export class BusinessPage {
   }
 
   render() {
+    const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
         <banner-block/>
         <navbar-block>
-          <nav-link-block href="#/">Home</nav-link-block>
-          <nav-link-block href="#/shopping/" current={this.category == 'shopping'}>Shopping</nav-link-block>
-          <nav-link-block href="#/food/" current={this.category == 'food'}>Food</nav-link-block>
-          <nav-link-block href="#/services/" current={this.category == 'services'}>Services</nav-link-block>
-          <nav-link-block href="#/contact/">Contact</nav-link-block>
+          <nav-link-block href={baseUrl}>Home</nav-link-block>
+          {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
+          <nav-link-block href={baseUrl + 'contact/'}>Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
           <div class="details centered">
@@ -139,7 +139,7 @@ export class BusinessPage {
             </div> : null}
           </div>
         </content-bg-block>
-        <footer-block/>
+        <footer-block baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

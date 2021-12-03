@@ -8,6 +8,7 @@ import { MainDb } from '../../helpers/main-db';
 export class CategoryPage {
   @Prop() db: MainDb;
   @Prop() directoryId: string;
+  @Prop() directoryRoot: string;
   @Prop() category: string;
 
   @State() loadingCategory: boolean = true;
@@ -74,13 +75,14 @@ export class CategoryPage {
   }
 
   render() {
+    const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
         <banner-block/>
         <navbar-block>
-          <nav-link-block href="#/">Home</nav-link-block>
-          {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={'#/' + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
-          <nav-link-block href="#/contact/">Contact</nav-link-block>
+          <nav-link-block href={baseUrl}>Home</nav-link-block>
+          {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
+          <nav-link-block href={baseUrl + 'contact/'}>Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
           <field-block class="headline-field" loading={this.loadingCategory} value={this.headline} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => {this.headline = e.detail; this.save();}} />
@@ -91,7 +93,7 @@ export class CategoryPage {
             {this.businesses.map(b => <business-card-block name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={'#/' + b.category + '/' + b._id}/>)}
           </div>
         </content-block>
-        <footer-block/>
+        <footer-block baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

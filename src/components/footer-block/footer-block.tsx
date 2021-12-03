@@ -6,6 +6,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class FooterBlock {
+  @Prop() baseUrl: string;
   @Prop() instagram: string;
   @Prop() twitter: string;
   @Prop() youtube: string;
@@ -22,24 +23,24 @@ export class FooterBlock {
               </div>
               <div class="footer-column col-2">
                 <div class="title">Farnborough</div>
-                <a href="#/">Home</a>
-                <a href="#/shopping/">Shopping</a>
-                <a href="#/food/">Food</a>
-                <a href="#/services/">Services</a>
-                <a href="#/contact/">Contact</a>
+                <a href={this.baseUrl}>Home</a>
+                <a href={this.baseUrl + 'shopping/'}>Shopping</a>
+                <a href={this.baseUrl + 'food/'}>Food</a>
+                <a href={this.baseUrl + 'services/'}>Services</a>
+                <a href={this.baseUrl + 'contact/'}>Contact</a>
               </div>
               <div class="footer-column col-3">
                 <div class="title">My Town</div>
-                <a href="#/mission/">Mission</a>
+                <a href={this.baseUrl + 'mission/'}>Mission</a>
                 <a href="https://github.com/jeremyorme/my-town/">Github</a>
-                <a href="#/install/">Install</a>
+                <a href={this.baseUrl + 'install/'}>Install</a>
                 <a href="https://github.com/jeremyorme/my-town/issues">Issues</a>
-                <a href="#/admin/">Admin</a>
+                <a href={this.baseUrl + 'admin/'}>Admin</a>
               </div>
               <div class="footer-column col-4">
                 <div class="title">Legal</div>
-                <a href="#/tandcs/">T&amp;Cs</a>
-                <a href="#/privacy/">Privacy</a>
+                <a href={this.baseUrl + 'tandcs/'}>T&amp;Cs</a>
+                <a href={this.baseUrl + 'privacy/'}>Privacy</a>
               </div>
             </div>
             <div class="footer-legal">

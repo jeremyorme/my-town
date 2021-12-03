@@ -7,17 +7,17 @@ import { MainDb } from '../../helpers/main-db';
 })
 export class DirectoryPage {
   @Prop() db: MainDb;
+  @Prop() directoryId: string;
+  @Prop() directoryRoot: string;
 
   render() {
+    const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
         <banner-block/>
         <navbar-block>
-          <nav-link-block href="#/" current={true}>Home</nav-link-block>
-          <nav-link-block href="#/shopping/">Shopping</nav-link-block>
-          <nav-link-block href="#/food/">Food</nav-link-block>
-          <nav-link-block href="#/services/">Services</nav-link-block>
-          <nav-link-block href="#/contact/">Contact</nav-link-block>
+          <nav-link-block href={baseUrl} current={true}>Home</nav-link-block>
+          {['Shopping', 'Food', 'Services', 'Contact'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'}>{c}</nav-link-block>)}
         </navbar-block>
         <header-block>
           <h1 slot="left">Shop local. Help <strong>Farnborough</strong> thrive!</h1>
@@ -26,7 +26,7 @@ export class DirectoryPage {
           <ion-button slot="left" href="#/shopping/" strong={true}>Find a Shop</ion-button>
           <map-block id="local-map" slot="right" latitude={51.2869} longitude={-0.7526} zoom={13}/>
         </header-block>
-        <footer-block/>
+        <footer-block baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

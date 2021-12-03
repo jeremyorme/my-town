@@ -26,14 +26,18 @@ export namespace Components {
         "category": string;
         "db": MainDb;
         "directoryId": string;
+        "directoryRoot": string;
         "slug": string;
     }
     interface CategoryPage {
         "category": string;
         "db": MainDb;
         "directoryId": string;
+        "directoryRoot": string;
     }
     interface ContactPage {
+        "directoryId": string;
+        "directoryRoot": string;
     }
     interface ContentBgBlock {
     }
@@ -41,6 +45,8 @@ export namespace Components {
     }
     interface DirectoryPage {
         "db": MainDb;
+        "directoryId": string;
+        "directoryRoot": string;
     }
     interface FieldBlock {
         "iconSize": string;
@@ -50,6 +56,7 @@ export namespace Components {
         "value": string;
     }
     interface FooterBlock {
+        "baseUrl": string;
         "instagram": string;
         "twitter": string;
         "youtube": string;
@@ -231,14 +238,18 @@ declare namespace LocalJSX {
         "category"?: string;
         "db"?: MainDb;
         "directoryId"?: string;
+        "directoryRoot"?: string;
         "slug"?: string;
     }
     interface CategoryPage {
         "category"?: string;
         "db"?: MainDb;
         "directoryId"?: string;
+        "directoryRoot"?: string;
     }
     interface ContactPage {
+        "directoryId"?: string;
+        "directoryRoot"?: string;
     }
     interface ContentBgBlock {
     }
@@ -246,6 +257,8 @@ declare namespace LocalJSX {
     }
     interface DirectoryPage {
         "db"?: MainDb;
+        "directoryId"?: string;
+        "directoryRoot"?: string;
     }
     interface FieldBlock {
         "iconSize"?: string;
@@ -256,6 +269,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface FooterBlock {
+        "baseUrl"?: string;
         "instagram"?: string;
         "twitter"?: string;
         "youtube"?: string;
