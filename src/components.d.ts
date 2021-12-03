@@ -39,6 +39,9 @@ export namespace Components {
     }
     interface ContentBlock {
     }
+    interface DirectoryPage {
+        "db": MainDb;
+    }
     interface FieldBlock {
         "iconSize": string;
         "isLink": boolean;
@@ -52,9 +55,6 @@ export namespace Components {
         "youtube": string;
     }
     interface HeaderBlock {
-    }
-    interface HomePage {
-        "db": MainDb;
     }
     interface MapBlock {
         "latitude": number;
@@ -129,6 +129,12 @@ declare global {
         prototype: HTMLContentBlockElement;
         new (): HTMLContentBlockElement;
     };
+    interface HTMLDirectoryPageElement extends Components.DirectoryPage, HTMLStencilElement {
+    }
+    var HTMLDirectoryPageElement: {
+        prototype: HTMLDirectoryPageElement;
+        new (): HTMLDirectoryPageElement;
+    };
     interface HTMLFieldBlockElement extends Components.FieldBlock, HTMLStencilElement {
     }
     var HTMLFieldBlockElement: {
@@ -146,12 +152,6 @@ declare global {
     var HTMLHeaderBlockElement: {
         prototype: HTMLHeaderBlockElement;
         new (): HTMLHeaderBlockElement;
-    };
-    interface HTMLHomePageElement extends Components.HomePage, HTMLStencilElement {
-    }
-    var HTMLHomePageElement: {
-        prototype: HTMLHomePageElement;
-        new (): HTMLHomePageElement;
     };
     interface HTMLMapBlockElement extends Components.MapBlock, HTMLStencilElement {
     }
@@ -199,10 +199,10 @@ declare global {
         "contact-page": HTMLContactPageElement;
         "content-bg-block": HTMLContentBgBlockElement;
         "content-block": HTMLContentBlockElement;
+        "directory-page": HTMLDirectoryPageElement;
         "field-block": HTMLFieldBlockElement;
         "footer-block": HTMLFooterBlockElement;
         "header-block": HTMLHeaderBlockElement;
-        "home-page": HTMLHomePageElement;
         "map-block": HTMLMapBlockElement;
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
@@ -244,6 +244,9 @@ declare namespace LocalJSX {
     }
     interface ContentBlock {
     }
+    interface DirectoryPage {
+        "db"?: MainDb;
+    }
     interface FieldBlock {
         "iconSize"?: string;
         "isLink"?: boolean;
@@ -258,9 +261,6 @@ declare namespace LocalJSX {
         "youtube"?: string;
     }
     interface HeaderBlock {
-    }
-    interface HomePage {
-        "db"?: MainDb;
     }
     interface MapBlock {
         "latitude"?: number;
@@ -289,10 +289,10 @@ declare namespace LocalJSX {
         "contact-page": ContactPage;
         "content-bg-block": ContentBgBlock;
         "content-block": ContentBlock;
+        "directory-page": DirectoryPage;
         "field-block": FieldBlock;
         "footer-block": FooterBlock;
         "header-block": HeaderBlock;
-        "home-page": HomePage;
         "map-block": MapBlock;
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
@@ -314,10 +314,10 @@ declare module "@stencil/core" {
             "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
             "content-bg-block": LocalJSX.ContentBgBlock & JSXBase.HTMLAttributes<HTMLContentBgBlockElement>;
             "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
+            "directory-page": LocalJSX.DirectoryPage & JSXBase.HTMLAttributes<HTMLDirectoryPageElement>;
             "field-block": LocalJSX.FieldBlock & JSXBase.HTMLAttributes<HTMLFieldBlockElement>;
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
             "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;
-            "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "map-block": LocalJSX.MapBlock & JSXBase.HTMLAttributes<HTMLMapBlockElement>;
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;

@@ -2,10 +2,10 @@ import { Component, Prop, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 
 @Component({
-  tag: 'home-page',
-  styleUrl: 'home-page.css',
+  tag: 'directory-page',
+  styleUrl: 'directory-page.css',
 })
-export class HomePage {
+export class DirectoryPage {
   @Prop() db: MainDb;
 
   render() {
