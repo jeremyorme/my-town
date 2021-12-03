@@ -14,8 +14,8 @@ export class DirectoryDb {
     this._mainDb = mainDb;
   }
 
-  async init(dbName: string) {  
-    this._db = await this._mainDb.keyvalue(dbName && dbName.length > 0 ? dbName : 'my-town');
+  async init(directoryId: string) {  
+    this._db = await this._mainDb.keyvalue(directoryId && directoryId.length > 0 ? ('orbitdb/' + directoryId + '/my-town') : 'my-town');
     this.businesses.init();
     this.categories.init();
     await this._db.load();
