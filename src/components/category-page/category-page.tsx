@@ -89,8 +89,8 @@ export class CategoryPage {
         </sub-header-block>
         <content-block>
           <div class="menu-item">
-            {this.canWrite ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" href={'#/' + this.category + '/new-business'}/> : null}
-            {this.businesses.map(b => <business-card-block name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={'#/' + b.category + '/' + b._id}/>)}
+            {this.canWrite ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" href={baseUrl + this.category + '/new-business'}/> : null}
+            {this.businesses.map(b => <business-card-block name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b._id}/>)}
           </div>
         </content-block>
         <footer-block baseUrl={baseUrl}/>
