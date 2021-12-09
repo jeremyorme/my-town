@@ -1,5 +1,3 @@
-import slugify from 'slugify';
-
 import { Component, Prop, State, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
 import { Business } from '../../helpers/business-db';

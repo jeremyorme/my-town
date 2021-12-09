@@ -1,4 +1,4 @@
-import { Component, Host, Prop, State, Event, EventEmitter, h } from '@stencil/core';
+import { Component, Host, Prop, State, h } from '@stencil/core';
 import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
 
 @Component({

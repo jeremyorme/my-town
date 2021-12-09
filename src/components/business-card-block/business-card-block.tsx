@@ -7,7 +7,7 @@ import { Component, Host, Prop, Event, EventEmitter, h } from '@stencil/core';
 })
 export class BusinessCardBlock {
   @Prop() canWrite: boolean;
-  @Prop() id: string;
+  @Prop() businessId: string;
   @Prop() slug: string;
   @Prop() name: string;
   @Prop() description: string;
@@ -29,7 +29,7 @@ export class BusinessCardBlock {
             <p>{this.description}</p>
             <div class="details">
               {this.canWrite ? <div class="detail">Slug: <field-block class="field" value={this.slug} readOnly={false} iconSize="small" isLink={false} onValueChanged={e => this.slugChanged.emit(e.detail)}/></div> : null}
-              {this.canWrite ? <div class="detail">ID: <field-block class="field" value={this.id} readOnly={false} iconSize="small" isLink={false} onValueChanged={e => this.idChanged.emit(e.detail)}/></div> : null}
+              {this.canWrite ? <div class="detail">ID: <field-block class="field" value={this.businessId} readOnly={false} iconSize="small" isLink={false} onValueChanged={e => this.idChanged.emit(e.detail)}/></div> : null}
             </div>
             <a class="shop-button" href={this.href} onClick={() => this.buttonClicked.emit()}>{this.buttonText}</a>
           </div>

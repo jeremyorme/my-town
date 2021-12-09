@@ -18,12 +18,12 @@ export namespace Components {
         "townName": string;
     }
     interface BusinessCardBlock {
+        "businessId": string;
         "buttonText": string;
         "canWrite": boolean;
         "description": string;
         "href": string;
         "icon": string;
-        "id": string;
         "name": string;
         "slug": string;
     }
@@ -257,12 +257,12 @@ declare namespace LocalJSX {
         "townName"?: string;
     }
     interface BusinessCardBlock {
+        "businessId"?: string;
         "buttonText"?: string;
         "canWrite"?: boolean;
         "description"?: string;
         "href"?: string;
         "icon"?: string;
-        "id"?: string;
         "name"?: string;
         "onButtonClicked"?: (event: CustomEvent<void>) => void;
         "onIdChanged"?: (event: CustomEvent<string>) => void;
