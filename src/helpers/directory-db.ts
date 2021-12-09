@@ -1,23 +1,29 @@
 import { MainDb } from './main-db';
-import { BusinessDb } from './business-db';
-import { CategoryDb } from './category-db';
+import { BusinessesDb } from './businesses-db';
+import { CategoriesDb } from './categories-db';
+import { RequestsDb } from './requests-db';
+import { DirectoryFieldsDb } from './directory-fields-db';
 
 export class DirectoryDb {
   _mainDb: any;
   _db: any;
   _onChangeFns: any[] = [];
 
-  businesses: BusinessDb = new BusinessDb(this);
-  categories: CategoryDb = new CategoryDb(this);
+  businesses: BusinessesDb = new BusinessesDb(this);
+  categories: CategoriesDb = new CategoriesDb(this);
+  requests: RequestsDb = new RequestsDb(this);
+  directoryFields: DirectoryFieldsDb = new DirectoryFieldsDb(this);
 
   constructor (mainDb: MainDb) {
     this._mainDb = mainDb;
   }
 
   async init(directoryId: string) {  
-    this._db = await this._mainDb.keyvalue(directoryId && directoryId.length > 0 ? ('orbitdb/' + directoryId + '/my-town') : 'my-town');
+    this._db = await this._mainDb.keyvalue(directoryId && directoryId != 'self' ? ('/orbitdb/' + directoryId + '/directory') : 'directory');
     this.businesses.init();
     this.categories.init();
+    this.requests.init();
+    this.directoryFields.init();
     await this._db.load();
     await this._notifyChange();
     this._db.events.on('replicated', () => { return this._notifyChange() });
@@ -37,7 +43,19 @@ export class DirectoryDb {
     this._onChangeFns.push(fn);
   }
 
-  async get(dbName: string): Promise<any> {
+  async keyvalue(dbName: string): Promise<any> {
+    const dbAddress = this._db.get(dbName);
+    if (dbAddress) {
+      return this._mainDb.keyvalue(dbAddress);
+    }
+
+    const db = await this._mainDb.keyvalue(dbName);
+    if (this.canWrite())
+      this._db.put(dbName, db.address.toString());
+    return db;
+  }
+
+  async docstore(dbName: string): Promise<any> {
     const dbAddress = this._db.get(dbName);
     if (dbAddress) {
       return this._mainDb.docstore(dbAddress);
@@ -49,8 +67,24 @@ export class DirectoryDb {
     return db;
   }
 
+  async publicLog(dbName: string): Promise<any> {
+    const dbAddress = this._db.get(dbName);
+    if (dbAddress) {
+      return this._mainDb.log(dbAddress, {accessController: {write: ['*']}});
+    }
+
+    const db = await this._mainDb.log(dbName);
+    if (this.canWrite())
+      this._db.put(dbName, db.address.toString());
+    return db;
+  }
+
   address() {
     return this._db && this._db.address ? this._db.address.toString() : '';
+  }
+
+  id() {
+    return this.address().split('/')[2];
   }
 
   canWrite(dbName: string = null) {

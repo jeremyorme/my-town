@@ -1,5 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
+import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
 
 // https://blog.jayway.com/2017/07/13/open-pdf-downloaded-api-javascript/
 function showFile(blob, filename) {
@@ -34,16 +35,19 @@ function showFile(blob, filename) {
 export class AdminPage {
   @Prop() db: MainDb;
   @Prop() directoryId: string;
+
   @State() keyData: string;
   @State() backupPhrase: string = '';
   @State() restorePhrase: string = '';
-  @State() dbAddress: string = 'Connecting...';
+  @State() resolvedDirectoryId: string = 'Connecting...';
+  @State() directoryFields: DirectoryFieldsDb;
 
   async init() {
     const directory = await this.db.directory(this.directoryId);
-    this.dbAddress = directory.address();
+    this.directoryFields = directory.directoryFields;
+    this.resolvedDirectoryId = directory.id();
     directory.onChange(async () => {
-      this.dbAddress = directory.address();
+      this.resolvedDirectoryId = directory.id();
     });
   }
 
@@ -112,10 +116,10 @@ export class AdminPage {
             </ion-item>
             <ion-button onClick={() => this.restoreIdentity()} disabled={!this.keyData || this.restorePhrase.length < 10}>Log In</ion-button>
           </form>
-          <h3>Database address</h3>
-          {this.dbAddress}
+          <h3>My Directory ID</h3>
+          {this.resolvedDirectoryId}
         </content-block>
-        <footer-block/>
+        <footer-block db={this.directoryFields}/>
       </ion-content>,
     ];
   }

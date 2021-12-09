@@ -1,5 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { MainDb } from '../../helpers/main-db';
+import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
 
 @Component({
   tag: 'business-page',
@@ -7,11 +8,25 @@ import { MainDb } from '../../helpers/main-db';
 })
 export class BusinessPage {
   @Prop() db: MainDb;
+
+  // These properties are set for edits from a directory
   @Prop() directoryId: string;
   @Prop() directoryRoot: string;
   @Prop() slug: string;
   @Prop() category: string;
 
+  // These properties are set for standalone edits
+  @Prop() businessId: string;
+  @Prop() businessIdx: number;
+
+  // Directory state
+  @State() resolvedDirectoryId: string;
+  @State() homeDirectoryId: string;
+  @State() directoryFields: DirectoryFieldsDb;
+
+  // Business state
+  @State() resolvedBusinessId: string;
+  @State() resolvedBusinessIdx: number;
   @State() loading: boolean = true;
   @State() name: string = 'Local *Business* Name';
   @State() description: string = 'Great little convenience store with all the essentials you could need';
@@ -23,82 +38,88 @@ export class BusinessPage {
   @State() icon: string = 'home-outline';
   @State() canWrite: boolean = false;
 
-  private navCtrl: HTMLIonRouterElement;
-
-  async loadData() {
+  async resolveBusinessId() {
+    if (!this.directoryId)
+      return this.businessId + '/' + this.businessIdx;
     const directory = await this.db.directory(this.directoryId);
+    this.directoryFields = directory.directoryFields;
     await directory.businesses.load();
-    this.canWrite = await directory.businesses.canWrite();
-    const business = await directory.businesses.get(this.slug);
-    if (business) {
-      this.name = business.name;
-      this.description = business.description;
-      this.url = business.url;
-      this.tel = business.tel;
-      this.address = business.address;
-      this.longitude = business.longitude;
-      this.latitude = business.latitude;
-      this.icon = business.icon;
-      this.loading = false;
-    }    
+    const businessEntry = await directory.businesses.get(this.slug);
+    return businessEntry ? businessEntry._id : null;
   }
 
-  async init() {
-    this.navCtrl = document.querySelector("ion-router");
-
-    if (this.slug == 'new-business') {
-      this.loading = false;
+  async loadData() {
+    this.resolvedDirectoryId = (await this.db.directory()).id();
+    const businessIdAndIdx = (await this.resolveBusinessId()).split('/');
+    const myBusinesses = await this.db.business(businessIdAndIdx[0]);
+    this.resolvedBusinessId = myBusinesses.id();
+    this.resolvedBusinessIdx = parseInt(businessIdAndIdx[1]);
+    myBusinesses.load();
+    if (!myBusinesses)
       return;
+
+    this.canWrite = await myBusinesses.canWrite();
+    if (this.loading) {
+      this.loading = false;
+      myBusinesses.onChange(() => {return this.loadData()});
     }
 
-    await this.loadData();
-    const directory = await this.db.directory(this.directoryId);
-    directory.businesses.onChange(() => {this.loadData()});
+    const business = await myBusinesses.get(this.resolvedBusinessIdx);
+    if (!business)
+      return;
+
+    this.name = business.name;
+    this.description = business.description;
+    this.url = business.url;
+    this.tel = business.tel;
+    this.address = business.address;
+    this.longitude = business.longitude;
+    this.latitude = business.latitude;
+    this.icon = business.icon;
   }
 
   async componentWillLoad() {
-    this.init();
+    this.loadData();
+    this.homeDirectoryId = this.db.localStorage.getHomeDirectoryId() || this.resolvedDirectoryId;
+    this.db.localStorage.onChange(() => {
+      this.homeDirectoryId = this.db.localStorage.getHomeDirectoryId() || this.resolvedDirectoryId;
+    });
   }
 
   async save() {
-    const directory = await this.db.directory(this.directoryId);
-    const newSlug = this.name.toLowerCase().split(/[^a-z0-9 ]/).join('').split(' ').join('-');
-    
-    if (newSlug != this.slug && this.slug != 'new-business') {
-      await directory.businesses.del(this.slug);
-    }
+    const business = await this.db.business(this.resolvedBusinessId);
+    await business.put({
+      _id: this.resolvedBusinessIdx,
+      name: this.name,
+      description: this.description,
+      url: this.url,
+      tel: this.tel,
+      address: this.address,
+      longitude: this.longitude,
+      latitude: this.latitude,
+      icon: this.icon
+    });
+  }
 
-    if (newSlug == 'delete') {
-      this.navCtrl.push('../' + this.category);
-    } else {
-      const business = {
-        _id: newSlug,
-        category: this.category,
-        name: this.name,
-        description: this.description,
-        url: this.url,
-        tel: this.tel,
-        address: this.address,
-        longitude: this.longitude,
-        latitude: this.latitude,
-        icon: this.icon
-      };
-
-      await directory.businesses.put(business);
-      this.navCtrl.push('../' + this.category + '/' + newSlug);
-    }
+  async onRequest() {
+    const homeDirectory = await this.db.directory(this.homeDirectoryId);
+    const requests = await homeDirectory.requests;
+    return requests.push({_id: this.resolvedBusinessId, idx: this.businessIdx});
   }
 
   render() {
-    const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
+    const baseUrl = this.directoryId ? this.directoryRoot.replace(':directoryId', this.directoryId) : '#/';
     return [
       <ion-content>
         <banner-block/>
-        <navbar-block>
+        {this.directoryId ? <navbar-block>
           <nav-link-block href={baseUrl}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
           <nav-link-block href={baseUrl + 'contact/'}>Contact</nav-link-block>
-        </navbar-block>
+        </navbar-block> :
+        <navbar-block>
+          {['Home', 'My Businesses', 'My Directory'].map(c => <nav-link-block href={'#/' + c.split(' ').join('-').toLowerCase() + '/'} current={c == 'My Businesses'}>{c}</nav-link-block>)}
+        </navbar-block>}
         <sub-header-block>
           <div class="details centered">
             <field-block class="name-field" loading={this.loading} value={this.name} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => {this.name = e.detail; this.save();}} />
@@ -139,7 +160,19 @@ export class BusinessPage {
             </div> : null}
           </div>
         </content-bg-block>
-        <footer-block baseUrl={baseUrl}/>
+        {this.canWrite && this.businessId ? <content-block>
+          <h2>Add To Directory</h2>
+          <p>Your home directory is set to:</p>
+          <div class="details">
+            <div class="detail">
+              <ion-icon class="detail-left" name="link" size="large"/>
+              <field-block class="detail-right" loading={this.loading} value={this.homeDirectoryId} iconSize="small" readOnly={false} onValueChanged={e => this.db.localStorage.setHomeDirectoryId(e.detail)}/>
+              <p class="detail-right" ><a href={'#/directory/' + this.homeDirectoryId + '/'}>Visit</a></p>
+            </div>
+          </div>
+          <ion-button onClick={() => this.onRequest()}>Request</ion-button>
+        </content-block> : null}
+        <footer-block db={this.directoryFields} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

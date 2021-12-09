@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.1.1",
-    "leaflet": "^1.7.1"
+    "leaflet": "^1.7.1",
+    "slugify": "^1.6.3"
   }
 }

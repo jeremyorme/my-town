@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MainDb } from "./helpers/main-db";
+import { DirectoryFieldsDb } from "./helpers/directory-fields-db";
 export namespace Components {
     interface AdminPage {
         "db": MainDb;
@@ -14,15 +15,21 @@ export namespace Components {
     interface AppRoot {
     }
     interface BannerBlock {
+        "townName": string;
     }
     interface BusinessCardBlock {
         "buttonText": string;
+        "canWrite": boolean;
         "description": string;
         "href": string;
         "icon": string;
+        "id": string;
         "name": string;
+        "slug": string;
     }
     interface BusinessPage {
+        "businessId": string;
+        "businessIdx": number;
         "category": string;
         "db": MainDb;
         "directoryId": string;
@@ -57,16 +64,23 @@ export namespace Components {
     }
     interface FooterBlock {
         "baseUrl": string;
+        "db": DirectoryFieldsDb;
         "instagram": string;
         "twitter": string;
         "youtube": string;
     }
     interface HeaderBlock {
     }
+    interface HomePage {
+        "db": MainDb;
+    }
     interface MapBlock {
         "latitude": number;
         "longitude": number;
         "zoom": number;
+    }
+    interface MyBusinessesPage {
+        "db": MainDb;
     }
     interface NavLinkBlock {
         "current": boolean;
@@ -160,11 +174,23 @@ declare global {
         prototype: HTMLHeaderBlockElement;
         new (): HTMLHeaderBlockElement;
     };
+    interface HTMLHomePageElement extends Components.HomePage, HTMLStencilElement {
+    }
+    var HTMLHomePageElement: {
+        prototype: HTMLHomePageElement;
+        new (): HTMLHomePageElement;
+    };
     interface HTMLMapBlockElement extends Components.MapBlock, HTMLStencilElement {
     }
     var HTMLMapBlockElement: {
         prototype: HTMLMapBlockElement;
         new (): HTMLMapBlockElement;
+    };
+    interface HTMLMyBusinessesPageElement extends Components.MyBusinessesPage, HTMLStencilElement {
+    }
+    var HTMLMyBusinessesPageElement: {
+        prototype: HTMLMyBusinessesPageElement;
+        new (): HTMLMyBusinessesPageElement;
     };
     interface HTMLNavLinkBlockElement extends Components.NavLinkBlock, HTMLStencilElement {
     }
@@ -210,7 +236,9 @@ declare global {
         "field-block": HTMLFieldBlockElement;
         "footer-block": HTMLFooterBlockElement;
         "header-block": HTMLHeaderBlockElement;
+        "home-page": HTMLHomePageElement;
         "map-block": HTMLMapBlockElement;
+        "my-businesses-page": HTMLMyBusinessesPageElement;
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
         "sub-header-block": HTMLSubHeaderBlockElement;
@@ -226,15 +254,24 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface BannerBlock {
+        "townName"?: string;
     }
     interface BusinessCardBlock {
         "buttonText"?: string;
+        "canWrite"?: boolean;
         "description"?: string;
         "href"?: string;
         "icon"?: string;
+        "id"?: string;
         "name"?: string;
+        "onButtonClicked"?: (event: CustomEvent<void>) => void;
+        "onIdChanged"?: (event: CustomEvent<string>) => void;
+        "onSlugChanged"?: (event: CustomEvent<string>) => void;
+        "slug"?: string;
     }
     interface BusinessPage {
+        "businessId"?: string;
+        "businessIdx"?: number;
         "category"?: string;
         "db"?: MainDb;
         "directoryId"?: string;
@@ -270,16 +307,23 @@ declare namespace LocalJSX {
     }
     interface FooterBlock {
         "baseUrl"?: string;
+        "db"?: DirectoryFieldsDb;
         "instagram"?: string;
         "twitter"?: string;
         "youtube"?: string;
     }
     interface HeaderBlock {
     }
+    interface HomePage {
+        "db"?: MainDb;
+    }
     interface MapBlock {
         "latitude"?: number;
         "longitude"?: number;
         "zoom"?: number;
+    }
+    interface MyBusinessesPage {
+        "db"?: MainDb;
     }
     interface NavLinkBlock {
         "current"?: boolean;
@@ -307,7 +351,9 @@ declare namespace LocalJSX {
         "field-block": FieldBlock;
         "footer-block": FooterBlock;
         "header-block": HeaderBlock;
+        "home-page": HomePage;
         "map-block": MapBlock;
+        "my-businesses-page": MyBusinessesPage;
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
         "sub-header-block": SubHeaderBlock;
@@ -332,7 +378,9 @@ declare module "@stencil/core" {
             "field-block": LocalJSX.FieldBlock & JSXBase.HTMLAttributes<HTMLFieldBlockElement>;
             "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
             "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;
+            "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "map-block": LocalJSX.MapBlock & JSXBase.HTMLAttributes<HTMLMapBlockElement>;
+            "my-businesses-page": LocalJSX.MyBusinessesPage & JSXBase.HTMLAttributes<HTMLMyBusinessesPageElement>;
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
             "sub-header-block": LocalJSX.SubHeaderBlock & JSXBase.HTMLAttributes<HTMLSubHeaderBlockElement>;

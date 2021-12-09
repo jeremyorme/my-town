@@ -214,3 +214,8 @@ p {
     width: auto;
   }
 }
+
+field-block {
+  display: inline-block;
+  --font-color: var(--color-default);
+}

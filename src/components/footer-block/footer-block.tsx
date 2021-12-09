@@ -1,4 +1,5 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, State, Event, EventEmitter, h } from '@stencil/core';
+import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
 
 @Component({
   tag: 'footer-block',
@@ -6,10 +7,26 @@ import { Component, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class FooterBlock {
+  @Prop() db: DirectoryFieldsDb;
   @Prop() baseUrl: string;
   @Prop() instagram: string;
   @Prop() twitter: string;
   @Prop() youtube: string;
+
+  @State() townName: string = '';
+  @State() canWrite: boolean = false;
+
+  async componentWillLoad() {
+    if (!this.db)
+      return;
+
+    await this.db.load();
+    this.canWrite = this.db.canWrite();
+    this.townName = this.db.getTownName();
+    this.db.onChange(() => {
+      this.townName = this.db.getTownName();
+    })
+  }
 
   render() {
     return (
@@ -19,23 +36,23 @@ export class FooterBlock {
             <div class="footer-grid">
               <div class="footer-column col-1">
                 <div class="footer-logo"/>
-                <p>Promoting locally owned businesses in Farnborough.</p>
+                <p>Promoting locally owned businesses{this.db ? <span> in <field-block value={this.townName} readOnly={!this.canWrite} onValueChanged={e => this.db.setTownName(e.detail)} /></span> : null}.</p>
               </div>
-              <div class="footer-column col-2">
-                <div class="title">Farnborough</div>
+              {this.db ? <div class="footer-column col-2">
+                <div class="title">{this.townName}</div>
                 <a href={this.baseUrl}>Home</a>
                 <a href={this.baseUrl + 'shopping/'}>Shopping</a>
                 <a href={this.baseUrl + 'food/'}>Food</a>
                 <a href={this.baseUrl + 'services/'}>Services</a>
                 <a href={this.baseUrl + 'contact/'}>Contact</a>
-              </div>
+                <a href={this.baseUrl + 'admin/'}>Admin</a>
+              </div> : null}
               <div class="footer-column col-3">
                 <div class="title">My Town</div>
                 <a href={this.baseUrl + 'mission/'}>Mission</a>
                 <a href="https://github.com/jeremyorme/my-town/">Github</a>
                 <a href={this.baseUrl + 'install/'}>Install</a>
                 <a href="https://github.com/jeremyorme/my-town/issues">Issues</a>
-                <a href={this.baseUrl + 'admin/'}>Admin</a>
               </div>
               <div class="footer-column col-4">
                 <div class="title">Legal</div>

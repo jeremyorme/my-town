@@ -1,11 +1,15 @@
 import { DirectoryDb } from './directory-db';
 
-export interface Category {
+export interface BusinessEntry {
   _id: string;
-  headline: string;
+  category: string;
+  slug: string;
+  name: string;
+  description: string;
+  icon: string;
 }
 
-export class CategoryDb {
+export class BusinessesDb {
   _directoryDb: DirectoryDb;
   _db: any;
   _onChangeFn: any;
@@ -17,7 +21,7 @@ export class CategoryDb {
   init() {
     this._directoryDb.onChange(async () => {
       await this._directoryDb.load();
-      this._db = await this._directoryDb.get('category');
+      this._db = await this._directoryDb.docstore('businesses');
       this._db.events.on('replicated', () => {
         if (this._onChangeFn)
           return this._onChangeFn();
@@ -41,15 +45,26 @@ export class CategoryDb {
     this._onChangeFn = fn;
   }
 
-  async get(id: string): Promise<Category> {
+  async query(category: string): Promise<BusinessEntry[]> {
     if (!this._db)
       return null;
-    const category = await this._db.query(b => b._id == id);
-    return category.length > 0 ? category[0] as Category : null;
+    const businesses = this._db.query(b => b.category == category);
+    return businesses as BusinessEntry[];
   }
 
-  put(category: Category) {
-    return this._db.put(category);
+  async get(slug: string): Promise<BusinessEntry> {
+    if (!this._db)
+      return null;
+    const businesses = await this._db.query(b => b.slug == slug);
+    return businesses.length > 0 ? businesses[0] as BusinessEntry : null;
+  }
+
+  put(business: BusinessEntry) {
+    return this._db.put(business);
+  }
+
+  del(id: string) {
+    return this._db.del(id);
   }
 
   canWrite(dbName: string = null) {

@@ -1,5 +1,7 @@
 import { DownloadableKeystore } from './downloadable-keystore';
 import { DirectoryDb } from './directory-db';
+import { BusinessDb } from './business-db';
+import { LocalStorageDb } from './local-storage-db';
 
 export class MainDb {
   Ipfs: any;
@@ -11,7 +13,10 @@ export class MainDb {
   _ipfsId: string;
   _needInit: boolean = true;
 
+  localStorage: LocalStorageDb = new LocalStorageDb();
+
   _directories: Map<string, DirectoryDb> = new Map();
+  _businesses: Map<string, BusinessDb> = new Map();
 
   constructor(Ipfs: any, OrbitDB: any, ipfsId: string) {
     this.Ipfs = Ipfs;
@@ -63,13 +68,25 @@ export class MainDb {
     return this._keystore.setKeyData(keyData, passPhrase);
   }
 
-  async directory(directoryId: string) {
-    if (this._directories.has(directoryId))
+  async directory(directoryId: string = null) {
+    if (directoryId && this._directories.has(directoryId))
       return this._directories.get(directoryId);
 
     await this.init();
     const d = new DirectoryDb(this);
     await d.init(directoryId);
+    this._directories.set(d.id(), d);
+    return d;
+  }
+
+  async business(businessId: string = null) {
+    if (businessId && this._businesses.has(businessId))
+      return this._businesses.get(businessId);
+
+    await this.init();
+    const d = new BusinessDb(this);
+    await d.init(businessId);
+    this._businesses.set(d.id(), d);
     return d;
   }
 
@@ -79,6 +96,10 @@ export class MainDb {
 
   docstore(dbName: string) {
     return this._orbitdb.docstore(dbName);
+  }
+
+  log(dbName: string) {
+    return this._orbitdb.log(dbName);
   }
 
   canWrite(db: any) {
