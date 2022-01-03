@@ -97,7 +97,7 @@ export class AdminPage {
     const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
-        <banner-block baseUrl={baseUrl} townName={this.townName}/>
+        <banner-block directoryId={this.directoryId} baseUrl={baseUrl}/>
         <navbar-block>
           <nav-link-block href={baseUrl}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'}>{c}</nav-link-block>)}
@@ -128,7 +128,7 @@ export class AdminPage {
             <field-block loading={this.loading} value={this.canWrite ? this.loadedDirectoryId : 'You do not own the current directory.'} iconSize="small" readOnly={true}/>
           </div>
         </content-block>
-        <footer-block directoryId={this.directoryId}/>
+        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

@@ -15,7 +15,7 @@ export namespace Components {
     }
     interface BannerBlock {
         "baseUrl": string;
-        "townName": string;
+        "directoryId": string;
     }
     interface BusinessCardBlock {
         "businessEntryId": BusinessEntryId;
@@ -250,7 +250,7 @@ declare namespace LocalJSX {
     }
     interface BannerBlock {
         "baseUrl"?: string;
-        "townName"?: string;
+        "directoryId"?: string;
     }
     interface BusinessCardBlock {
         "businessEntryId"?: BusinessEntryId;

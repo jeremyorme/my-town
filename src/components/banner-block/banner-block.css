@@ -50,3 +50,7 @@ html {
   text-decoration: none;
   color: white;
 }
+
+field-block {
+  display: inline-block;
+}

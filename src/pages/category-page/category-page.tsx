@@ -95,7 +95,7 @@ export class CategoryPage {
     const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
-        <banner-block baseUrl={baseUrl} townName={this.townName}/>
+        <banner-block directoryId={this.directoryId} baseUrl={baseUrl}/>
         <navbar-block>
           <nav-link-block href={baseUrl}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
