@@ -5,3 +5,12 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+.detail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  --font-size: var(--font-size-default);
+  --font-weight: var(--font-weight-default);
+  padding-bottom: 10px;
+}

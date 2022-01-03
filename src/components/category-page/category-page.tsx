@@ -1,155 +1,122 @@
 import slugify from 'slugify';
 
 import { Component, Prop, State, h } from '@stencil/core';
-import { MainDb } from '../../helpers/main-db';
-import { BusinessEntry } from '../../helpers/businesses-db';
-import { Request } from '../../helpers/requests-db';
-import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
+import { Category, BusinessEntry, Request, Business, BusinessEntryId, businessEntryIdEquals } from '../../reducers/index';
+import { store } from '@stencil/redux';
+import { loadDirectory, putCategory, putBusinessEntry, delBusinessEntry } from '../../actions/directory';
+import { loadBusinesses } from '../../actions/businesses';
 
 @Component({
   tag: 'category-page',
   styleUrl: 'category-page.css',
 })
 export class CategoryPage {
-  @Prop() db: MainDb;
   @Prop() directoryId: string;
   @Prop() directoryRoot: string;
   @Prop() category: string;
 
-  @State() loadingCategory: boolean = true;
-  @State() loadingBusinesses: boolean = true;
-  @State() loadingRequests: boolean = true;
-  @State() headline: string = 'Loading category...';
-  @State() businesses: BusinessEntry[] = [];
-  @State() requests: Request[] = [];
-  @State() canWrite: boolean = false;
-  @State() directoryFields: DirectoryFieldsDb;
+  @State() canWrite: boolean;
+  @State() loading: boolean;
 
-  async loadBusinessData() {
-    const directory = await this.db.directory(this.directoryId);
-    this.directoryFields = directory.directoryFields;
-    await directory.businesses.load();
-    this.canWrite = await directory.businesses.canWrite();
-    const businesses = await directory.businesses.query(this.category);
-    this.businesses = businesses || [];
-    this.loadingBusinesses = false;
-  }
+  @State() categories: Category[];
+  @State() businessEntries: BusinessEntry[];
+  @State() businesses: Business[];
+  @State() requests: Request[];
+  @State() townName: string;
 
-  async loadCategoryData() {
-    const directory = await this.db.directory(this.directoryId);
-    await directory.categories.load();
-    const cat = await directory.categories.get(this.category);
-    if (cat) {
-      this.headline = cat.headline;
-    }
-    this.loadingCategory = false;
-  }
-
-  async loadRequestsData() {
-    const directory = await this.db.directory(this.directoryId);
-    await directory.requests.load();
-    const reqs = await directory.requests.top(25);
-    if (reqs) {
-      this.requests = reqs;
-    }
-    this.loadingRequests = false;
-  }
-
-  async loadData() {
-    await this.loadBusinessData();
-    await this.loadCategoryData();
-    await this.loadRequestsData();
-  }
-
-  async init() {
-    const directory = await this.db.directory(this.directoryId);
-    this.headline = 'Find *' + this.category + '* businesses';
-    await this.loadData();
-    directory.businesses.onChange(() => { return this.loadBusinessData(); });
-    directory.categories.onChange(() => { return this.loadCategoryData(); });
-    directory.requests.onChange(() => { return this.loadRequestsData(); });
-    directory.onChange(async () => {
-      await this.loadData();
-      directory.businesses.onChange(() => { return this.loadBusinessData(); });
-      directory.categories.onChange(() => { return this.loadCategoryData(); });
-      directory.requests.onChange(() => { return this.loadRequestsData(); });
-    });
-  }
+  loadBusinesses: (...args: any) => any;
+  loadDirectory: (...args: any) => any;
+  putCategory: (...args: any) => any;
+  putBusinessEntry: (...args: any) => any;
+  delBusinessEntry: (...args: any) => any;
 
   componentWillLoad() {
-    this.init();
+    store.mapStateToProps(this, state => {
+      const {
+        directory: { canWrite, loading, townName, categories, businessEntries, requests },
+        businesses: { businesses }
+      } = state;
+      return { canWrite, loading, townName, categories, businessEntries, requests, businesses };
+    });
+    store.mapDispatchToProps(this, { loadBusinesses, loadDirectory, putCategory, putBusinessEntry, delBusinessEntry });
+    this.loadDirectory(this.directoryId);
   }
 
-  async saveCategory() {
-    const directory = await this.db.directory(this.directoryId);
-    await directory.categories.put({
-      _id: this.category,
-      headline: this.headline
-    });
+  getHeadline() {
+    const cat = this.categories.find(c => c._id == this.category);
+    return cat ? cat.headline : '';
+  }
+
+  setHeadline(headline: string) {
+    this.putCategory({_id: this.category, headline});
   }
 
   async addBusiness() {
-    const directory = await this.db.directory(this.directoryId);
-    await directory.businesses.put({
-      _id: 'not-set',
+    this.putBusinessEntry({
+      _id: {businessesId: 'not-set', businessIdx: 0},
       category: this.category,
       slug: 'new-business',
       name: 'New business',
       description: 'Enter business ID:',
       icon: 'help'
     });
-    await this.loadData();
   }
 
-  async updateBusinessId(oldId: string, newId: string) {
+  async deleteBusiness(id: BusinessEntryId) {
+    await this.delBusinessEntry(id);
+  }
 
-    const businessIdAndIdx = newId.split('/');
-    const myBusinesses = await this.db.business(businessIdAndIdx[0]);
-    if (!myBusinesses) {
+  async updateBusinessEntryId(oldId: BusinessEntryId, newId: BusinessEntryId) {
+
+    // Load the new business details
+    await this.loadBusinesses(newId.businessesId);
+    const business = this.businesses.find(b => b._id == newId.businessIdx);
+    if (!business) {
+      alert('Business could not be found with specified hash/index');
       return;
     }
 
-    const fields = await myBusinesses.get(parseInt(businessIdAndIdx[1]));
+    // If the ID changes then delete the old entry
+    if (!businessEntryIdEquals(newId, oldId))
+      await this.delBusinessEntry(oldId);
 
-    const directory = await this.db.directory(this.directoryId);
-    await directory.businesses.del(oldId);
-    await directory.businesses.put({
+    // Update/create new business entry
+    await this.putBusinessEntry({
       _id: newId,
       category: this.category,
-      slug: slugify(fields.name.replaceAll('*', '').toLowerCase()),
-      name: fields.name,
-      description: fields.description,
-      icon: fields.icon
+      slug: slugify(business.name.split('*').join('').toLowerCase()),
+      name: business.name,
+      description: business.description,
+      icon: business.icon
     });
-    await this.loadData();
   }
 
   render() {
     const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
-        <banner-block/>
+        <banner-block baseUrl={baseUrl} townName={this.townName}/>
         <navbar-block>
           <nav-link-block href={baseUrl}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
           <nav-link-block href={baseUrl + 'contact/'}>Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
-          <field-block class="headline-field" loading={this.loadingCategory} value={this.headline} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => {this.headline = e.detail; this.saveCategory();}} />
+          <field-block class="headline-field" loading={this.loading} value={this.getHeadline()} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => {this.setHeadline(e.detail)}} />
         </sub-header-block>
         <content-block>
           <div class="menu-item">
             {this.canWrite ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" onButtonClicked={() => this.addBusiness()}/> : null}
-            {this.businesses.map(b => <business-card-block canWrite={this.canWrite} id={b._id} slug={b.slug} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onIdChanged={e => this.updateBusinessId(b._id, e.detail)}/>)}
+            {this.businessEntries.map(b => <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onIdChanged={e => this.updateBusinessEntryId(b._id, e.detail)} onDeleteClicked={() => this.deleteBusiness(b._id)}/>)}
           </div>
         </content-block>
         <content-block>
           <h2>Requests</h2>
           <div class="menu-item">
-            {this.loadingRequests ? <p>Loading...</p> : this.requests.length ? this.requests.map(r => <p>{r._id}/{r.idx}</p>) : <p>None</p>}
+            {this.loading ? <p>Loading...</p> : this.requests.length ? this.requests.map(r => <p>{r._id}/{r.idx}</p>) : <p>None</p>}
           </div>
         </content-block>
-        <footer-block db={this.directoryFields} baseUrl={baseUrl}/>
+        <footer-block showDirectoryFields={true} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

@@ -1,5 +1,6 @@
 import { Component, Host, Prop, State, h } from '@stencil/core';
-import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
+import { store } from '@stencil/redux';
+import { loadDirectory, setDirectoryField } from '../../actions/directory';
 
 @Component({
   tag: 'footer-block',
@@ -7,25 +8,27 @@ import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
   shadow: true,
 })
 export class FooterBlock {
-  @Prop() db: DirectoryFieldsDb;
+  @Prop() showDirectoryFields: boolean;
   @Prop() baseUrl: string;
   @Prop() instagram: string;
   @Prop() twitter: string;
   @Prop() youtube: string;
 
-  @State() townName: string = '';
-  @State() canWrite: boolean = false;
+  @State() townName: string;
+  @State() canWrite: boolean;
+  @State() loading: boolean;
+
+  loadDirectory: (...args: any) => any;
+  setDirectoryField: (...args: any) => any;
 
   async componentWillLoad() {
-    if (!this.db)
-      return;
-
-    await this.db.load();
-    this.canWrite = this.db.canWrite();
-    this.townName = this.db.getTownName();
-    this.db.onChange(() => {
-      this.townName = this.db.getTownName();
-    })
+    store.mapStateToProps(this, state => {
+      const {
+        directory: { townName, canWrite, loading },
+      } = state;
+      return { townName, canWrite, loading };
+    });
+    store.mapDispatchToProps(this, { loadDirectory, setDirectoryField });
   }
 
   render() {
@@ -36,9 +39,9 @@ export class FooterBlock {
             <div class="footer-grid">
               <div class="footer-column col-1">
                 <div class="footer-logo"/>
-                <p>Promoting locally owned businesses{this.db ? <span> in <field-block value={this.townName} readOnly={!this.canWrite} onValueChanged={e => this.db.setTownName(e.detail)} /></span> : null}.</p>
+                <p>Promoting locally owned businesses{this.showDirectoryFields ? <span> in <field-block value={this.townName} readOnly={!this.canWrite} onValueChanged={e => this.setDirectoryField('town-name', e.detail)} /></span> : null}.</p>
               </div>
-              {this.db ? <div class="footer-column col-2">
+              {this.showDirectoryFields ? <div class="footer-column col-2">
                 <div class="title">{this.townName}</div>
                 <a href={this.baseUrl}>Home</a>
                 <a href={this.baseUrl + 'shopping/'}>Shopping</a>

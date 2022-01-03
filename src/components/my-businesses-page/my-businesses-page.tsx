@@ -1,51 +1,40 @@
-import { Component, Prop, State, h } from '@stencil/core';
-import { MainDb } from '../../helpers/main-db';
-import { Business } from '../../helpers/business-db';
+import { Component, State, h } from '@stencil/core';
+import { Business } from '../../reducers/index';
+import { store } from '@stencil/redux';
+import { loadBusinesses, putBusiness } from '../../actions/businesses';
 
 @Component({
   tag: 'my-businesses-page',
   styleUrl: 'my-businesses-page.css',
 })
 export class MyBusinessesPage {
-  @Prop() db: MainDb;
 
-  @State() loadingBusinesses: boolean = true;
-  @State() businesses: Business[] = [];
-  @State() canWrite: boolean = false;
+  @State() canWrite: boolean;
+  @State() loading: boolean;
+  @State() businesses: Business[];
+  @State() nextIndex: number;
+
+  loadBusinesses: (...args: any) => any;
+  putBusiness: (...args: any) => any;
 
   private navCtrl: HTMLIonRouterElement;
 
-  async loadData() {
-    const myBusinesses = await this.db.business();
-    this.canWrite = await myBusinesses.canWrite();
-    const businesses = await myBusinesses.all();
-    this.businesses = businesses.map(b => ({
-      _id: b._id,
-      category: 'not-set',
-      slug: 'not-set',
-      name: b.name,
-      description: b.description,
-      icon: b.icon
-    }));
-    this.loadingBusinesses = false;
-  }
-
-  async init() {
-    await this.loadData();
-    const myBusinesses = await this.db.business();
-    myBusinesses.onChange(() => { return this.loadData(); });
-  }
-
   componentWillLoad() {
     this.navCtrl = document.querySelector("ion-router");
-    this.init();
+    store.mapStateToProps(this, state => {
+      const {
+        businesses: { canWrite, loading, businesses, nextIndex },
+      } = state;
+      return { canWrite, loading, businesses, nextIndex };
+    });
+    store.mapDispatchToProps(this, { loadBusinesses, putBusiness });
+    this.loadBusinesses();
   }
 
   async createBusiness() {
-    const myBusinesses = await this.db.business();
-    const idx = myBusinesses.nextIndex()
-    myBusinesses.put({
-      _id: idx,
+    const businessIdx = this.nextIndex;
+    this.putBusiness({
+      _id: businessIdx,
       name: 'My *Business* Name',
       description: 'My business in a sentence or two',
       url: 'https://my-business.com',
@@ -55,7 +44,7 @@ export class MyBusinessesPage {
       latitude: 52.0,
       icon: 'help'
     });
-    this.navCtrl.push('/my-businesses/' + idx + '/');
+    this.navCtrl.push('/my-businesses/' + businessIdx + '/');
   }
 
   render() {

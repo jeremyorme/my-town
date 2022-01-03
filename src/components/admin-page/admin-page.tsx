@@ -1,6 +1,7 @@
 import { Component, Prop, State, h } from '@stencil/core';
-import { MainDb } from '../../helpers/main-db';
-import { DirectoryFieldsDb } from '../../helpers/directory-fields-db';
+import { store } from '@stencil/redux';
+import { backupIdentity, restoreIdentity } from '../../actions/database';
+import { loadDirectory } from '../../actions/directory';
 
 // https://blog.jayway.com/2017/07/13/open-pdf-downloaded-api-javascript/
 function showFile(blob, filename) {
@@ -33,37 +34,44 @@ function showFile(blob, filename) {
   styleUrl: 'admin-page.css',
 })
 export class AdminPage {
-  @Prop() db: MainDb;
   @Prop() directoryId: string;
+  @Prop() directoryRoot: string;
 
-  @State() keyData: string;
   @State() backupPhrase: string = '';
   @State() restorePhrase: string = '';
-  @State() resolvedDirectoryId: string = 'Connecting...';
-  @State() directoryFields: DirectoryFieldsDb;
 
-  async init() {
-    const directory = await this.db.directory(this.directoryId);
-    this.directoryFields = directory.directoryFields;
-    this.resolvedDirectoryId = directory.id();
-    directory.onChange(async () => {
-      this.resolvedDirectoryId = directory.id();
-    });
-  }
+  @State() canWrite: boolean;
+  @State() loading: boolean;
+  @State() loadedDirectoryId: string;
+  @State() townName: string;
+  @State() keyData: string;
+  @State() id: string;
+
+  loadDirectory: (...args: any) => any;
+  backupIdentity: (...args: any) => any;
+  restoreIdentity: (...args: any) => any;
 
   componentWillLoad() {
-    this.init();
+    store.mapStateToProps(this, state => {
+      const {
+        database: { keyData, id },
+        directory: { canWrite, loading, loadedDirectoryId, townName }
+      } = state;
+      return { canWrite, loading, loadedDirectoryId, townName, keyData, id };
+    });
+    store.mapDispatchToProps(this, { loadDirectory, backupIdentity, restoreIdentity });
+    return this.loadDirectory(this.directoryId);
   }
 
-  async backupIdentity() {
-    const keyData = await this.db.backupIdentity(this.backupPhrase);
-    showFile(keyData, 'my-town-login.json');
+  async backupIdentityToFile() {
+    await this.backupIdentity(this.backupPhrase);
+    showFile(this.keyData, 'my-town-login.json');
   }
 
-  async restoreIdentity() {
-    const id = await this.db.restoreIdentity(this.keyData, this.restorePhrase);
-    localStorage.setItem('my-town-id', id);
-    alert('Identity [' + id + '] restored');
+  async restoreIdentityFromFile() {
+    await this.restoreIdentity(this.keyData, this.restorePhrase);
+    localStorage.setItem('my-town-id', this.id);
+    alert('Identity [' + this.id + '] restored');
   }
 
   handleFileSelect(evt) {
@@ -86,15 +94,14 @@ export class AdminPage {
   }
 
   render() {
+    const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
-        <banner-block/>
+        <banner-block baseUrl={baseUrl} townName={this.townName}/>
         <navbar-block>
-          <nav-link-block href="#/">Home</nav-link-block>
-          <nav-link-block href="#/shopping/">Shopping</nav-link-block>
-          <nav-link-block href="#/food/">Food</nav-link-block>
-          <nav-link-block href="#/services/">Services</nav-link-block>
-          <nav-link-block href="#/contact/">Contact</nav-link-block>
+          <nav-link-block href={baseUrl}>Home</nav-link-block>
+          {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'}>{c}</nav-link-block>)}
+          <nav-link-block href={baseUrl + 'contact/'}>Contact</nav-link-block>
         </navbar-block>
         <sub-header-block>
           <h1><strong>Administrator</strong> Settings</h1>
@@ -104,7 +111,7 @@ export class AdminPage {
           <ion-item>
             <ion-input type="password" placeholder="Enter pass phrase" value={this.backupPhrase} onIonInput={e => this.backupPhrase = (e.target as HTMLInputElement).value}/>
           </ion-item>
-          <ion-button onClick={() => this.backupIdentity()} disabled={this.backupPhrase.length < 10}>Download</ion-button>
+          <ion-button onClick={() => this.backupIdentityToFile()} disabled={this.backupPhrase.length < 10}>Download</ion-button>
           <h3>Log-in with pass</h3>
           <form enctype="multipart/form-data">
             <ion-item>
@@ -114,12 +121,14 @@ export class AdminPage {
               <ion-label>Log-in pass</ion-label>
               <input id="upload" type="file" accept="application/json" name="files[]" size={30} onChange={e => this.handleFileSelect(e)}/>
             </ion-item>
-            <ion-button onClick={() => this.restoreIdentity()} disabled={!this.keyData || this.restorePhrase.length < 10}>Log In</ion-button>
+            <ion-button onClick={() => this.restoreIdentityFromFile()} disabled={!this.keyData || this.restorePhrase.length < 10}>Log In</ion-button>
           </form>
           <h3>My Directory ID</h3>
-          {this.resolvedDirectoryId}
+          <div class="detail">
+            <field-block loading={this.loading} value={this.canWrite ? this.loadedDirectoryId : 'You do not own the current directory.'} iconSize="small" readOnly={true}/>
+          </div>
         </content-block>
-        <footer-block db={this.directoryFields}/>
+        <footer-block showDirectoryFields={true}/>
       </ion-content>,
     ];
   }

@@ -5,20 +5,20 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { MainDb } from "./helpers/main-db";
-import { DirectoryFieldsDb } from "./helpers/directory-fields-db";
+import { BusinessEntryId } from "./reducers/index";
 export namespace Components {
     interface AdminPage {
-        "db": MainDb;
         "directoryId": string;
+        "directoryRoot": string;
     }
     interface AppRoot {
     }
     interface BannerBlock {
+        "baseUrl": string;
         "townName": string;
     }
     interface BusinessCardBlock {
-        "businessId": string;
+        "businessEntryId": BusinessEntryId;
         "buttonText": string;
         "canWrite": boolean;
         "description": string;
@@ -28,17 +28,15 @@ export namespace Components {
         "slug": string;
     }
     interface BusinessPage {
-        "businessId": string;
         "businessIdx": number;
+        "businessesId": string;
         "category": string;
-        "db": MainDb;
         "directoryId": string;
         "directoryRoot": string;
         "slug": string;
     }
     interface CategoryPage {
         "category": string;
-        "db": MainDb;
         "directoryId": string;
         "directoryRoot": string;
     }
@@ -51,7 +49,6 @@ export namespace Components {
     interface ContentBlock {
     }
     interface DirectoryPage {
-        "db": MainDb;
         "directoryId": string;
         "directoryRoot": string;
     }
@@ -64,15 +61,14 @@ export namespace Components {
     }
     interface FooterBlock {
         "baseUrl": string;
-        "db": DirectoryFieldsDb;
         "instagram": string;
+        "showDirectoryFields": boolean;
         "twitter": string;
         "youtube": string;
     }
     interface HeaderBlock {
     }
     interface HomePage {
-        "db": MainDb;
     }
     interface MapBlock {
         "latitude": number;
@@ -80,7 +76,6 @@ export namespace Components {
         "zoom": number;
     }
     interface MyBusinessesPage {
-        "db": MainDb;
     }
     interface NavLinkBlock {
         "current": boolean;
@@ -248,16 +243,17 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AdminPage {
-        "db"?: MainDb;
         "directoryId"?: string;
+        "directoryRoot"?: string;
     }
     interface AppRoot {
     }
     interface BannerBlock {
+        "baseUrl"?: string;
         "townName"?: string;
     }
     interface BusinessCardBlock {
-        "businessId"?: string;
+        "businessEntryId"?: BusinessEntryId;
         "buttonText"?: string;
         "canWrite"?: boolean;
         "description"?: string;
@@ -265,22 +261,21 @@ declare namespace LocalJSX {
         "icon"?: string;
         "name"?: string;
         "onButtonClicked"?: (event: CustomEvent<void>) => void;
-        "onIdChanged"?: (event: CustomEvent<string>) => void;
+        "onDeleteClicked"?: (event: CustomEvent<void>) => void;
+        "onIdChanged"?: (event: CustomEvent<BusinessEntryId>) => void;
         "onSlugChanged"?: (event: CustomEvent<string>) => void;
         "slug"?: string;
     }
     interface BusinessPage {
-        "businessId"?: string;
         "businessIdx"?: number;
+        "businessesId"?: string;
         "category"?: string;
-        "db"?: MainDb;
         "directoryId"?: string;
         "directoryRoot"?: string;
         "slug"?: string;
     }
     interface CategoryPage {
         "category"?: string;
-        "db"?: MainDb;
         "directoryId"?: string;
         "directoryRoot"?: string;
     }
@@ -293,7 +288,6 @@ declare namespace LocalJSX {
     interface ContentBlock {
     }
     interface DirectoryPage {
-        "db"?: MainDb;
         "directoryId"?: string;
         "directoryRoot"?: string;
     }
@@ -307,15 +301,14 @@ declare namespace LocalJSX {
     }
     interface FooterBlock {
         "baseUrl"?: string;
-        "db"?: DirectoryFieldsDb;
         "instagram"?: string;
+        "showDirectoryFields"?: boolean;
         "twitter"?: string;
         "youtube"?: string;
     }
     interface HeaderBlock {
     }
     interface HomePage {
-        "db"?: MainDb;
     }
     interface MapBlock {
         "latitude"?: number;
@@ -323,7 +316,6 @@ declare namespace LocalJSX {
         "zoom"?: number;
     }
     interface MyBusinessesPage {
-        "db"?: MainDb;
     }
     interface NavLinkBlock {
         "current"?: boolean;

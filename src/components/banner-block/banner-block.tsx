@@ -7,6 +7,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 })
 export class BannerBlock {
 
+  @Prop() baseUrl: string;
   @Prop() townName: string;
 
   render() {
@@ -14,7 +15,7 @@ export class BannerBlock {
       <Host>
         <div class="banner">
           <div class="banner-wrap">
-            <span class="notice-text">The best locally owned businesses{this.townName ? <span> in {this.townName}. <a href={'#/shopping/'} class="white-link">Shop Now!</a></span> : '!'}</span>
+            <span class="notice-text">The best locally owned businesses{this.townName ? <span> in {this.townName}. <a href={this.baseUrl + 'shopping/'} class="white-link">Shop Now!</a></span> : '!'}</span>
           </div>
         </div>
       </Host>

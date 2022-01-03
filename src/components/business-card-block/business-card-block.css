@@ -83,3 +83,9 @@ p {
 .detail {
   color: var(--color-default);
 }
+
+.delete-button {
+  cursor: pointer;
+  margin-left: 15px;
+  color: gray;
+}
