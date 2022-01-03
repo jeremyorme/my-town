@@ -1,6 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { store } from '@stencil/redux';
-import { loadDirectory, setDirectoryField, setHome } from '../../actions/directory';
+import { loadDirectory, setDirectoryField, setHome } from '../../state/actions/directory';
 
 @Component({
   tag: 'directory-page',

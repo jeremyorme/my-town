@@ -1,5 +1,4 @@
-import { ActionType } from '../actions/index';
-import { Business } from './index';
+import { ActionType, Business } from '../root';
 
 interface BusinessesState {
   loading: boolean;

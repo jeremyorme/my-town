@@ -1,7 +1,7 @@
 import { Component, State, h } from '@stencil/core';
-import { Business } from '../../reducers/index';
+import { Business } from '../../state/root';
 import { store } from '@stencil/redux';
-import { loadBusinesses, putBusiness } from '../../actions/businesses';
+import { loadBusinesses, putBusiness } from '../../state/actions/businesses';
 
 @Component({
   tag: 'my-businesses-page',

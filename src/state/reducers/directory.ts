@@ -1,5 +1,4 @@
-import { ActionType } from '../actions/index';
-import { Category, BusinessEntry, Request } from './index';
+import { ActionType, Category, BusinessEntry, Request } from '../root';
 
 interface DirectoryState {
   loading: boolean;

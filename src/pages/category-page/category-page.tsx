@@ -1,10 +1,10 @@
 import slugify from 'slugify';
 
 import { Component, Prop, State, h } from '@stencil/core';
-import { Category, BusinessEntry, Request, Business, BusinessEntryId, businessEntryIdEquals } from '../../reducers/index';
+import { Category, BusinessEntry, Request, Business, BusinessEntryId, businessEntryIdEquals } from '../../state/root';
 import { store } from '@stencil/redux';
-import { loadDirectory, putCategory, putBusinessEntry, delBusinessEntry } from '../../actions/directory';
-import { loadBusinesses } from '../../actions/businesses';
+import { loadDirectory, putCategory, putBusinessEntry, delBusinessEntry } from '../../state/actions/directory';
+import { loadBusinesses } from '../../state/actions/businesses';
 
 @Component({
   tag: 'category-page',

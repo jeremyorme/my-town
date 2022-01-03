@@ -1,6 +1,6 @@
 import { Component, Host, Prop, State, h } from '@stencil/core';
 import { store } from '@stencil/redux';
-import { loadDirectory, setDirectoryField } from '../../actions/directory';
+import { loadDirectory, setDirectoryField } from '../../state/actions/directory';
 
 @Component({
   tag: 'footer-block',

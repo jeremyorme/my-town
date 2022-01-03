@@ -1,4 +1,4 @@
-import { ActionType } from '../actions/index';
+import { ActionType } from '../root';
 
 interface DatabaseState {
   connecting: boolean,

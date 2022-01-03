@@ -1,7 +1,7 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { store } from '@stencil/redux';
-import { backupIdentity, restoreIdentity } from '../../actions/database';
-import { loadDirectory } from '../../actions/directory';
+import { backupIdentity, restoreIdentity } from '../../state/actions/database';
+import { loadDirectory } from '../../state/actions/directory';
 
 // https://blog.jayway.com/2017/07/13/open-pdf-downloaded-api-javascript/
 function showFile(blob, filename) {

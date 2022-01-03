@@ -1,7 +1,7 @@
 import { Component, h } from '@stencil/core';
 import { store } from '@stencil/redux';
-import { configureStore } from '../../store/index';
-import { connectDatabase } from '../../actions/database';
+import { configureStore } from '../../state/store';
+import { connectDatabase } from '../../state/actions/database';
 
 @Component({
   tag: 'app-root',

@@ -1,5 +1,5 @@
 import { Component, Host, Prop, Event, EventEmitter, h } from '@stencil/core';
-import { BusinessEntryId } from '../../reducers/index';
+import { BusinessEntryId } from '../../state/root';
 
 @Component({
   tag: 'business-card-block',

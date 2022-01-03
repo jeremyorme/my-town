@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
-import databaseReducer from './database';
-import directoryReducer from './directory';
-import businessesReducer from './businesses';
+import databaseReducer from './reducers/database';
+import directoryReducer from './reducers/directory';
+import businessesReducer from './reducers/businesses';
 import { DownloadableKeystore } from '../helpers/downloadable-keystore';
+
+export interface ActionType {
+  type: string;
+  payload: any;
+}
 
 export interface Business {
   _id: number;

@@ -3,7 +3,7 @@ import {
   selectLoadedBusinessesId,
   selectBusinessesDb,
   selectBusinesses,
-  Business } from '../reducers/index';
+  Business } from '../root';
 
 export enum BusinessesActions {
   LoadBegin = 'BUSINESSES_LOAD_BEGIN',

@@ -1,8 +1,8 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { store } from '@stencil/redux';
-import { BusinessEntry, BusinessEntryId, Business } from '../../reducers/index';
-import { loadDirectory, setHomeDirectoryId, addRequest } from '../../actions/directory';
-import { loadBusinesses, putBusiness } from '../../actions/businesses';
+import { BusinessEntry, BusinessEntryId, Business } from '../../state/root';
+import { loadDirectory, setHomeDirectoryId, addRequest } from '../../state/actions/directory';
+import { loadBusinesses, putBusiness } from '../../state/actions/businesses';
 
 @Component({
   tag: 'business-page',

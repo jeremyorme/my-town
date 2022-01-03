@@ -12,7 +12,7 @@ import {
   BusinessEntry,
   BusinessEntryId,
   businessEntryIdEquals
-} from '../reducers/index';
+} from '../root';
 
 export enum DirectoryActions {
   LoadBegin = 'DIRECTORY_LOAD_BEGIN',

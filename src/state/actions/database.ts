@@ -1,5 +1,5 @@
-import { DownloadableKeystore } from '../helpers/downloadable-keystore';
-import { selectKeystore, selectId } from '../reducers/index';
+import { DownloadableKeystore } from '../../helpers/downloadable-keystore';
+import { selectKeystore, selectId } from '../root';
 
 export enum DatabaseActions {
   ConnectBegin = 'DATABASE_CONNECT_BEGIN',
