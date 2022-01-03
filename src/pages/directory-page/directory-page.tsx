@@ -31,7 +31,7 @@ export class DirectoryPage {
       return { canWrite, loading, loadedDirectoryId, homeDirectoryId, townName, headline, introText };
     });
     store.mapDispatchToProps(this, { loadDirectory, setDirectoryField, setHome });
-    return this.loadDirectory(this.directoryId);
+    this.loadDirectory(this.directoryId);
   }
 
   render() {

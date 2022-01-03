@@ -35,16 +35,7 @@ export class BusinessPage {
   setHomeDirectoryId: (...args: any) => any;
   addRequest: (...args: any) => any;
 
-  async componentWillLoad() {
-    store.mapStateToProps(this, state => {
-      const {
-        directory: { loading, loadedDirectoryId, homeDirectoryId, townName, businessEntries },
-        businesses: { canWrite, businesses, loadedBusinessesId }
-      } = state;
-      return { canWrite, loading, loadedDirectoryId, homeDirectoryId, townName, businessEntries, businesses, loadedBusinessesId };
-    });
-    store.mapDispatchToProps(this, { loadDirectory, loadBusinesses, putBusiness, setHomeDirectoryId, addRequest });
-
+  async loadData() {
     // Determine the business id and idx
     let businessEntryId: BusinessEntryId = {
       businessesId: '',
@@ -75,6 +66,18 @@ export class BusinessPage {
       address: '',
       icon: ''
     };
+  }
+
+  async componentWillLoad() {
+    store.mapStateToProps(this, state => {
+      const {
+        directory: { loading, loadedDirectoryId, homeDirectoryId, townName, businessEntries },
+        businesses: { canWrite, businesses, loadedBusinessesId }
+      } = state;
+      return { canWrite, loading, loadedDirectoryId, homeDirectoryId, townName, businessEntries, businesses, loadedBusinessesId };
+    });
+    store.mapDispatchToProps(this, { loadDirectory, loadBusinesses, putBusiness, setHomeDirectoryId, addRequest });
+    this.loadData();
   }
 
   async save(fields: any) {

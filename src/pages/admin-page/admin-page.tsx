@@ -60,7 +60,7 @@ export class AdminPage {
       return { canWrite, loading, loadedDirectoryId, townName, keyData, id };
     });
     store.mapDispatchToProps(this, { loadDirectory, backupIdentity, restoreIdentity });
-    return this.loadDirectory(this.directoryId);
+    this.loadDirectory(this.directoryId);
   }
 
   async backupIdentityToFile() {
