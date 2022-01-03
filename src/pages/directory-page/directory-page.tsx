@@ -52,7 +52,7 @@ export class DirectoryPage {
           </div>
           <map-block id="local-map" slot="right" latitude={51.2869} longitude={-0.7526} zoom={13}/>
         </header-block>
-        <footer-block showDirectoryFields={true} baseUrl={baseUrl}/>
+        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

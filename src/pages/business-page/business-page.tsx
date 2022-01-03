@@ -154,7 +154,7 @@ export class BusinessPage {
           </div>
           <ion-button onClick={() => this.onRequest()}>Request</ion-button>
         </content-block> : null}
-        <footer-block showDirectoryFields={true} baseUrl={baseUrl}/>
+        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

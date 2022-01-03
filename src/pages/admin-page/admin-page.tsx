@@ -128,7 +128,7 @@ export class AdminPage {
             <field-block loading={this.loading} value={this.canWrite ? this.loadedDirectoryId : 'You do not own the current directory.'} iconSize="small" readOnly={true}/>
           </div>
         </content-block>
-        <footer-block showDirectoryFields={true}/>
+        <footer-block directoryId={this.directoryId}/>
       </ion-content>,
     ];
   }

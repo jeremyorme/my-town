@@ -116,7 +116,7 @@ export class CategoryPage {
             {this.loading ? <p>Loading...</p> : this.requests.length ? this.requests.map(r => <p>{r._id}/{r.idx}</p>) : <p>None</p>}
           </div>
         </content-block>
-        <footer-block showDirectoryFields={true} baseUrl={baseUrl}/>
+        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

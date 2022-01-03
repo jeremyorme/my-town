@@ -61,8 +61,8 @@ export namespace Components {
     }
     interface FooterBlock {
         "baseUrl": string;
+        "directoryId": string;
         "instagram": string;
-        "showDirectoryFields": boolean;
         "twitter": string;
         "youtube": string;
     }
@@ -301,8 +301,8 @@ declare namespace LocalJSX {
     }
     interface FooterBlock {
         "baseUrl"?: string;
+        "directoryId"?: string;
         "instagram"?: string;
-        "showDirectoryFields"?: boolean;
         "twitter"?: string;
         "youtube"?: string;
     }

@@ -18,7 +18,7 @@ export class ContactPage {
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'}>{c}</nav-link-block>)}
           <nav-link-block href={baseUrl + 'contact/'} current={true}>Contact</nav-link-block>
         </navbar-block>
-        <footer-block baseUrl={baseUrl}/>
+        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

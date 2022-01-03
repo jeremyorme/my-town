@@ -8,7 +8,7 @@ import { loadDirectory, setDirectoryField } from '../../state/actions/directory'
   shadow: true,
 })
 export class FooterBlock {
-  @Prop() showDirectoryFields: boolean;
+  @Prop() directoryId: string;
   @Prop() baseUrl: string;
   @Prop() instagram: string;
   @Prop() twitter: string;
@@ -29,6 +29,8 @@ export class FooterBlock {
       return { townName, canWrite, loading };
     });
     store.mapDispatchToProps(this, { loadDirectory, setDirectoryField });
+    if (this.directoryId)
+      this.loadDirectory(this.directoryId);
   }
 
   render() {
@@ -39,9 +41,9 @@ export class FooterBlock {
             <div class="footer-grid">
               <div class="footer-column col-1">
                 <div class="footer-logo"/>
-                <p>Promoting locally owned businesses{this.showDirectoryFields ? <span> in <field-block value={this.townName} readOnly={!this.canWrite} onValueChanged={e => this.setDirectoryField('town-name', e.detail)} /></span> : null}.</p>
+                <p>Promoting locally owned businesses{this.directoryId ? <span> in <field-block value={this.townName} readOnly={!this.canWrite} onValueChanged={e => this.setDirectoryField('town-name', e.detail)} /></span> : null}.</p>
               </div>
-              {this.showDirectoryFields ? <div class="footer-column col-2">
+              {this.directoryId ? <div class="footer-column col-2">
                 <div class="title">{this.townName}</div>
                 <a href={this.baseUrl}>Home</a>
                 <a href={this.baseUrl + 'shopping/'}>Shopping</a>
