@@ -1,16 +1,16 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'content-bg-block',
-  styleUrl: 'content-bg-block.css',
+  tag: 'content-section',
+  styleUrl: 'content-section.css',
   shadow: true,
 })
-export class ContentBgBlock {
+export class ContentSection {
 
   render() {
     return (
       <Host>
-        <div class="content-section-bg">
+        <div class="content-section">
           <div class="container">
             <slot></slot>
           </div>

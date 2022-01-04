@@ -14,12 +14,12 @@ export class HomePage {
   render() {
     return [
       <ion-content>
-        <banner-block/>
+        <banner-section/>
         <navbar-block>
           <nav-link-block href="#/" current={true}>Home</nav-link-block>
           {['My Businesses', 'My Directory'].map(c => <nav-link-block href={'#/' + c.split(' ').join('-').toLowerCase() + '/'}>{c}</nav-link-block>)}
         </navbar-block>
-        <header-block>
+        <header-section>
           <h1 slot="left">Your Favourite <strong>Locally Owned</strong> Businesses</h1>
           <p slot="left"><strong>Create a business page</strong> or add your favourite shops to <strong>your directory</strong>...</p>
           <div class="buttons" slot="left">
@@ -27,8 +27,8 @@ export class HomePage {
             <ion-button strong={true} onClick={() => this.navCtrl.push('/my-directory/')}>My Directory</ion-button>
           </div>
           <map-block id="local-map" slot="right" latitude={51.2869} longitude={-0.7526} zoom={13}/>
-        </header-block>
-        <footer-block baseUrl="#/"/>
+        </header-section>
+        <footer-section baseUrl="#/"/>
       </ion-content>,
     ];
   }

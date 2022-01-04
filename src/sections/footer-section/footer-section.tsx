@@ -3,11 +3,11 @@ import { store } from '@stencil/redux';
 import { loadDirectory, setDirectoryField } from '../../state/actions/directory';
 
 @Component({
-  tag: 'footer-block',
-  styleUrl: 'footer-block.css',
+  tag: 'footer-section',
+  styleUrl: 'footer-section.css',
   shadow: true,
 })
-export class FooterBlock {
+export class FooterSection {
   @Prop() directoryId: string;
   @Prop() baseUrl: string;
   @Prop() instagram: string;

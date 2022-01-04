@@ -50,21 +50,21 @@ export class MyBusinessesPage {
   render() {
     return [
       <ion-content>
-        <banner-block/>
+        <banner-section/>
         <navbar-block>
           <nav-link-block href="#/">Home</nav-link-block>
           {['My Businesses', 'My Directory'].map(c => <nav-link-block href={'#/' + c.split(' ').join('-').toLowerCase() + '/'} current={c == 'My Businesses'}>{c}</nav-link-block>)}
         </navbar-block>
-        <sub-header-block>
+        <sub-header-section>
           <h1>My <strong>Businesses</strong></h1>
-        </sub-header-block>
-        <content-block>
+        </sub-header-section>
+        <content-section>
           <div class="menu-item">
             {this.canWrite ? <business-card-block name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" onButtonClicked={() => this.createBusiness()}/> : null}
             {this.businesses.map(b => <business-card-block canWrite={false} buttonText="Edit" name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={'#/my-businesses/' + b._id}/>)}
           </div>
-        </content-block>
-        <footer-block baseUrl="#/"/>
+        </content-section>
+        <footer-section baseUrl="#/"/>
       </ion-content>,
     ];
   }

@@ -1,11 +1,11 @@
 import {newE2EPage} from '@stencil/core/testing';
 
-describe('footer-block', () => {
+describe('content-bg-section', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    await page.setContent('<footer-block></footer-block>');
+    await page.setContent('<content-bg-section></content-bg-section>');
 
-    const element = await page.find('footer-block');
+    const element = await page.find('content-bg-section');
     expect(element).toHaveClass('hydrated');
   });
 });

@@ -3,11 +3,11 @@ import { store } from '@stencil/redux';
 import { loadDirectory } from '../../state/actions/directory';
 
 @Component({
-  tag: 'banner-block',
-  styleUrl: 'banner-block.css',
+  tag: 'banner-section',
+  styleUrl: 'banner-section.css',
   shadow: true,
 })
-export class BannerBlock {
+export class BannerSection {
   @Prop() directoryId: string;
   @Prop() baseUrl: string;
 

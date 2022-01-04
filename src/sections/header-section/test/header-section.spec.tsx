@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { ContentBlock } from '../content-block';
+import { HeaderSection } from '../header-section';
 
-describe('content-block', () => {
+describe('header-section', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [ContentBlock],
-      html: `<content-block></content-block>`,
+      components: [HeaderSection],
+      html: `<header-section></header-section>`,
     });
     expect(page.root).toEqualHtml(`
-      <content-block>
+      <header-section>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </content-block>
+      </header-section>
     `);
   });
 });

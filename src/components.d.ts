@@ -13,7 +13,7 @@ export namespace Components {
     }
     interface AppRoot {
     }
-    interface BannerBlock {
+    interface BannerSection {
         "baseUrl": string;
         "directoryId": string;
     }
@@ -44,9 +44,9 @@ export namespace Components {
         "directoryId": string;
         "directoryRoot": string;
     }
-    interface ContentBgBlock {
+    interface ContentBgSection {
     }
-    interface ContentBlock {
+    interface ContentSection {
     }
     interface DirectoryPage {
         "directoryId": string;
@@ -59,14 +59,14 @@ export namespace Components {
         "readOnly": boolean;
         "value": string;
     }
-    interface FooterBlock {
+    interface FooterSection {
         "baseUrl": string;
         "directoryId": string;
         "instagram": string;
         "twitter": string;
         "youtube": string;
     }
-    interface HeaderBlock {
+    interface HeaderSection {
     }
     interface HomePage {
     }
@@ -83,7 +83,7 @@ export namespace Components {
     }
     interface NavbarBlock {
     }
-    interface SubHeaderBlock {
+    interface SubHeaderSection {
     }
     interface TabLinkBlock {
     }
@@ -103,11 +103,11 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
-    interface HTMLBannerBlockElement extends Components.BannerBlock, HTMLStencilElement {
+    interface HTMLBannerSectionElement extends Components.BannerSection, HTMLStencilElement {
     }
-    var HTMLBannerBlockElement: {
-        prototype: HTMLBannerBlockElement;
-        new (): HTMLBannerBlockElement;
+    var HTMLBannerSectionElement: {
+        prototype: HTMLBannerSectionElement;
+        new (): HTMLBannerSectionElement;
     };
     interface HTMLBusinessCardBlockElement extends Components.BusinessCardBlock, HTMLStencilElement {
     }
@@ -133,17 +133,17 @@ declare global {
         prototype: HTMLContactPageElement;
         new (): HTMLContactPageElement;
     };
-    interface HTMLContentBgBlockElement extends Components.ContentBgBlock, HTMLStencilElement {
+    interface HTMLContentBgSectionElement extends Components.ContentBgSection, HTMLStencilElement {
     }
-    var HTMLContentBgBlockElement: {
-        prototype: HTMLContentBgBlockElement;
-        new (): HTMLContentBgBlockElement;
+    var HTMLContentBgSectionElement: {
+        prototype: HTMLContentBgSectionElement;
+        new (): HTMLContentBgSectionElement;
     };
-    interface HTMLContentBlockElement extends Components.ContentBlock, HTMLStencilElement {
+    interface HTMLContentSectionElement extends Components.ContentSection, HTMLStencilElement {
     }
-    var HTMLContentBlockElement: {
-        prototype: HTMLContentBlockElement;
-        new (): HTMLContentBlockElement;
+    var HTMLContentSectionElement: {
+        prototype: HTMLContentSectionElement;
+        new (): HTMLContentSectionElement;
     };
     interface HTMLDirectoryPageElement extends Components.DirectoryPage, HTMLStencilElement {
     }
@@ -157,17 +157,17 @@ declare global {
         prototype: HTMLFieldBlockElement;
         new (): HTMLFieldBlockElement;
     };
-    interface HTMLFooterBlockElement extends Components.FooterBlock, HTMLStencilElement {
+    interface HTMLFooterSectionElement extends Components.FooterSection, HTMLStencilElement {
     }
-    var HTMLFooterBlockElement: {
-        prototype: HTMLFooterBlockElement;
-        new (): HTMLFooterBlockElement;
+    var HTMLFooterSectionElement: {
+        prototype: HTMLFooterSectionElement;
+        new (): HTMLFooterSectionElement;
     };
-    interface HTMLHeaderBlockElement extends Components.HeaderBlock, HTMLStencilElement {
+    interface HTMLHeaderSectionElement extends Components.HeaderSection, HTMLStencilElement {
     }
-    var HTMLHeaderBlockElement: {
-        prototype: HTMLHeaderBlockElement;
-        new (): HTMLHeaderBlockElement;
+    var HTMLHeaderSectionElement: {
+        prototype: HTMLHeaderSectionElement;
+        new (): HTMLHeaderSectionElement;
     };
     interface HTMLHomePageElement extends Components.HomePage, HTMLStencilElement {
     }
@@ -199,11 +199,11 @@ declare global {
         prototype: HTMLNavbarBlockElement;
         new (): HTMLNavbarBlockElement;
     };
-    interface HTMLSubHeaderBlockElement extends Components.SubHeaderBlock, HTMLStencilElement {
+    interface HTMLSubHeaderSectionElement extends Components.SubHeaderSection, HTMLStencilElement {
     }
-    var HTMLSubHeaderBlockElement: {
-        prototype: HTMLSubHeaderBlockElement;
-        new (): HTMLSubHeaderBlockElement;
+    var HTMLSubHeaderSectionElement: {
+        prototype: HTMLSubHeaderSectionElement;
+        new (): HTMLSubHeaderSectionElement;
     };
     interface HTMLTabLinkBlockElement extends Components.TabLinkBlock, HTMLStencilElement {
     }
@@ -220,23 +220,23 @@ declare global {
     interface HTMLElementTagNameMap {
         "admin-page": HTMLAdminPageElement;
         "app-root": HTMLAppRootElement;
-        "banner-block": HTMLBannerBlockElement;
+        "banner-section": HTMLBannerSectionElement;
         "business-card-block": HTMLBusinessCardBlockElement;
         "business-page": HTMLBusinessPageElement;
         "category-page": HTMLCategoryPageElement;
         "contact-page": HTMLContactPageElement;
-        "content-bg-block": HTMLContentBgBlockElement;
-        "content-block": HTMLContentBlockElement;
+        "content-bg-section": HTMLContentBgSectionElement;
+        "content-section": HTMLContentSectionElement;
         "directory-page": HTMLDirectoryPageElement;
         "field-block": HTMLFieldBlockElement;
-        "footer-block": HTMLFooterBlockElement;
-        "header-block": HTMLHeaderBlockElement;
+        "footer-section": HTMLFooterSectionElement;
+        "header-section": HTMLHeaderSectionElement;
         "home-page": HTMLHomePageElement;
         "map-block": HTMLMapBlockElement;
         "my-businesses-page": HTMLMyBusinessesPageElement;
         "nav-link-block": HTMLNavLinkBlockElement;
         "navbar-block": HTMLNavbarBlockElement;
-        "sub-header-block": HTMLSubHeaderBlockElement;
+        "sub-header-section": HTMLSubHeaderSectionElement;
         "tab-link-block": HTMLTabLinkBlockElement;
         "tab-menu-block": HTMLTabMenuBlockElement;
     }
@@ -248,7 +248,7 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
-    interface BannerBlock {
+    interface BannerSection {
         "baseUrl"?: string;
         "directoryId"?: string;
     }
@@ -283,9 +283,9 @@ declare namespace LocalJSX {
         "directoryId"?: string;
         "directoryRoot"?: string;
     }
-    interface ContentBgBlock {
+    interface ContentBgSection {
     }
-    interface ContentBlock {
+    interface ContentSection {
     }
     interface DirectoryPage {
         "directoryId"?: string;
@@ -299,14 +299,14 @@ declare namespace LocalJSX {
         "readOnly"?: boolean;
         "value"?: string;
     }
-    interface FooterBlock {
+    interface FooterSection {
         "baseUrl"?: string;
         "directoryId"?: string;
         "instagram"?: string;
         "twitter"?: string;
         "youtube"?: string;
     }
-    interface HeaderBlock {
+    interface HeaderSection {
     }
     interface HomePage {
     }
@@ -323,7 +323,7 @@ declare namespace LocalJSX {
     }
     interface NavbarBlock {
     }
-    interface SubHeaderBlock {
+    interface SubHeaderSection {
     }
     interface TabLinkBlock {
     }
@@ -332,23 +332,23 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "admin-page": AdminPage;
         "app-root": AppRoot;
-        "banner-block": BannerBlock;
+        "banner-section": BannerSection;
         "business-card-block": BusinessCardBlock;
         "business-page": BusinessPage;
         "category-page": CategoryPage;
         "contact-page": ContactPage;
-        "content-bg-block": ContentBgBlock;
-        "content-block": ContentBlock;
+        "content-bg-section": ContentBgSection;
+        "content-section": ContentSection;
         "directory-page": DirectoryPage;
         "field-block": FieldBlock;
-        "footer-block": FooterBlock;
-        "header-block": HeaderBlock;
+        "footer-section": FooterSection;
+        "header-section": HeaderSection;
         "home-page": HomePage;
         "map-block": MapBlock;
         "my-businesses-page": MyBusinessesPage;
         "nav-link-block": NavLinkBlock;
         "navbar-block": NavbarBlock;
-        "sub-header-block": SubHeaderBlock;
+        "sub-header-section": SubHeaderSection;
         "tab-link-block": TabLinkBlock;
         "tab-menu-block": TabMenuBlock;
     }
@@ -359,23 +359,23 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "admin-page": LocalJSX.AdminPage & JSXBase.HTMLAttributes<HTMLAdminPageElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "banner-block": LocalJSX.BannerBlock & JSXBase.HTMLAttributes<HTMLBannerBlockElement>;
+            "banner-section": LocalJSX.BannerSection & JSXBase.HTMLAttributes<HTMLBannerSectionElement>;
             "business-card-block": LocalJSX.BusinessCardBlock & JSXBase.HTMLAttributes<HTMLBusinessCardBlockElement>;
             "business-page": LocalJSX.BusinessPage & JSXBase.HTMLAttributes<HTMLBusinessPageElement>;
             "category-page": LocalJSX.CategoryPage & JSXBase.HTMLAttributes<HTMLCategoryPageElement>;
             "contact-page": LocalJSX.ContactPage & JSXBase.HTMLAttributes<HTMLContactPageElement>;
-            "content-bg-block": LocalJSX.ContentBgBlock & JSXBase.HTMLAttributes<HTMLContentBgBlockElement>;
-            "content-block": LocalJSX.ContentBlock & JSXBase.HTMLAttributes<HTMLContentBlockElement>;
+            "content-bg-section": LocalJSX.ContentBgSection & JSXBase.HTMLAttributes<HTMLContentBgSectionElement>;
+            "content-section": LocalJSX.ContentSection & JSXBase.HTMLAttributes<HTMLContentSectionElement>;
             "directory-page": LocalJSX.DirectoryPage & JSXBase.HTMLAttributes<HTMLDirectoryPageElement>;
             "field-block": LocalJSX.FieldBlock & JSXBase.HTMLAttributes<HTMLFieldBlockElement>;
-            "footer-block": LocalJSX.FooterBlock & JSXBase.HTMLAttributes<HTMLFooterBlockElement>;
-            "header-block": LocalJSX.HeaderBlock & JSXBase.HTMLAttributes<HTMLHeaderBlockElement>;
+            "footer-section": LocalJSX.FooterSection & JSXBase.HTMLAttributes<HTMLFooterSectionElement>;
+            "header-section": LocalJSX.HeaderSection & JSXBase.HTMLAttributes<HTMLHeaderSectionElement>;
             "home-page": LocalJSX.HomePage & JSXBase.HTMLAttributes<HTMLHomePageElement>;
             "map-block": LocalJSX.MapBlock & JSXBase.HTMLAttributes<HTMLMapBlockElement>;
             "my-businesses-page": LocalJSX.MyBusinessesPage & JSXBase.HTMLAttributes<HTMLMyBusinessesPageElement>;
             "nav-link-block": LocalJSX.NavLinkBlock & JSXBase.HTMLAttributes<HTMLNavLinkBlockElement>;
             "navbar-block": LocalJSX.NavbarBlock & JSXBase.HTMLAttributes<HTMLNavbarBlockElement>;
-            "sub-header-block": LocalJSX.SubHeaderBlock & JSXBase.HTMLAttributes<HTMLSubHeaderBlockElement>;
+            "sub-header-section": LocalJSX.SubHeaderSection & JSXBase.HTMLAttributes<HTMLSubHeaderSectionElement>;
             "tab-link-block": LocalJSX.TabLinkBlock & JSXBase.HTMLAttributes<HTMLTabLinkBlockElement>;
             "tab-menu-block": LocalJSX.TabMenuBlock & JSXBase.HTMLAttributes<HTMLTabMenuBlockElement>;
         }

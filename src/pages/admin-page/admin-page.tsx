@@ -97,16 +97,16 @@ export class AdminPage {
     const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
-        <banner-block directoryId={this.directoryId} baseUrl={baseUrl}/>
+        <banner-section directoryId={this.directoryId} baseUrl={baseUrl}/>
         <navbar-block>
           <nav-link-block href={baseUrl}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'}>{c}</nav-link-block>)}
           <nav-link-block href={baseUrl + 'contact/'}>Contact</nav-link-block>
         </navbar-block>
-        <sub-header-block>
+        <sub-header-section>
           <h1><strong>Administrator</strong> Settings</h1>
-        </sub-header-block>
-        <content-block>
+        </sub-header-section>
+        <content-section>
           <h3>Download login pass</h3>
           <ion-item>
             <ion-input type="password" placeholder="Enter pass phrase" value={this.backupPhrase} onIonInput={e => this.backupPhrase = (e.target as HTMLInputElement).value}/>
@@ -127,8 +127,8 @@ export class AdminPage {
           <div class="detail">
             <field-block loading={this.loading} value={this.canWrite ? this.loadedDirectoryId : 'You do not own the current directory.'} iconSize="small" readOnly={true}/>
           </div>
-        </content-block>
-        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
+        </content-section>
+        <footer-section directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

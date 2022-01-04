@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'sub-header-block',
-  styleUrl: 'sub-header-block.css',
+  tag: 'sub-header-section',
+  styleUrl: 'sub-header-section.css',
   shadow: true,
 })
-export class SubHeaderBlock {
+export class SubHeaderSection {
 
   render() {
     return (

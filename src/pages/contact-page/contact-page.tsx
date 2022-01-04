@@ -12,13 +12,13 @@ export class ContactPage {
     const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
-        <banner-block directoryId={this.directoryId} baseUrl={baseUrl}/>
+        <banner-section directoryId={this.directoryId} baseUrl={baseUrl}/>
         <navbar-block>
           <nav-link-block href={baseUrl}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'}>{c}</nav-link-block>)}
           <nav-link-block href={baseUrl + 'contact/'} current={true}>Contact</nav-link-block>
         </navbar-block>
-        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
+        <footer-section directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

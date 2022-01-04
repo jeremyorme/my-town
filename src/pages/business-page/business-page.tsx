@@ -93,7 +93,7 @@ export class BusinessPage {
     const baseUrl = this.directoryId ? this.directoryRoot.replace(':directoryId', this.directoryId) : '#/';
     return [
       <ion-content>
-        <banner-block/>
+        <banner-section/>
         {this.directoryId ? <navbar-block>
           <nav-link-block href={baseUrl}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'} current={this.category == c.toLowerCase()}>{c}</nav-link-block>)}
@@ -102,13 +102,13 @@ export class BusinessPage {
         <navbar-block>
           {['Home', 'My Businesses', 'My Directory'].map(c => <nav-link-block href={'#/' + c.split(' ').join('-').toLowerCase() + '/'} current={c == 'My Businesses'}>{c}</nav-link-block>)}
         </navbar-block>}
-        <sub-header-block>
+        <sub-header-section>
           <div class="details centered">
             <field-block class="name-field" loading={this.loading} value={this.business.name} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => {this.save({name: e.detail})}} />
             <field-block class="description-field" loading={this.loading} value={this.business.description} iconSize="small" readOnly={!this.canWrite} onValueChanged={e => {this.save({description: e.detail})}} />
           </div>
-        </sub-header-block>
-        <content-block>
+        </sub-header-section>
+        <content-section>
           <map-block id="business-map" latitude={this.business.latitude} longitude={this.business.longitude} zoom={16}/>
           {this.canWrite ? <div class="details">
             <div class="detail">
@@ -120,8 +120,8 @@ export class BusinessPage {
               <field-block class="detail-right" loading={this.loading} value={this.business.latitude.toString()} iconSize="small" readOnly={false} onValueChanged={e => {this.save({latitude: parseFloat(e.detail)})}}/>
             </div>
           </div> : null}
-        </content-block>
-        <content-bg-block>
+        </content-section>
+        <content-bg-section>
           <h2>Get in touch</h2>
           <div class="details">
             <div class="detail">
@@ -141,8 +141,8 @@ export class BusinessPage {
               <field-block class="detail-right" loading={this.loading} value={this.business.icon} iconSize="small" readOnly={false} onValueChanged={e => {this.save({icon: e.detail})}}/>
             </div> : null}
           </div>
-        </content-bg-block>
-        {this.canWrite && this.businessesId ? <content-block>
+        </content-bg-section>
+        {this.canWrite && this.businessesId ? <content-section>
           <h2>Add To Directory</h2>
           <p>Your home directory is set to:</p>
           <div class="details">
@@ -153,8 +153,8 @@ export class BusinessPage {
             </div>
           </div>
           <ion-button onClick={() => this.onRequest()}>Request</ion-button>
-        </content-block> : null}
-        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
+        </content-section> : null}
+        <footer-section directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }

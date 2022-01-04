@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { BannerBlock } from '../banner-block';
+import { FooterSection } from '../footer-section';
 
-describe('banner-block', () => {
+describe('footer-section', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [BannerBlock],
-      html: `<banner-block></banner-block>`,
+      components: [FooterSection],
+      html: `<footer-section></footer-section>`,
     });
     expect(page.root).toEqualHtml(`
-      <banner-block>
+      <footer-section>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </banner-block>
+      </footer-section>
     `);
   });
 });

@@ -38,12 +38,12 @@ export class DirectoryPage {
     const baseUrl = this.directoryRoot.replace(':directoryId', this.directoryId);
     return [
       <ion-content>
-        <banner-block directoryId={this.directoryId} baseUrl={baseUrl}/>
+        <banner-section directoryId={this.directoryId} baseUrl={baseUrl}/>
         <navbar-block>
           <nav-link-block href={baseUrl} current={true}>Home</nav-link-block>
           {['Shopping', 'Food', 'Services', 'Contact'].map(c => <nav-link-block href={baseUrl + c.toLowerCase() + '/'}>{c}</nav-link-block>)}
         </navbar-block>
-        <header-block>
+        <header-section>
           <field-block slot="left" class="headline-field" loading={this.loading} value={this.headline} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => this.setDirectoryField('headline', e.detail)}/>
           <field-block slot="left" class="intro-text-field" loading={this.loading} value={this.introText} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => this.setDirectoryField('introText', e.detail)}/>
           <div class="buttons" slot="left">
@@ -51,8 +51,8 @@ export class DirectoryPage {
             {this.loadedDirectoryId != this.homeDirectoryId ? <ion-button slot="left" onClick={() => this.setHome()} strong={true}>Make Home</ion-button> : null}
           </div>
           <map-block id="local-map" slot="right" latitude={51.2869} longitude={-0.7526} zoom={13}/>
-        </header-block>
-        <footer-block directoryId={this.directoryId} baseUrl={baseUrl}/>
+        </header-section>
+        <footer-section directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];
   }
