@@ -110,12 +110,12 @@ export class CategoryPage {
             {this.businessEntries.map(b => <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onIdChanged={e => this.updateBusinessEntryId(b._id, e.detail)} onDeleteClicked={() => this.deleteBusiness(b._id)}/>)}
           </div>
         </content-section>
-        <content-section>
+        <content-bg-section>
           <h2>Requests</h2>
           <div class="menu-item">
             {this.loading ? <p>Loading...</p> : this.requests.length ? this.requests.map(r => <p>{r._id}/{r.idx}</p>) : <p>None</p>}
           </div>
-        </content-section>
+        </content-bg-section>
         <footer-section directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,
     ];

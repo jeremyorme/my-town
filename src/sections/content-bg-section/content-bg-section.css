@@ -6,15 +6,19 @@ html {
   box-sizing: inherit;
 }
 
-.content-section-bg {
+.content-bg-section {
   display: block;
-  padding: 140px 3%;
+  padding: 140px 3% 70px;
   position: relative;
   background-image: url('assets/img/BG Shape Content.svg');
-  background-size: 96% 90%;
+  background-size: 96%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
-  min-height: 850px;
+}
+
+@media only screen and (max-width: 478px) {
+.content-bg-section {
+  padding: 70px 3% 35px;
 }
 
 .container {

@@ -9,7 +9,7 @@ export class ContentBgSection {
   render() {
     return (
       <Host>
-        <div class="content-section-bg">
+        <div class="content-bg-section">
           <div class="container">
             <slot></slot>
           </div>
