@@ -1,19 +1,9 @@
-:host {
-  display: block;
-}
-
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
   box-sizing: inherit;
-}
-
-@media only screen and (max-width: 478px) {
-  :host {
-    display: none;
-  }
 }
 
 .banner {
@@ -29,6 +19,12 @@ html {
   font-size: 15px;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 478px) {
+  .banner {
+    display: none;
+  }
 }
 
 .banner-wrap {
@@ -49,8 +45,10 @@ html {
 .white-link {
   text-decoration: none;
   color: white;
+  font-weight: bold;
 }
 
-field-block {
+.notice-text field-block {
   display: inline-block;
+  --font-color: rgba(255, 255, 255, 0.8);;
 }

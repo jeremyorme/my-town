@@ -4,8 +4,7 @@ import { loadDirectory, setDirectoryField } from '../../state/actions/directory'
 
 @Component({
   tag: 'footer-section',
-  styleUrl: 'footer-section.css',
-  shadow: true,
+  styleUrl: 'footer-section.css'
 })
 export class FooterSection {
   @Prop() directoryId: string;

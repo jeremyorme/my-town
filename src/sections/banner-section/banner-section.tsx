@@ -4,8 +4,7 @@ import { loadDirectory } from '../../state/actions/directory';
 
 @Component({
   tag: 'banner-section',
-  styleUrl: 'banner-section.css',
-  shadow: true,
+  styleUrl: 'banner-section.css'
 })
 export class BannerSection {
   @Prop() directoryId: string;

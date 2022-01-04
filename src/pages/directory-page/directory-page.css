@@ -15,6 +15,7 @@ html {
   --font-size: 60px;
   --font-weight: bold;
   --line-height: 72px;
+  --font-color: var(--color-blackish);
   --font-color-strong: var(--color-brand);
 }
 
@@ -31,10 +32,10 @@ html {
   --font-size: var(--font-size-default);
   --font-weight: var(--font-weight-default);
   --line-height: var(--line-height-default);
+  --font-color: var(--color-default);
 }
 
-
 .intro-text-field strong {
-  color: black;
+  --font-color: var(--color-default);
 }
 

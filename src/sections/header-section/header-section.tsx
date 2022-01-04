@@ -2,8 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'header-section',
-  styleUrl: 'header-section.css',
-  shadow: true,
+  styleUrl: 'header-section.css'
 })
 export class HeaderSection {
 

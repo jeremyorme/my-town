@@ -6,10 +6,6 @@ html {
   box-sizing: inherit;
 }
 
-:host {
-  display: block;
-}
-
 .header-section{
   display: flex;
   align-items: center;
@@ -46,17 +42,4 @@ html {
   max-width: 670px;
   position: relative;
   text-align: center;
-}
-
-::slotted(h1) {
-  margin-bottom: 20px;
-  max-width: 580px;
-  font-size: 60px !important;
-  font-weight: bold !important;
-}
-
-@media only screen and (max-width: 478px) {
-  ::slotted(h1) {
-    font-size: 50px !important;
-  }
 }

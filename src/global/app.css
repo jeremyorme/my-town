@@ -71,6 +71,21 @@ h1 strong {
   color: var(--color-brand) !important;
 }
 
+h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 55px;
+  font-weight: bold;
+  letter-spacing: -0.03em;
+  color: var(--color-brand);
+}
+
+@media only screen and (max-width: 478px) {
+  h2 {
+    font-size: 45px;
+  }
+}
+
 ion-button {
   --background: var(--color-brand) url('assets/img/Button%20Wave.svg');
   --padding-top: 30px;

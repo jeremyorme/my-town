@@ -6,11 +6,6 @@ html {
   box-sizing: inherit;
 }
 
-:host {
-  display: block;
-  font-family: var(--font-family-default);
-}
-
 p {
   font-size: var(--font-size-default);
   color: var(--color-default);
@@ -215,7 +210,7 @@ p {
   }
 }
 
-field-block {
+.footer-column field-block {
   display: inline-block;
   --font-color: var(--color-default);
 }

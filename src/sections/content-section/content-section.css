@@ -6,10 +6,6 @@ html {
   box-sizing: inherit;
 }
 
-:host {
-  display: block;
-}
-
 .content-section {
   display: block;
   padding: 120px 3%;
@@ -23,14 +19,4 @@ html {
   width: 100%;
   max-width: 1200px;
   position: relative;
-}
-
-::slotted(h2) {
-  margin-top: 20px !important;
-  margin-bottom: 20px !important;
-  font-size: 55px !important;
-  line-height: 1 !important;
-  font-weight: bold !important;
-  letter-spacing: -0.03em !important;
-  color: var(--color-brand) !important;
 }
