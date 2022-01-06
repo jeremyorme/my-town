@@ -5,6 +5,7 @@
 .field {
   position: relative;
   overflow: hidden;
+  border-radius: 9px;
 }
 
 .content {
