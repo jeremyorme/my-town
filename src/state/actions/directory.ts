@@ -92,7 +92,7 @@ export function loadDirectory(directoryId: string) {
     }
     const businessEntriesDb = await loadStore('businesses', x => orbitdb.docstore(x));
     const categoriesDb = await loadStore('categories', x => orbitdb.docstore(x));
-    const requestsDb = await loadStore('requests', x => orbitdb.log(x));
+    const requestsDb = await loadStore('requests', x => orbitdb.log(x, {accessController: {write: ['*']}}));
 
     const loadData = () => {
       const homeDirectoryId = localStorage.getItem(homeDirectoryIdKey) || loadedDirectoryId;
