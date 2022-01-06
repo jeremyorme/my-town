@@ -42,14 +42,18 @@ export class BusinessCardBlock {
     return (
       <Host>
         <div class="business-card">
-          <ion-icon class="business-icon" name={this.icon}/>
-          <div class="business-card-content">
+          <div class="business-icon-container">
+            <ion-icon class="business-icon" name={this.icon}/>
+          </div>
+          <div class="business-name">
             <h6>{this.name}{this.canWrite ? <ion-icon class="delete-button" name="trash" size="small" onClick={() => this.notifyDelete()}/> : null}</h6>
+          </div>
+          <div class="business-description">
             <p>{this.description}</p>
-            <div class="details">
-              {this.canWrite ? <div class="detail">Slug: <field-block class="field" value={this.slug} readOnly={false} iconSize="small" isLink={false} onValueChanged={e => this.slugChanged.emit(e.detail)}/></div> : null}
-              {this.canWrite ? <div class="detail">ID: <field-block class="field" value={this.businessEntryId.businessesId + '/' + this.businessEntryId.businessIdx} readOnly={false} iconSize="small" isLink={false} onValueChanged={e => this.notifyIdChanged(e.detail)}/></div> : null}
-            </div>
+          </div>
+          {this.canWrite ? [<div class="business-slug-label detail">Slug:</div>,<div class="business-slug-edit"><field-block class="field detail" value={this.slug} readOnly={false} iconSize="small" isLink={false} onValueChanged={e => this.slugChanged.emit(e.detail)}/></div>] : null}
+          {this.canWrite ? [<div class="business-id-label detail">ID:</div>,<div class="business-id-edit"><field-block class="field detail" value={this.businessEntryId.businessesId + '/' + this.businessEntryId.businessIdx} readOnly={false} iconSize="small" isLink={false} onValueChanged={e => this.notifyIdChanged(e.detail)}/></div>] : null}
+          <div class="business-buttons">
             <a class="shop-button" href={this.href} onClick={() => this.buttonClicked.emit()}>{this.buttonText}</a>
           </div>
         </div>
