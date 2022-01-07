@@ -20,13 +20,14 @@ html {
   }
 }
 
-.menu-item {
-  display: block;
-  width: 50%;
+business-card-block {
+  display: inline-block;
+  width: 46%;
+  margin: 2%;
 }
 
 @media only screen and (max-width: 991px) {
-  .menu-item {
-    width: 100%;
+  business-card-block {
+    width: 96%;
   }
 }
