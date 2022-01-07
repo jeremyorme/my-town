@@ -28,7 +28,7 @@ export class FieldBlock {
         </div> : <div class={'field ' + (this.iconSize == 'large' ? 'large-icons' : 'small-icons') + (this.loading ? ' loading' : '')}>
           {this.isLink ?
             <a href={this.value} target="_blank">{this.value}</a> :
-            <div class="content">{this.value.split('\n').map((p, j) => <span>{j != 0 ? <br/> : null}{p.split('*').map((s, i) => s.length == 0 ? null : i % 2 == 0 ? <span>{s}</span> : <strong>{s}</strong>)}</span>)}</div>}
+            <div class={'content' + (this.readOnly ? '' : ' can-edit')}>{this.value.split('\n').map((p, j) => <span>{j != 0 ? <br/> : null}{p.split('*').map((s, i) => s.length == 0 ? null : i % 2 == 0 ? <span>{s}</span> : <strong>{s}</strong>)}</span>)}</div>}
           {!this.readOnly && !this.loading ? <div class="editing-icon"><ion-icon name="create-outline" size={this.iconSize} onClick={() => {this.isEditing = true}}/></div> : null}
         </div>}
       </Host>

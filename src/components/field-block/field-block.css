@@ -19,12 +19,16 @@
   text-overflow: var(--text-overflow);
   white-space: var(--white-space);
   overflow: var(--overflow);
+}
+
+.content.can-edit {
   margin-right: 10px;
 }
 
 .content.editing {
   text-overflow: unset;
   white-space: unset;
+  margin-right: 10px;
 }
 
 .content strong {
