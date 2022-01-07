@@ -19,6 +19,7 @@
   text-overflow: var(--text-overflow);
   white-space: var(--white-space);
   overflow: var(--overflow);
+  margin-right: 10px;
 }
 
 .content.editing {
@@ -33,6 +34,7 @@
 .loading .content {
   background-color: #eaeaea;
   color: #eaeaea;
+  margin-right: 0;
 }
 
 .loading .content strong {
@@ -58,18 +60,24 @@
 }
 
 @keyframes load {
-    from {
-        left: -150px;
-    }
-    to   {
-        left: 100%;
-    }
+  from {
+    left: -150px;
+  }
+  to   {
+    left: 100%;
+  }
 }
 
 .editing-icon {
-  width: 26px;
-  margin-left: 20px;
   color: gray;
+}
+
+.large-icons .editing-icon {
+  width: 40px;
+}
+
+.small-icons .editing-icon {
+  width: 20px;
 }
 
 .field {
