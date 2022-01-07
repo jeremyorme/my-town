@@ -45,8 +45,7 @@ export interface BusinessEntry {
 }
 
 export interface Request {
-  _id: string;
-  idx: number;
+  _id: BusinessEntryId;
 }
 
 const rootReducer = (combineReducers as any)({

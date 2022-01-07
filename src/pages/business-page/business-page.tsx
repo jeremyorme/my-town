@@ -4,6 +4,18 @@ import { BusinessEntry, BusinessEntryId, Business } from '../../state/root';
 import { loadDirectory, setHomeDirectoryId, addRequest } from '../../state/actions/directory';
 import { loadBusinesses, putBusiness } from '../../state/actions/businesses';
 
+const emptyBusiness = {
+  _id: 0,
+  name: '',
+  description: '',
+  longitude: 0.0,
+  latitude: 0.0,
+  url: '',
+  tel: '',
+  address: '',
+  icon: ''
+};
+
 @Component({
   tag: 'business-page',
   styleUrl: 'business-page.css',
@@ -26,7 +38,7 @@ export class BusinessPage {
   @State() townName: string;
   @State() businessEntries: BusinessEntry[];
   @State() businesses: Business[];
-  @State() business: Business;
+  @State() business: Business = emptyBusiness;
   @State() loadedBusinessesId: string;
 
   loadBusinesses: (...args: any) => any;
@@ -55,17 +67,7 @@ export class BusinessPage {
 
     // Load the business details
     await this.loadBusinesses(businessEntryId.businessesId);
-    this.business = this.businesses.find(b => b._id == businessEntryId.businessIdx) || {
-      _id: 0,
-      name: '',
-      description: '',
-      longitude: 0.0,
-      latitude: 0.0,
-      url: '',
-      tel: '',
-      address: '',
-      icon: ''
-    };
+    this.business = this.businesses.find(b => b._id == businessEntryId.businessIdx) || emptyBusiness;
   }
 
   async componentWillLoad() {
@@ -85,7 +87,7 @@ export class BusinessPage {
   }
 
   async onRequest() {
-    await this.addRequest({_id: this.loadedBusinessesId, idx: this.business._id});
+    await this.addRequest({_id: {businessesId: this.loadedBusinessesId, businessIdx: this.business._id}});
     alert('Request sent!');
   }
 

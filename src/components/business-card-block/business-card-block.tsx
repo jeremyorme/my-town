@@ -46,7 +46,7 @@ export class BusinessCardBlock {
             <ion-icon class="business-icon" name={this.icon}/>
           </div>
           <div class="business-name">
-            <h6>{this.name}{this.canWrite ? <ion-icon class="delete-button" name="trash" size="small" onClick={() => this.notifyDelete()}/> : null}</h6>
+            <h6>{this.name}{this.canWrite && this.businessEntryId.businessesId != 'not-set' ? <ion-icon class="delete-button" name="trash" size="small" onClick={() => this.notifyDelete()}/> : null}</h6>
           </div>
           <div class="business-description">
             <p>{this.description}</p>
