@@ -48,6 +48,14 @@ const fieldDefaults = {
 
 const homeDirectoryIdKey = 'my-town-home-directory-id';
 
+const getRequests = (requestsDb: any, businessEntries: BusinessEntry[]) => {
+  const allRequests = requestsDb.iterator({ limit: maxRequests, reverse: true }).collect().map(e => e.payload.value as Request);
+  const reqToKey = r => r._id.businessesId + '/' + r._id.businessIdx;
+  const acceptedRequests = new Set(businessEntries.map(reqToKey));
+  const requestById = allRequests.reduce((a,r) => (acceptedRequests.has(reqToKey(r)) ? a : {...a, [reqToKey(r)]: r}), {});
+  return Object.values(requestById);
+}
+
 export function loadDirectory(directoryId: string) {
   return async (dispatch, getState) => {
     // Check requested directory is not already loaded
@@ -107,7 +115,7 @@ export function loadDirectory(directoryId: string) {
       const businessEntries = businessEntriesDb.query(_ => true);
       const categoriesOrEmpty = categoriesDb.query(_ => true);
       const categories = categoriesOrEmpty.length > 0 ? categoriesOrEmpty : fieldDefaults.categories;
-      const requests = requestsDb.iterator({ limit: maxRequests, reverse: true }).collect().map(e => e.payload.value as Request);
+      const requests = getRequests(requestsDb, businessEntries);
       
       return {
         // Meta-data
@@ -186,7 +194,8 @@ export function putBusinessEntry(businessEntry: BusinessEntry) {
     const businessEntriesDb = selectBusinessEntriesDb(state);
     await businessEntriesDb.put(businessEntry);
     const businessEntries = [...selectBusinessEntries(state).filter(x => !businessEntryIdEquals(x._id, businessEntry._id)), businessEntry];
-    dispatch(makeDirectoryAction(DirectoryActions.UpdateBusinessEntries, {businessEntries}));
+    const requests = getRequests(selectRequestsDb(state), businessEntries);
+    dispatch(makeDirectoryAction(DirectoryActions.UpdateBusinessEntries, {businessEntries, requests}));
   };
 }
 
@@ -196,7 +205,8 @@ export function delBusinessEntry(businessEntryId: BusinessEntryId) {
     const businessEntriesDb = selectBusinessEntriesDb(state);
     await businessEntriesDb.del(businessEntryId);
     const businessEntries = [...selectBusinessEntries(state).filter(x => !businessEntryIdEquals(x._id, businessEntryId))];
-    dispatch(makeDirectoryAction(DirectoryActions.UpdateBusinessEntries, {businessEntries}));
+    const requests = getRequests(selectRequestsDb(state), businessEntries);
+    dispatch(makeDirectoryAction(DirectoryActions.UpdateBusinessEntries, {businessEntries, requests}));
   };
 }
 
