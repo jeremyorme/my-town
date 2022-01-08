@@ -15,11 +15,13 @@ export class BusinessCardBlock {
   @Prop() icon: string;
   @Prop() href: string;
   @Prop() buttonText: string = 'Shop';
+  @Prop() visible: boolean;
 
   @Event() buttonClicked: EventEmitter<void>;
   @Event() idChanged: EventEmitter<BusinessEntryId>;
   @Event() slugChanged: EventEmitter<string>;
   @Event() deleteClicked: EventEmitter<void>;
+  @Event() visibleChanged: EventEmitter<boolean>;
 
   notifyIdChanged(idStr: string) {
     const idParts = idStr.split('/');
@@ -46,7 +48,7 @@ export class BusinessCardBlock {
             <ion-icon class="business-icon" name={this.icon}/>
           </div>
           <div class="business-name">
-            <h6>{this.name}{this.canWrite && this.businessEntryId.businessesId != 'not-set' ? <ion-icon class="delete-button" name="trash" size="small" onClick={() => this.notifyDelete()}/> : null}</h6>
+            <h6>{this.name}{this.canWrite && this.businessEntryId.businessesId != 'not-set' ? <div class="icons"><ion-icon class="icon" name="trash" size="small" onClick={() => this.notifyDelete()}/><ion-icon class="icon" name={this.visible ? 'eye' : 'eye-off'} onClick={() => this.visibleChanged.emit(!this.visible)}/></div> : null}</h6>
           </div>
           <div class="business-description">
             <p>{this.description}</p>

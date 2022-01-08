@@ -42,6 +42,7 @@ export interface BusinessEntry {
   name: string;
   description: string;
   icon: string;
+  visible: boolean;
 }
 
 export interface BusinessEntryRequest {

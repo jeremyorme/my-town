@@ -26,6 +26,7 @@ export namespace Components {
         "icon": string;
         "name": string;
         "slug": string;
+        "visible": boolean;
     }
     interface BusinessPage {
         "businessIdx": number;
@@ -264,7 +265,9 @@ declare namespace LocalJSX {
         "onDeleteClicked"?: (event: CustomEvent<void>) => void;
         "onIdChanged"?: (event: CustomEvent<BusinessEntryId>) => void;
         "onSlugChanged"?: (event: CustomEvent<string>) => void;
+        "onVisibleChanged"?: (event: CustomEvent<boolean>) => void;
         "slug"?: string;
+        "visible"?: boolean;
     }
     interface BusinessPage {
         "businessIdx"?: number;
