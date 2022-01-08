@@ -31,3 +31,26 @@ business-card-block {
     width: 96%;
   }
 }
+
+li {
+  font-size: 16px;
+  color: var(--color-blackish);
+}
+
+field-block {
+  display: inline-block;
+}
+
+.request-icon {
+  display: inline-block;
+  margin-left: 16px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.request-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

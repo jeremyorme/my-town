@@ -44,8 +44,10 @@ export interface BusinessEntry {
   icon: string;
 }
 
-export interface Request {
+export interface BusinessEntryRequest {
   _id: BusinessEntryId;
+  name: string;
+  timestamp: number;
 }
 
 const rootReducer = (combineReducers as any)({

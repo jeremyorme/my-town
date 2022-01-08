@@ -11,7 +11,8 @@ import {
   Category,
   BusinessEntry,
   BusinessEntryId,
-  businessEntryIdEquals
+  businessEntryIdEquals,
+  BusinessEntryRequest
 } from '../root';
 
 export enum DirectoryActions {
@@ -49,7 +50,14 @@ const fieldDefaults = {
 const homeDirectoryIdKey = 'my-town-home-directory-id';
 
 const getRequests = (requestsDb: any, businessEntries: BusinessEntry[]) => {
-  const allRequests = requestsDb.iterator({ limit: maxRequests, reverse: true }).collect().map(e => e.payload.value as Request);
+  // Fetch the first 'maxRequests' requests, remove future requests and order by timestamp descending
+  const allRequests = requestsDb.iterator({ limit: maxRequests, reverse: true })
+    .collect().map(e => e.payload.value as BusinessEntryRequest)
+    .filter(x => x.timestamp <= Date.now())
+    .sort(x => x.timestamp)
+    .reverse();
+
+  // De-duplicate by business ID
   const reqToKey = r => r._id.businessesId + '/' + r._id.businessIdx;
   const acceptedRequests = new Set(businessEntries.map(reqToKey));
   const requestById = allRequests.reduce((a,r) => (acceptedRequests.has(reqToKey(r)) ? a : {...a, [reqToKey(r)]: r}), {});

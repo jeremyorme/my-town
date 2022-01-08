@@ -87,7 +87,11 @@ export class BusinessPage {
   }
 
   async onRequest() {
-    await this.addRequest({_id: {businessesId: this.loadedBusinessesId, businessIdx: this.business._id}});
+    await this.addRequest({
+      _id: {businessesId: this.loadedBusinessesId, businessIdx: this.business._id},
+      name: this.business.name,
+      timestamp: Date.now()
+    });
     alert('Request sent!');
   }
 
@@ -128,7 +132,7 @@ export class BusinessPage {
           <div class="details">
             <div class="detail">
               <ion-icon class="detail-left" name="globe-outline" size="large"/>
-              <field-block class="detail-right" loading={this.loading} value={this.business.url} iconSize="small" readOnly={!this.canWrite} isLink={true} onValueChanged={e => {this.save({url: e.detail})}}/>
+              <field-block class="detail-right" loading={this.loading} value={this.business.url} href={this.business.url} iconSize="small" readOnly={!this.canWrite} onValueChanged={e => {this.save({url: e.detail})}}/>
             </div>
             <div class="detail">
               <ion-icon class="detail-left" name="call-outline" size="large"/>

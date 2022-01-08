@@ -1,7 +1,7 @@
 import slugify from 'slugify';
 
 import { Component, Prop, State, h } from '@stencil/core';
-import { Category, BusinessEntry, Request, Business, BusinessEntryId, businessEntryIdEquals } from '../../state/root';
+import { Category, BusinessEntry, BusinessEntryRequest, Business, BusinessEntryId, businessEntryIdEquals } from '../../state/root';
 import { store } from '@stencil/redux';
 import { loadDirectory, putCategory, putBusinessEntry, delBusinessEntry } from '../../state/actions/directory';
 import { loadBusinesses } from '../../state/actions/businesses';
@@ -21,7 +21,7 @@ export class CategoryPage {
   @State() categories: Category[];
   @State() businessEntries: BusinessEntry[];
   @State() businesses: Business[];
-  @State() requests: Request[];
+  @State() requests: BusinessEntryRequest[];
   @State() townName: string;
 
   @State() newSlug: string = 'not-set';
@@ -54,26 +54,42 @@ export class CategoryPage {
     this.putCategory({_id: this.category, headline});
   }
 
+  async createOrUpdateBusinessEntry(oldId: BusinessEntryId, newId: BusinessEntryId, newSlug: string) {
+    // Load the new business details
+    await this.loadBusinesses(newId.businessesId);
+    const business = this.businesses.find(b => b._id == newId.businessIdx);
+    if (!business) {
+      alert('Business could not be found with specified index');
+      return;
+    }
+
+    // If the ID changes then delete the old entry
+    if (oldId && !businessEntryIdEquals(newId, oldId))
+      await this.delBusinessEntry(oldId);
+
+    // Update/create new business entry
+    await this.putBusinessEntry({
+      _id: newId,
+      category: this.category,
+      slug: newSlug != 'not-set' ? newSlug : slugify(business.name.split('*').join('').toLowerCase()),
+      name: business.name,
+      description: business.description,
+      icon: business.icon
+    });
+  }
+
+  async addBusinessEntryRequest(newId: BusinessEntryId) {
+    try {
+      await this.createOrUpdateBusinessEntry(null, newId, 'not-set');
+    }
+    catch (e) {
+      alert('Business could not be found with specified hash');
+    }
+  }
+
   async addBusinessEntry() {
     try {
-      // Load the new business details
-      await this.loadBusinesses(this.newId.businessesId);
-      const business = this.businesses.find(b => b._id == this.newId.businessIdx);
-      if (!business) {
-        alert('Business could not be found with specified index');
-        return;
-      }
-
-      // Update/create new business entry
-      await this.putBusinessEntry({
-        _id: this.newId,
-        category: this.category,
-        slug: this.newSlug != 'not-set' ? this.newSlug : slugify(business.name.split('*').join('').toLowerCase()),
-        name: business.name,
-        description: business.description,
-        icon: business.icon
-      });
-
+      await this.createOrUpdateBusinessEntry(null, this.newId, this.newSlug);
       this.newSlug = 'not-set';
       this.newId = {businessesId: 'not-set', businessIdx: 0};
     }
@@ -82,37 +98,17 @@ export class CategoryPage {
     }
   }
 
-  async deleteBusiness(id: BusinessEntryId) {
-    await this.delBusinessEntry(id);
-  }
-
-  async updateBusinessEntryId(oldId: BusinessEntryId, newId: BusinessEntryId) {
+  async updateBusinessEntry(oldId: BusinessEntryId, newId: BusinessEntryId, newSlug: string) {
     try {
-      // Load the new business details
-      await this.loadBusinesses(newId.businessesId);
-      const business = this.businesses.find(b => b._id == newId.businessIdx);
-      if (!business) {
-        alert('Business could not be found with specified index');
-        return;
-      }
-
-      // If the ID changes then delete the old entry
-      if (!businessEntryIdEquals(newId, oldId))
-        await this.delBusinessEntry(oldId);
-
-      // Update/create new business entry
-      await this.putBusinessEntry({
-        _id: newId,
-        category: this.category,
-        slug: slugify(business.name.split('*').join('').toLowerCase()),
-        name: business.name,
-        description: business.description,
-        icon: business.icon
-      });
+      await this.createOrUpdateBusinessEntry(oldId, newId, newSlug);
     }
     catch (e) {
       alert('Business could not be found with specified hash');
     }
+  }
+
+  async deleteBusiness(id: BusinessEntryId) {
+    await this.delBusinessEntry(id);
   }
 
   render() {
@@ -130,11 +126,11 @@ export class CategoryPage {
         </sub-header-section>
         <content-section>
           {this.canWrite ? <business-card-block canWrite={true} businessEntryId={this.newId} slug={this.newSlug} name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" onIdChanged={e => this.newId = e.detail} onSlugChanged={e => this.newSlug = e.detail} onButtonClicked={() => this.addBusinessEntry()}/> : null}
-          {this.businessEntries.map(b => <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onIdChanged={e => this.updateBusinessEntryId(b._id, e.detail)} onDeleteClicked={() => this.deleteBusiness(b._id)}/>)}
+          {this.businessEntries.map(b => <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onIdChanged={e => this.updateBusinessEntry(b._id, e.detail, b.slug)} onSlugChanged={e => this.updateBusinessEntry(b._id, b._id, e.detail)} onDeleteClicked={() => this.deleteBusiness(b._id)}/>)}
         </content-section>
         <content-bg-section>
           <h2>Requests</h2>
-          {this.loading ? <p>Loading...</p> : this.requests.length ? this.requests.map(r => <p>{r._id.businessesId}/{r._id.businessIdx}</p>) : <p>None</p>}
+          {this.loading ? <p>Loading...</p> : this.requests.length ? <ul>{this.requests.map(r => <li><div class="request-container"><field-block value={r.name} href={baseUrl + 'business/' + r._id.businessesId +'/' + r._id.businessIdx} readOnly={true}/><div class="request-icon"><ion-icon name="add-circle-outline" onClick={() => this.addBusinessEntryRequest(r._id)}/></div></div></li>)}</ul> : <p>None</p>}
         </content-bg-section>
         <footer-section directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,

@@ -1,4 +1,4 @@
-import { ActionType, Category, BusinessEntry, Request } from '../root';
+import { ActionType, Category, BusinessEntry, BusinessEntryRequest } from '../root';
 
 interface DirectoryState {
   loading: boolean;
@@ -17,7 +17,7 @@ interface DirectoryState {
 
   businessEntries: BusinessEntry[];
   categories: Category[];
-  requests: Request[];
+  requests: BusinessEntryRequest[];
 }
 
 function getInitialState(): DirectoryState {

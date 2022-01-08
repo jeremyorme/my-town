@@ -27,6 +27,7 @@ export class AppRoot {
       <ion-app>
         {this.directoryId ? <ion-router useHash={true}>
           <ion-route url="/" component="directory-page" componentProps={{directoryId: this.directoryId, directoryRoot: '#/'}}/>
+          <ion-route url="/business/:businessesId/:businessIdx/" component="business-page"/>
           <ion-route url="/shopping/" component="category-page" componentProps={{directoryId: this.directoryId, directoryRoot: '#/', category: 'shopping'}}/>
           <ion-route url="/shopping/:slug/" component="business-page" componentProps={{directoryId: this.directoryId, directoryRoot: '#/', category: 'shopping'}}/>
           <ion-route url="/food/" component="category-page" componentProps={{directoryId: this.directoryId, directoryRoot: '#/', category: 'food'}}/>
@@ -50,6 +51,7 @@ export class AppRoot {
           <ion-route url="/directory/:directoryId/contact/" component="contact-page" componentProps={{directoryRoot: '#/directory/:directoryId/'}}/>
           <ion-route url="/directory/:directoryId/admin/" component="admin-page" componentProps={{directoryRoot: '#/directory/:directoryId/'}}/>
           <ion-route url="/my-directory/" component="directory-page" componentProps={{directoryRoot: '#/my-directory/', directoryId: 'self'}}/>
+          <ion-route url="/my-directory/business/:businessesId/:businessIdx/" component="business-page"/>
           <ion-route url="/my-directory/shopping/" component="category-page" componentProps={{directoryRoot: '#/my-directory/', directoryId: 'self', category: 'shopping'}}/>
           <ion-route url="/my-directory/shopping/:slug/" component="business-page" componentProps={{directoryRoot: '#/my-directory/', directoryId: 'self', category: 'shopping'}}/>
           <ion-route url="/my-directory/food/" component="category-page" componentProps={{directoryRoot: '#/my-directory/', directoryId: 'self', category: 'food'}}/>

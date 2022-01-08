@@ -53,8 +53,8 @@ export namespace Components {
         "directoryRoot": string;
     }
     interface FieldBlock {
+        "href": string;
         "iconSize": string;
-        "isLink": boolean;
         "loading": boolean;
         "readOnly": boolean;
         "value": string;
@@ -292,8 +292,8 @@ declare namespace LocalJSX {
         "directoryRoot"?: string;
     }
     interface FieldBlock {
+        "href"?: string;
         "iconSize"?: string;
-        "isLink"?: boolean;
         "loading"?: boolean;
         "onValueChanged"?: (event: CustomEvent<string>) => void;
         "readOnly"?: boolean;
