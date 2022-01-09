@@ -1,5 +1,5 @@
 import { Component, Host, Prop, Event, EventEmitter, h } from '@stencil/core';
-import { BusinessEntryId } from '../../state/root';
+import { BusinessEntry, BusinessEntryId } from '../../state/root';
 
 @Component({
   tag: 'business-card-block',
@@ -18,10 +18,8 @@ export class BusinessCardBlock {
   @Prop() visible: boolean;
 
   @Event() buttonClicked: EventEmitter<void>;
-  @Event() idChanged: EventEmitter<BusinessEntryId>;
-  @Event() slugChanged: EventEmitter<string>;
   @Event() deleteClicked: EventEmitter<void>;
-  @Event() visibleChanged: EventEmitter<boolean>;
+  @Event() fieldChanged: EventEmitter<Partial<BusinessEntry>>;
 
   notifyIdChanged(idStr: string) {
     const idParts = idStr.split('/');
@@ -29,11 +27,11 @@ export class BusinessCardBlock {
       alert('ID must be format: hash/index');
       return;
     }
-    const businessEntryId: BusinessEntryId = {
+    const _id: BusinessEntryId = {
       businessesId: idParts[0],
       businessIdx: parseInt(idParts[1])
     };
-    this.idChanged.emit(businessEntryId);
+    this.fieldChanged.emit({_id});
   }
 
   notifyDelete() {
@@ -48,12 +46,12 @@ export class BusinessCardBlock {
             <ion-icon class="business-icon" name={this.icon}/>
           </div>
           <div class="business-name">
-            <h6>{this.name}{this.canWrite && this.businessEntryId.businessesId != 'not-set' ? <div class="icons"><ion-icon class="icon" name="trash" size="small" onClick={() => this.notifyDelete()}/><ion-icon class="icon" name={this.visible ? 'eye' : 'eye-off'} onClick={() => this.visibleChanged.emit(!this.visible)}/></div> : null}</h6>
+            <h6>{this.name}{this.canWrite && this.businessEntryId.businessesId != 'not-set' ? <div class="icons"><ion-icon class="icon" name="trash" size="small" onClick={() => this.notifyDelete()}/><ion-icon class="icon" name={this.visible ? 'eye' : 'eye-off'} onClick={() => this.fieldChanged.emit({visible: !this.visible})}/></div> : null}</h6>
           </div>
           <div class="business-description">
             <p>{this.description}</p>
           </div>
-          {this.canWrite ? [<div class="business-slug-label detail">Slug:</div>,<div class="business-slug-edit"><field-block class="field detail" value={this.slug} readOnly={false} iconSize="small" onValueChanged={e => this.slugChanged.emit(e.detail)}/></div>] : null}
+          {this.canWrite ? [<div class="business-slug-label detail">Slug:</div>,<div class="business-slug-edit"><field-block class="field detail" value={this.slug} readOnly={false} iconSize="small" onValueChanged={e => this.fieldChanged.emit({slug: e.detail})}/></div>] : null}
           {this.canWrite ? [<div class="business-id-label detail">ID:</div>,<div class="business-id-edit"><field-block class="field detail" value={this.businessEntryId.businessesId + '/' + this.businessEntryId.businessIdx} readOnly={false} iconSize="small" onValueChanged={e => this.notifyIdChanged(e.detail)}/></div>] : null}
           <div class="business-buttons">
             <a class="shop-button" href={this.href} onClick={() => this.buttonClicked.emit()}>{this.buttonText}</a>

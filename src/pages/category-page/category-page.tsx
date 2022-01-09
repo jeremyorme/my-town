@@ -24,8 +24,7 @@ export class CategoryPage {
   @State() requests: BusinessEntryRequest[];
   @State() townName: string;
 
-  @State() newSlug;
-  @State() newId: BusinessEntryId;
+  @State() newFields: Partial<BusinessEntry>;
 
   loadBusinesses: (...args: any) => any;
   loadDirectory: (...args: any) => any;
@@ -34,8 +33,10 @@ export class CategoryPage {
   delBusinessEntry: (...args: any) => any;
 
   resetIdAndSlug() {
-    this.newSlug = 'auto';
-    this.newId = {businessesId: 'not-set', businessIdx: 0};
+    this.newFields = {
+      _id: {businessesId: 'not-set', businessIdx: 0},
+      slug: 'auto'
+    };
   }
 
   componentWillLoad() {
@@ -97,12 +98,11 @@ export class CategoryPage {
     }
   }
 
-  async addBusinessEntry(newId: BusinessEntryId, newSlug: string) {
+  async addBusinessEntry(fields: Partial<BusinessEntry>) {
     await this.updateBusinessEntry(null, {
-      _id: newId,
       category: this.category,
-      slug: newSlug,
-      visible: false
+      visible: false,
+      ...fields
     });
   }
 
@@ -124,12 +124,12 @@ export class CategoryPage {
           <field-block class="headline-field" loading={this.loading} value={this.getHeadline()} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => {this.setHeadline(e.detail)}} />
         </sub-header-section>
         <content-section>
-          {this.canWrite ? <business-card-block canWrite={true} businessEntryId={this.newId} slug={this.newSlug} name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" onIdChanged={e => this.newId = e.detail} onSlugChanged={e => this.newSlug = e.detail} onButtonClicked={() => {if (this.addBusinessEntry(this.newId, this.newSlug)) this.resetIdAndSlug();}}/> : null}
-          {this.businessEntries.map(b => (this.canWrite || b.visible) ? <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} visible={b.visible} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onIdChanged={e => this.updateBusinessEntry(b, {_id: e.detail})} onSlugChanged={e => this.updateBusinessEntry(b, {slug: e.detail})} onVisibleChanged={e => this.updateBusinessEntry(b, {visible: e.detail})} onDeleteClicked={() => this.deleteBusiness(b._id)}/> : null)}
+          {this.canWrite ? <business-card-block canWrite={true} businessEntryId={this.newFields._id} slug={this.newFields.slug} name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" onFieldChanged={e => this.newFields = {...this.newFields, ...e.detail}} onButtonClicked={() => {if (this.addBusinessEntry(this.newFields)) this.resetIdAndSlug();}}/> : null}
+          {this.businessEntries.map(b => (this.canWrite || b.visible) ? <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} visible={b.visible} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onFieldChanged={e => this.updateBusinessEntry(b, e.detail)} onDeleteClicked={() => this.deleteBusiness(b._id)}/> : null)}
         </content-section>
         <content-bg-section>
           <h2>Requests</h2>
-          {this.loading ? <p>Loading...</p> : this.requests.length ? <ul>{this.requests.map(r => <li><div class="request-container"><field-block value={r.name} href={baseUrl + 'business/' + r._id.businessesId +'/' + r._id.businessIdx} readOnly={true}/><div class="request-icon"><ion-icon name="add-circle-outline" onClick={() => this.addBusinessEntry(r._id, 'auto')}/></div></div></li>)}</ul> : <p>None</p>}
+          {this.loading ? <p>Loading...</p> : this.requests.length ? <ul>{this.requests.map(r => <li><div class="request-container"><field-block value={r.name} href={baseUrl + 'business/' + r._id.businessesId +'/' + r._id.businessIdx} readOnly={true}/><div class="request-icon"><ion-icon name="add-circle-outline" onClick={() => this.addBusinessEntry({_id: r._id, slug: 'auto'})}/></div></div></li>)}</ul> : <p>None</p>}
         </content-bg-section>
         <footer-section directoryId={this.directoryId} baseUrl={baseUrl}/>
       </ion-content>,

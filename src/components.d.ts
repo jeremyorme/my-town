@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { BusinessEntryId } from "./state/root";
+import { BusinessEntry, BusinessEntryId } from "./state/root";
 export namespace Components {
     interface AdminPage {
         "directoryId": string;
@@ -263,9 +263,7 @@ declare namespace LocalJSX {
         "name"?: string;
         "onButtonClicked"?: (event: CustomEvent<void>) => void;
         "onDeleteClicked"?: (event: CustomEvent<void>) => void;
-        "onIdChanged"?: (event: CustomEvent<BusinessEntryId>) => void;
-        "onSlugChanged"?: (event: CustomEvent<string>) => void;
-        "onVisibleChanged"?: (event: CustomEvent<boolean>) => void;
+        "onFieldChanged"?: (event: CustomEvent<Partial<BusinessEntry>>) => void;
         "slug"?: string;
         "visible"?: boolean;
     }
