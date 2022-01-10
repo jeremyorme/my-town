@@ -35,7 +35,8 @@ export class CategoryPage {
   resetIdAndSlug() {
     this.newFields = {
       _id: {businessesId: 'not-set', businessIdx: 0},
-      slug: 'auto'
+      slug: 'auto',
+      group: 'not-set'
     };
   }
 
@@ -124,8 +125,8 @@ export class CategoryPage {
           <field-block class="headline-field" loading={this.loading} value={this.getHeadline()} iconSize="large" readOnly={!this.canWrite} onValueChanged={e => {this.setHeadline(e.detail)}} />
         </sub-header-section>
         <content-section>
-          {this.canWrite ? <business-card-block canWrite={true} businessEntryId={this.newFields._id} slug={this.newFields.slug} name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" onFieldChanged={e => this.newFields = {...this.newFields, ...e.detail}} onButtonClicked={() => {if (this.addBusinessEntry(this.newFields)) this.resetIdAndSlug();}}/> : null}
-          {this.businessEntries.map(b => (this.canWrite || b.visible) ? <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} visible={b.visible} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onFieldChanged={e => this.updateBusinessEntry(b, e.detail)} onDeleteClicked={() => this.deleteBusiness(b._id)}/> : null)}
+          {this.canWrite ? <business-card-block canWrite={true} businessEntryId={this.newFields._id} slug={this.newFields.slug} group={this.newFields.group} name="Add new business" description="Add a new business to the list" buttonText="Add" icon="add-circle-outline" onFieldChanged={e => this.newFields = {...this.newFields, ...e.detail}} onButtonClicked={() => {if (this.addBusinessEntry(this.newFields)) this.resetIdAndSlug();}}/> : null}
+          {this.businessEntries.map(b => (this.canWrite || b.visible) ? <business-card-block canWrite={this.canWrite} businessEntryId={b._id} slug={b.slug} group={b.group || 'not-set'} visible={b.visible} name={b.name.split('*').join('')} description={b.description.split('*').join('')} icon={b.icon} href={baseUrl + b.category + '/' + b.slug} onFieldChanged={e => this.updateBusinessEntry(b, e.detail)} onDeleteClicked={() => this.deleteBusiness(b._id)}/> : null)}
         </content-section>
         <content-bg-section>
           <h2>Requests</h2>

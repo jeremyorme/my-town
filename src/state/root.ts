@@ -38,6 +38,7 @@ export function businessEntryIdEquals(a: BusinessEntryId, b: BusinessEntryId): b
 export interface BusinessEntry {
   _id: BusinessEntryId;
   category: string;
+  group: string;
   slug: string;
   name: string;
   description: string;

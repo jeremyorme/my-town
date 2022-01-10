@@ -9,6 +9,7 @@ import { BusinessEntry, BusinessEntryId } from '../../state/root';
 export class BusinessCardBlock {
   @Prop() canWrite: boolean;
   @Prop() businessEntryId: BusinessEntryId;
+  @Prop() group: string;
   @Prop() slug: string;
   @Prop() name: string;
   @Prop() description: string;
@@ -53,6 +54,7 @@ export class BusinessCardBlock {
           </div>
           {this.canWrite ? [<div class="business-slug-label detail">Slug:</div>,<div class="business-slug-edit"><field-block class="field detail" value={this.slug} readOnly={false} iconSize="small" onValueChanged={e => this.fieldChanged.emit({slug: e.detail})}/></div>] : null}
           {this.canWrite ? [<div class="business-id-label detail">ID:</div>,<div class="business-id-edit"><field-block class="field detail" value={this.businessEntryId.businessesId + '/' + this.businessEntryId.businessIdx} readOnly={false} iconSize="small" onValueChanged={e => this.notifyIdChanged(e.detail)}/></div>] : null}
+          {this.canWrite ? [<div class="business-group-label detail">Group:</div>,<div class="business-group-edit"><field-block class="field detail" value={this.group} readOnly={false} iconSize="small" onValueChanged={e => this.fieldChanged.emit({group: e.detail})}/></div>] : null}
           <div class="business-buttons">
             <a class="shop-button" href={this.href} onClick={() => this.buttonClicked.emit()}>{this.buttonText}</a>
           </div>

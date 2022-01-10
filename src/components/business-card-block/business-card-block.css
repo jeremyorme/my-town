@@ -98,10 +98,29 @@ html {
   grid-row-end: span 1;
 }
 
+.business-group-label {
+  display: flex;
+  align-items: center;
+  grid-column-start: 2;
+  grid-column-end: span 1;
+  grid-row-start: 5;
+  grid-row-end: span 1;
+}
+
+.business-group-edit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  grid-column-start: 3;
+  grid-column-end: span 1;
+  grid-row-start: 5;
+  grid-row-end: span 1;
+}
+
 .business-buttons {
   grid-column-start: 2;
   grid-column-end: span 2;
-  grid-row-start: 5;
+  grid-row-start: 6;
   grid-row-end: span 1;
 }
 

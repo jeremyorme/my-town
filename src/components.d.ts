@@ -22,6 +22,7 @@ export namespace Components {
         "buttonText": string;
         "canWrite": boolean;
         "description": string;
+        "group": string;
         "href": string;
         "icon": string;
         "name": string;
@@ -258,6 +259,7 @@ declare namespace LocalJSX {
         "buttonText"?: string;
         "canWrite"?: boolean;
         "description"?: string;
+        "group"?: string;
         "href"?: string;
         "icon"?: string;
         "name"?: string;
